@@ -1,5 +1,5 @@
 //
-//  joiefullApp.swift
+//  JoiefullApp.swift
 //  joiefull
 //
 //  Created by Julien Cotte on 12/12/2025.
@@ -8,10 +8,11 @@
 import SwiftUI
 
 @main
-struct joiefullApp: App {
+struct JoiefullApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .foregroundStyle(.primary)
         }
     }
 }
