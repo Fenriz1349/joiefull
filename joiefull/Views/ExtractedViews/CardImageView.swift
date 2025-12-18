@@ -8,29 +8,45 @@
 import SwiftUI
 
 struct CardImageView: View {
-    static let side: CGFloat = 250
-
     let imageURL: String
     let likes: Int
 
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
-            AsyncImage(url: URL(string: imageURL)) { phase in
-                switch phase {
-                case .success(let image):
-                    image.resizable().scaledToFill()
-                default:
-                    Color.gray.opacity(0.15)
-                }
-            }
-            .frame(width: Self.side, height: Self.side)
-            .clipped()
-            .clipShape(RoundedRectangle(cornerRadius: 25))
+        GeometryReader { geometry in
+            ZStack(alignment: .bottomTrailing) {
 
-            LikesPill(likes: likes)
-                .padding(16)
+                AsyncImage(url: URL(string: imageURL)) { phase in
+                    switch phase {
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: geometry.size.width, height: geometry.size.width)
+
+                    case .failure(_):
+                        Image("AppIconPreview")
+                            .resizable()
+                            .scaledToFit()
+                            .padding(24)
+                            .frame(width: geometry.size.width, height: geometry.size.width)
+
+                    case .empty:
+                        Color.gray.opacity(0.15)
+                            .frame(width: geometry.size.width, height: geometry.size.width)
+
+                    @unknown default:
+                        Color.gray.opacity(0.15)
+                            .frame(width: geometry.size.width, height: geometry.size.width)
+                    }
+                }
+                .clipped()
+
+                LikesPill(likes: likes)
+                    .padding(16)
+            }
         }
-        .frame(width: Self.side, height: Self.side)
+        .aspectRatio(1, contentMode: .fit)
+        .clipShape(RoundedRectangle(cornerRadius: 25))
     }
 }
 

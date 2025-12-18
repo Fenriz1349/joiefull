@@ -43,7 +43,6 @@ struct ClothingCardView: View {
                 }
             }
         }
-        .frame(width: CardImageView.side)
     }
 }
 
