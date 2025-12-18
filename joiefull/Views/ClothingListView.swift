@@ -1,0 +1,50 @@
+//
+//  ClothingListView.swift
+//  joiefull
+//
+//  Created by Julien Cotte on 18/12/2025.
+//
+
+import SwiftUI
+
+struct ClothingListView: View {
+    @StateObject private var viewModel = ClothingListViewModel()
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    ForEach(Category.allCases, id: \.self) { category in
+                        VStack(alignment: .leading) {
+                            Text(category.title)
+                                .font(.title2)
+                                .bold()
+
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 16) {
+                                    ForEach(viewModel.clothes(for: category)) { item in
+                                        NavigationLink(value: item) {
+                                            ClothingCardView(item: item)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .padding()
+            }
+            .navigationTitle("Joyfull")
+            .task {
+                await viewModel.load()
+            }
+            .navigationDestination(for: Clothing.self) { item in
+                ClothingDetailView(clothing: item)
+            }
+        }
+    }
+}
+
+#Preview {
+    ClothingListView()
+}

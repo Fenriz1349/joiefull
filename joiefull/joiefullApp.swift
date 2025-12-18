@@ -12,6 +12,7 @@ struct joiefullApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .foregroundStyle(.primary)
         }
     }
 }
