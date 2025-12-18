@@ -13,8 +13,10 @@ struct ShareButton: View {
     var body: some View {
         Button(action: action) {
             Image(systemName: "square.and.arrow.up")
-                .font(.system(size: 18, weight: .semibold))
-                .foregroundStyle(.black)
+                    .foregroundStyle(.primary)
+                    .padding(10)
+                    .background(.ultraThinMaterial)
+                    .clipShape(Circle())
         }
     }
 }

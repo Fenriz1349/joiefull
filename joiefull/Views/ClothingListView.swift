@@ -40,12 +40,11 @@ struct ClothingListView: View {
                 }
                 .padding(.vertical)
             }
-            .navigationTitle("Joyfull")
             .task {
                 await viewModel.load()
             }
             .navigationDestination(for: Clothing.self) { item in
-                ClothingDetailView(clothing: item)
+                ClothingDetailView(item: item)
             }
         }
     }

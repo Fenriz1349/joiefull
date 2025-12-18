@@ -8,38 +8,33 @@
 import SwiftUI
 
 struct ClothingDetailView: View {
-    let clothing: Clothing
+    let item: Clothing
 
     var body: some View {
         ScrollView {
-            AsyncImage(url: URL(string: clothing.picture.url)) { image in
-                image.resizable().scaledToFit()
-            } placeholder: {
-                Color.gray.opacity(0.3)
-            }
+            VStack(alignment: .leading, spacing: 20) {
+                ImageView(imageURL: item.picture.url,
+                          likes: item.likes,
+                          isDetailScreen: true,
+                          aspectRatio: 0.9)
 
-            VStack(alignment: .leading, spacing: 16) {
-                Text(clothing.name)
-                    .font(.title)
-                    .bold()
+                DescriptionRow(isDetail: true, item: item)
 
-                Text("\(clothing.price, specifier: "%.2f") €")
-                    .font(.title2)
+                Text("""
+                Pull vert forêt à motif torsadé élégant, tricot finement travaillé avec manches bouffantes et col montant;
+                doux et chaleureux.
+                """)
+                .font(.subheadline)
 
-                HStack {
-                    Image(systemName: "heart.fill")
-                        .foregroundColor(.red)
-                    Text("\(clothing.likes)")
-                }
+                ReviewRow()
+
+                ReviewInputView()
             }
             .padding()
         }
-        .navigationTitle(clothing.name)
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
-
 #Preview {
-    ClothingDetailView(clothing: .preview)
+    ClothingDetailView(item: .preview)
 }

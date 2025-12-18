@@ -13,10 +13,9 @@ struct ScorePill: View {
     var body: some View {
         HStack(spacing: 6) {
             Image(systemName: "star.fill")
-                .foregroundStyle(Color(.systemYellow))
+                .foregroundStyle(.orange)
             Text(String(format: "%0.1f", score))
-                .foregroundStyle(.black)
-                .font(.caption.weight(.semibold))
+                .fontWeight(.semibold)
         }
     }
 }

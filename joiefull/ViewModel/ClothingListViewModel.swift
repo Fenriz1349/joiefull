@@ -10,7 +10,7 @@ import Combine
 
 @MainActor
 final class ClothingListViewModel: ObservableObject {
-    
+
     @Published var clothes: [Clothing] = []
 
     private let service = ClothingService()

@@ -13,35 +13,12 @@ struct ClothingCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
 
-            CardImageView(
+            ImageView(
                 imageURL: item.picture.url,
                 likes: item.likes
             )
 
-            VStack(alignment: .leading) {
-
-                HStack{
-                    Text(item.name)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .lineLimit(1)
-                    Spacer()
-                    ScorePill()
-                }
-
-                HStack {
-                    Text("\(Int(item.price))€")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                    Spacer()
-                    if item.originalPrice != item.price {
-                        Text("\(Int(item.originalPrice))€")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                            .strikethrough()
-                    }
-                }
-            }
+            DescriptionRow(item: item)
         }
     }
 }

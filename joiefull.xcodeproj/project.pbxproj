@@ -10,7 +10,7 @@
 		6800E6D62EEC654400D07092 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6800E6D22EEC654400D07092 /* Assets.xcassets */; };
 		6800E6D72EEC654400D07092 /* Clothing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800E6D02EEC654400D07092 /* Clothing.swift */; };
 		6800E6D82EEC654400D07092 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800E6D32EEC654400D07092 /* ContentView.swift */; };
-		6800E6D92EEC654400D07092 /* joiefullApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800E6D42EEC654400D07092 /* joiefullApp.swift */; };
+		6800E6D92EEC654400D07092 /* JoiefullApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800E6D42EEC654400D07092 /* JoiefullApp.swift */; };
 		6800E6DE2EEC658200D07092 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800E6DD2EEC658200D07092 /* Picture.swift */; };
 		6800E6E02EEC65A800D07092 /* ClothingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800E6DF2EEC65A800D07092 /* ClothingService.swift */; };
 		6800E6E22EEC65BE00D07092 /* ClothingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800E6E12EEC65BE00D07092 /* ClothingListViewModel.swift */; };
@@ -18,10 +18,13 @@
 		6809CD8C2EF3E0290061BDAA /* ClothingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CD8B2EF3E0290061BDAA /* ClothingCardView.swift */; };
 		6809CD8E2EF3E0460061BDAA /* ClothingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CD8D2EF3E0460061BDAA /* ClothingDetailView.swift */; };
 		6809CD972EF3FFBF0061BDAA /* LikesPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CD962EF3FFBF0061BDAA /* LikesPill.swift */; };
-		6809CD9E2EF404E90061BDAA /* DetailImageOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CD9D2EF404E90061BDAA /* DetailImageOverlay.swift */; };
 		6809CDA02EF405CE0061BDAA /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CD9F2EF405CE0061BDAA /* ShareButton.swift */; };
 		6809CDA22EF409B80061BDAA /* ScorePill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CDA12EF409B80061BDAA /* ScorePill.swift */; };
-		6809CDA62EF40BB80061BDAA /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CDA52EF40BB80061BDAA /* CardImageView.swift */; };
+		6809CDA62EF40BB80061BDAA /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CDA52EF40BB80061BDAA /* ImageView.swift */; };
+		6809CDAA2EF435BA0061BDAA /* DescriptionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CDA92EF435BA0061BDAA /* DescriptionRow.swift */; };
+		6809CDAC2EF44BCC0061BDAA /* ReviewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CDAB2EF44BCC0061BDAA /* ReviewRow.swift */; };
+		6809CDAE2EF44DA90061BDAA /* StarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CDAD2EF44DA90061BDAA /* StarButton.swift */; };
+		6809CDB22EF450AA0061BDAA /* ReviewInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CDB12EF450AA0061BDAA /* ReviewInputView.swift */; };
 		685F52F02EF00CA600D4BB6C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 685F52EF2EF00CA600D4BB6C /* .gitignore */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +33,7 @@
 		6800E6D02EEC654400D07092 /* Clothing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clothing.swift; sourceTree = "<group>"; };
 		6800E6D22EEC654400D07092 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6800E6D32EEC654400D07092 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		6800E6D42EEC654400D07092 /* joiefullApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = joiefullApp.swift; sourceTree = "<group>"; };
+		6800E6D42EEC654400D07092 /* JoiefullApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoiefullApp.swift; sourceTree = "<group>"; };
 		6800E6DD2EEC658200D07092 /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		6800E6DF2EEC65A800D07092 /* ClothingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingService.swift; sourceTree = "<group>"; };
 		6800E6E12EEC65BE00D07092 /* ClothingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingListViewModel.swift; sourceTree = "<group>"; };
@@ -39,10 +42,13 @@
 		6809CD8D2EF3E0460061BDAA /* ClothingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingDetailView.swift; sourceTree = "<group>"; };
 		6809CD952EF3EFA40061BDAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6809CD962EF3FFBF0061BDAA /* LikesPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesPill.swift; sourceTree = "<group>"; };
-		6809CD9D2EF404E90061BDAA /* DetailImageOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageOverlay.swift; sourceTree = "<group>"; };
 		6809CD9F2EF405CE0061BDAA /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
 		6809CDA12EF409B80061BDAA /* ScorePill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePill.swift; sourceTree = "<group>"; };
-		6809CDA52EF40BB80061BDAA /* CardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
+		6809CDA52EF40BB80061BDAA /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		6809CDA92EF435BA0061BDAA /* DescriptionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionRow.swift; sourceTree = "<group>"; };
+		6809CDAB2EF44BCC0061BDAA /* ReviewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRow.swift; sourceTree = "<group>"; };
+		6809CDAD2EF44DA90061BDAA /* StarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarButton.swift; sourceTree = "<group>"; };
+		6809CDB12EF450AA0061BDAA /* ReviewInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewInputView.swift; sourceTree = "<group>"; };
 		685F52EF2EF00CA600D4BB6C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,7 +99,7 @@
 				6800E6DC2EEC656300D07092 /* Views */,
 				6800E6D22EEC654400D07092 /* Assets.xcassets */,
 				6800E6D32EEC654400D07092 /* ContentView.swift */,
-				6800E6D42EEC654400D07092 /* joiefullApp.swift */,
+				6800E6D42EEC654400D07092 /* JoiefullApp.swift */,
 			);
 			path = joiefull;
 			sourceTree = "<group>";
@@ -129,10 +135,13 @@
 			isa = PBXGroup;
 			children = (
 				6809CD962EF3FFBF0061BDAA /* LikesPill.swift */,
-				6809CD9D2EF404E90061BDAA /* DetailImageOverlay.swift */,
 				6809CD9F2EF405CE0061BDAA /* ShareButton.swift */,
 				6809CDA12EF409B80061BDAA /* ScorePill.swift */,
-				6809CDA52EF40BB80061BDAA /* CardImageView.swift */,
+				6809CDA52EF40BB80061BDAA /* ImageView.swift */,
+				6809CDA92EF435BA0061BDAA /* DescriptionRow.swift */,
+				6809CDAB2EF44BCC0061BDAA /* ReviewRow.swift */,
+				6809CDAD2EF44DA90061BDAA /* StarButton.swift */,
+				6809CDB12EF450AA0061BDAA /* ReviewInputView.swift */,
 			);
 			path = ExtractedViews;
 			sourceTree = "<group>";
@@ -211,8 +220,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6800E6E02EEC65A800D07092 /* ClothingService.swift in Sources */,
+				6809CDAE2EF44DA90061BDAA /* StarButton.swift in Sources */,
 				6809CD972EF3FFBF0061BDAA /* LikesPill.swift in Sources */,
-				6809CDA62EF40BB80061BDAA /* CardImageView.swift in Sources */,
+				6809CDAA2EF435BA0061BDAA /* DescriptionRow.swift in Sources */,
+				6809CDAC2EF44BCC0061BDAA /* ReviewRow.swift in Sources */,
+				6809CDA62EF40BB80061BDAA /* ImageView.swift in Sources */,
+				6809CDB22EF450AA0061BDAA /* ReviewInputView.swift in Sources */,
 				6800E6DE2EEC658200D07092 /* Picture.swift in Sources */,
 				6800E6D72EEC654400D07092 /* Clothing.swift in Sources */,
 				6809CD8A2EF3E0070061BDAA /* ClothingListView.swift in Sources */,
@@ -221,9 +234,8 @@
 				6800E6E22EEC65BE00D07092 /* ClothingListViewModel.swift in Sources */,
 				6809CDA22EF409B80061BDAA /* ScorePill.swift in Sources */,
 				6809CD8C2EF3E0290061BDAA /* ClothingCardView.swift in Sources */,
-				6800E6D92EEC654400D07092 /* joiefullApp.swift in Sources */,
+				6800E6D92EEC654400D07092 /* JoiefullApp.swift in Sources */,
 				6809CDA02EF405CE0061BDAA /* ShareButton.swift in Sources */,
-				6809CD9E2EF404E90061BDAA /* DetailImageOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
