@@ -1,14 +1,16 @@
 //
-//  ClothingListViewModel.swift
+//  ClothingLoadingViewModel.swift
 //  joiefull
 //
 //  Created by Julien Cotte on 12/12/2025.
 //
 
 import Combine
+import SwiftData
 
 @MainActor
-final class ClothingListViewModel: ObservableObject {
+final class ClothingLoadingViewModel: ObservableObject {
+    // MARK: - API Service
 
     @Published var clothes: [Clothing] = []
 

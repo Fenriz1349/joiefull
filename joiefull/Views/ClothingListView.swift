@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ClothingListView: View {
-    @StateObject private var viewModel = ClothingListViewModel()
+    @StateObject private var viewModel = ClothingLoadingViewModel()
 
     let selectedItem: Clothing?
     let onSelect: (Clothing) -> Void

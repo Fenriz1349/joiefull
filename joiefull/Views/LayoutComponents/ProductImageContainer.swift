@@ -10,6 +10,9 @@ import SwiftUI
 struct ProductImageContainer: View {
     let imageURL: String
     let likes: Int
+    let isLiked: Bool
+    let onLikeTapped: () -> Void
+
     var aspectRatio: CGFloat = 1
     var showsShareButton: Bool = false
 
@@ -43,8 +46,13 @@ struct ProductImageContainer: View {
                             .padding(16)
                         Spacer()
                     }
-                    LikesButton(likes: likes)
-                        .padding(16)
+
+                    LikesButton(
+                        likes: likes,
+                        isLiked: isLiked,
+                        action: onLikeTapped
+                    )
+                    .padding(16)
                 }
             }
             .frame(width: width, height: height)
@@ -54,42 +62,43 @@ struct ProductImageContainer: View {
     }
 }
 
-#Preview("Card – carré") {
-    ProductImageContainer(
-        imageURL: Clothing.preview.picture.url,
-        likes: 24
-    )
-    .padding()
-}
 
-#Preview("Detail – iPhone portrait (rectangulaire)") {
-    ProductImageContainer(
-        imageURL: Clothing.preview.picture.url,
-        likes: 24,
-        aspectRatio: 3/4,
-        showsShareButton: true
-    )
-    .padding()
-}
-
-#Preview("Detail – iPhone paysage (carré)") {
-    ProductImageContainer(
-        imageURL: Clothing.preview.picture.url,
-        likes: 24,
-        aspectRatio: 1,
-        showsShareButton: true
-    )
-    .frame(width: 350) // largeur simulée iPhone paysage
-    .padding()
-}
-
-#Preview("Detail – iPad split / paysage (rectangulaire)") {
-    ProductImageContainer(
-        imageURL: Clothing.preview.picture.url,
-        likes: 24,
-        aspectRatio: 3/4,
-        showsShareButton: true
-    )
-    .frame(width: 500) // largeur simulée colonne iPad
-    .padding()
-}
+//#Preview("Card – carré") {
+//    ProductImageContainer(
+//        imageURL: Clothing.preview.picture.url,
+//        likes: 24
+//    )
+//    .padding()
+//}
+//
+//#Preview("Detail – iPhone portrait (rectangulaire)") {
+//    ProductImageContainer(
+//        imageURL: Clothing.preview.picture.url,
+//        likes: 24,
+//        aspectRatio: 3/4,
+//        showsShareButton: true
+//    )
+//    .padding()
+//}
+//
+//#Preview("Detail – iPhone paysage (carré)") {
+//    ProductImageContainer(
+//        imageURL: Clothing.preview.picture.url,
+//        likes: 24,
+//        aspectRatio: 1,
+//        showsShareButton: true
+//    )
+//    .frame(width: 350) // largeur simulée iPhone paysage
+//    .padding()
+//}
+//
+//#Preview("Detail – iPad split / paysage (rectangulaire)") {
+//    ProductImageContainer(
+//        imageURL: Clothing.preview.picture.url,
+//        likes: 24,
+//        aspectRatio: 3/4,
+//        showsShareButton: true
+//    )
+//    .frame(width: 500) // largeur simulée colonne iPad
+//    .padding()
+//}

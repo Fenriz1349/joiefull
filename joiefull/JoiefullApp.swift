@@ -6,13 +6,29 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct JoiefullApp: App {
+
+    let modelContainer: ModelContainer
+    let containerViewModel: ClothingContainerViewModel
+
+    init() {
+        let container = try! ModelContainer(for: ClothingUserData.self)
+        let dataManager = ClothingDataManager(context: container.mainContext)
+
+        self.modelContainer = container
+        self.containerViewModel = ClothingContainerViewModel(
+            dataManager: dataManager
+        )
+    }
+
     var body: some Scene {
         WindowGroup {
             RootView()
-                .foregroundStyle(.primary)
+                .environmentObject(containerViewModel)
         }
+        .modelContainer(modelContainer)
     }
 }

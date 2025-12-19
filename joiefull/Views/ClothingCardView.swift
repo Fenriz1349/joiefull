@@ -8,13 +8,20 @@
 import SwiftUI
 
 struct ClothingCardView: View {
+    @EnvironmentObject private var containerVM: ClothingContainerViewModel
+
     let item: Clothing
     let isSelected: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
 
-            ProductImageContainer(imageURL: item.picture.url, likes: item.likes)
+            ProductImageContainer(
+                imageURL: item.picture.url,
+                likes: item.likes + (containerVM.isLiked(item) ? 1 : 0),
+                isLiked: containerVM.isLiked(item),
+                onLikeTapped: { containerVM.toggleLike(for: item) }
+            )
             .overlay(
                 RoundedRectangle(cornerRadius: 25)
                     .stroke(

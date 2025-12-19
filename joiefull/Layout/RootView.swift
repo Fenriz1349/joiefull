@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RootView: View {
-    @StateObject private var containerVM = ClothingContainerViewModel()
+    @EnvironmentObject var containerVM: ClothingContainerViewModel
 
     var body: some View {
         NavigationStack {

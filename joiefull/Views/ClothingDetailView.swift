@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ClothingDetailView: View {
+    @EnvironmentObject private var containerVM: ClothingContainerViewModel
+    
     let item: Clothing
 
     @Environment(\.horizontalSizeClass) private var hSizeClass
@@ -24,20 +26,24 @@ struct ClothingDetailView: View {
             : AnyLayout(VStackLayout(alignment: .leading, spacing: 20))
             ScrollView {
                 layout {
-                    ProductImageContainer(imageURL: item.picture.url,
-                                          likes: item.likes,
-                                          aspectRatio: imageRatio,
-                                          showsShareButton: true)
+                    ProductImageContainer(
+                        imageURL: item.picture.url,
+                        likes: item.likes + (containerVM.isLiked(item) ? 1 : 0),
+                        isLiked: containerVM.isLiked(item),
+                        onLikeTapped: { containerVM.toggleLike(for: item) },
+                        aspectRatio: imageRatio,
+                        showsShareButton: true
+                    )
 
-                        VStack(alignment: .leading, spacing: 20) {
-                            DescriptionRow(isDetail: true, item: item)
+                    VStack(alignment: .leading, spacing: 20) {
+                        DescriptionRow(isDetail: true, item: item)
 
-                            Text(item.descriptionText)
+                        Text(item.descriptionText)
                             .font(.subheadline)
 
-                            ReviewRow()
-                            ReviewInputView()
-                        }
+                        ReviewRow()
+                        ReviewInputView()
+                    }
                 }
                 .padding()
             }
