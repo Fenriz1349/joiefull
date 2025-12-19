@@ -20,22 +20,6 @@ struct Clothing: Identifiable, Decodable, Hashable {
     }
 }
 
-enum Category: String, Decodable, CaseIterable, Hashable {
-    case tops = "TOPS"
-    case bottoms = "BOTTOMS"
-    case shoes = "SHOES"
-    case accessories = "ACCESSORIES"
-
-    var title: String {
-        switch self {
-        case .tops: return "Hauts"
-        case .bottoms: return "Bas"
-        case .shoes: return "Chaussures"
-        case .accessories: return "Sacs & Accessoires"
-        }
-    }
-}
-
 extension Clothing {
     static let preview = Clothing(
         id: 0,
@@ -47,33 +31,28 @@ extension Clothing {
         category: .accessories,
         likes: 56,
         price: 69.99,
-        originalPrice: 69.99
+        originalPrice: 69.99,
     )
 
-    static let previewList: [Clothing] = [
-        Clothing(
-            id: 1,
-            picture: Picture(
-                url: "https://via.placeholder.com/300",
-                description: "Pull vert"
-            ),
-            name: "Pull vert",
-            category: .tops,
-            likes: 12,
-            price: 29.99,
-            originalPrice: 39.99
-        ),
-        Clothing(
-            id: 2,
-            picture: Picture(
-                url: "https://via.placeholder.com/300",
-                description: "Sac à dos"
-            ),
-            name: "Sac à dos",
-            category: .accessories,
-            likes: 9,
-            price: 69.99,
-            originalPrice: 99.99
-        )
-    ]
+    var globalRating: Double {
+        switch id {
+        case 0:  3.9
+        case 1:  4.2
+        case 2:  4.5
+        case 3:  4.1
+        case 4:  4.6
+        case 5:  4.8
+        case 6:  0.0
+        case 7:  4.3
+        case 8:  4.9
+        case 9:  4.0
+        case 10: 4.7
+        case 11: 4.4
+        default:  4.1
+        }
+    }
+
+    var descriptionText: String {
+        ClothingDescriptions.byId[id] ?? ClothingDescriptions.default
+    }
 }

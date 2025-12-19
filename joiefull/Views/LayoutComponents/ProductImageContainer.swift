@@ -54,7 +54,6 @@ struct ProductImageContainer: View {
     }
 }
 
-
 #Preview("Card – carré") {
     ProductImageContainer(
         imageURL: Clothing.preview.picture.url,
@@ -94,4 +93,3 @@ struct ProductImageContainer: View {
     .frame(width: 500) // largeur simulée colonne iPad
     .padding()
 }
-

@@ -26,7 +26,7 @@ struct DescriptionRow: View {
 
                 Spacer()
 
-                ScoreLabel()
+                RatingLabel(rating: item.globalRating)
             }
 
             HStack {
