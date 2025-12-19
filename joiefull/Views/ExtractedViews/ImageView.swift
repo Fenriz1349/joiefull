@@ -11,7 +11,8 @@ struct ImageView: View {
     let imageURL: String
     let likes: Int
     var isDetailScreen: Bool = false
-    var aspectRatio: CGFloat = 1
+
+    var aspectRatio: CGFloat { isDetailScreen ? 0.9 : 1 }
 
     var body: some View {
         GeometryReader { geometry in
@@ -52,19 +53,14 @@ struct ImageView: View {
 }
 
 #Preview("Card – carré") {
-    ImageView(
-        imageURL: Clothing.preview.picture.url,
-        likes: Clothing.preview.likes
-    )
+    ImageView(imageURL: Clothing.preview.picture.url,
+              likes: Clothing.preview.likes)
     .padding()
 }
 
 #Preview("Detail – vertical") {
-    ImageView(
-        imageURL: Clothing.preview.picture.url,
-        likes: Clothing.preview.likes,
-        isDetailScreen: true,
-        aspectRatio: 3 / 4
-    )
+    ImageView(imageURL: Clothing.preview.picture.url,
+              likes: Clothing.preview.likes,
+              isDetailScreen: true)
     .padding()
 }

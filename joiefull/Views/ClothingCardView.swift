@@ -9,20 +9,26 @@ import SwiftUI
 
 struct ClothingCardView: View {
     let item: Clothing
+    let isSelected: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
 
-            ImageView(
-                imageURL: item.picture.url,
-                likes: item.likes
+            ImageView(imageURL: item.picture.url, likes: item.likes)
+            .overlay(
+                RoundedRectangle(cornerRadius: 25)
+                    .stroke(
+                        isSelected ? Color.accentColor : .clear,
+                        lineWidth: 3
+                    )
             )
 
             DescriptionRow(item: item)
+                .foregroundStyle(isSelected ? Color.accentColor : .primary)
         }
     }
 }
 
 #Preview {
-    ClothingCardView(item: .preview)
+    ClothingCardView(item: .preview, isSelected: true)
 }
