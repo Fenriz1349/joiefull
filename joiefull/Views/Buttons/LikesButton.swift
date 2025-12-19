@@ -1,5 +1,5 @@
 //
-//  LikesPill.swift
+//  LikesButton.swift
 //  joiefull
 //
 //  Created by Julien Cotte on 18/12/2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LikesPill: View {
+struct LikesButton: View {
     let likes: Int
 
     var body: some View {
@@ -26,5 +26,5 @@ struct LikesPill: View {
 }
 
 #Preview {
-    LikesPill(likes: Clothing.preview.likes)
+    LikesButton(likes: Clothing.preview.likes)
 }

@@ -26,7 +26,7 @@ struct DescriptionRow: View {
 
                 Spacer()
 
-                ScorePill()
+                ScoreLabel()
             }
 
             HStack {
