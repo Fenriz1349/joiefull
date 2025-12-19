@@ -10,46 +10,34 @@ import SwiftUI
 struct ClothingListView: View {
     @StateObject private var viewModel = ClothingListViewModel()
 
+    let selectedItem: Clothing?
+    let onSelect: (Clothing) -> Void
+
     var body: some View {
-        NavigationStack {
+        GeometryReader { geo in
+            let itemCount = LayoutRules.itemCount(for: geo.size.width)
+
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     ForEach(Category.allCases, id: \.self) { category in
-                        VStack(alignment: .leading) {
-                            Text(category.title)
-                                .font(.title2)
-                                .bold()
-                                .padding(.horizontal)
-
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                LazyHStack(spacing: 16) {
-                                    ForEach(viewModel.clothes(for: category)) { item in
-                                        NavigationLink(value: item) {
-                                            ClothingCardView(item: item)
-                                                .containerRelativeFrame(.horizontal, count: 2, spacing: 16)
-                                        }
-                                        .buttonStyle(.plain)
-                                    }
-                                }
-                                .scrollTargetLayout()
-                            }
-                            .contentMargins(.horizontal, 16, for: .scrollContent)
-                            .scrollTargetBehavior(.viewAligned)
-                        }
+                        ClothingCategoryRow(
+                            category: category,
+                            items: viewModel.clothes(for: category),
+                            itemCount: itemCount,
+                            selectedItem: selectedItem,
+                            onSelect: onSelect
+                        )
                     }
                 }
                 .padding(.vertical)
             }
-            .task {
-                await viewModel.load()
-            }
-            .navigationDestination(for: Clothing.self) { item in
-                ClothingDetailView(item: item)
-            }
+        }
+        .task {
+            await viewModel.load()
         }
     }
 }
 
 #Preview {
-    ClothingListView()
+    ClothingListView(selectedItem: Clothing.preview, onSelect: {_ in })
 }

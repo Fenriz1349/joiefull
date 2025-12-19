@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6800E6D62EEC654400D07092 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6800E6D22EEC654400D07092 /* Assets.xcassets */; };
 		6800E6D72EEC654400D07092 /* Clothing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800E6D02EEC654400D07092 /* Clothing.swift */; };
-		6800E6D82EEC654400D07092 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800E6D32EEC654400D07092 /* ContentView.swift */; };
 		6800E6D92EEC654400D07092 /* JoiefullApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800E6D42EEC654400D07092 /* JoiefullApp.swift */; };
 		6800E6DE2EEC658200D07092 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800E6DD2EEC658200D07092 /* Picture.swift */; };
 		6800E6E02EEC65A800D07092 /* ClothingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6800E6DF2EEC65A800D07092 /* ClothingService.swift */; };
@@ -26,13 +25,17 @@
 		6809CDAE2EF44DA90061BDAA /* StarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CDAD2EF44DA90061BDAA /* StarButton.swift */; };
 		6809CDB22EF450AA0061BDAA /* ReviewInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CDB12EF450AA0061BDAA /* ReviewInputView.swift */; };
 		685F52F02EF00CA600D4BB6C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 685F52EF2EF00CA600D4BB6C /* .gitignore */; };
+		6889DE5D2EF540070035BCE3 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889DE5C2EF540070035BCE3 /* RootView.swift */; };
+		6889DE602EF5448D0035BCE3 /* LayoutRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889DE5F2EF5448D0035BCE3 /* LayoutRules.swift */; };
+		6889DE662EF54EEB0035BCE3 /* ClothingContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889DE652EF54EEB0035BCE3 /* ClothingContainerViewModel.swift */; };
+		6889DE682EF558890035BCE3 /* ClothingCategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889DE672EF558890035BCE3 /* ClothingCategoryRow.swift */; };
+		6889DE6B2EF55BF30035BCE3 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889DE6A2EF55BF30035BCE3 /* View+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6800E6BF2EEC621B00D07092 /* joiefull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = joiefull.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6800E6D02EEC654400D07092 /* Clothing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clothing.swift; sourceTree = "<group>"; };
 		6800E6D22EEC654400D07092 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6800E6D32EEC654400D07092 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6800E6D42EEC654400D07092 /* JoiefullApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoiefullApp.swift; sourceTree = "<group>"; };
 		6800E6DD2EEC658200D07092 /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		6800E6DF2EEC65A800D07092 /* ClothingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingService.swift; sourceTree = "<group>"; };
@@ -40,7 +43,7 @@
 		6809CD892EF3E0070061BDAA /* ClothingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingListView.swift; sourceTree = "<group>"; };
 		6809CD8B2EF3E0290061BDAA /* ClothingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingCardView.swift; sourceTree = "<group>"; };
 		6809CD8D2EF3E0460061BDAA /* ClothingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingDetailView.swift; sourceTree = "<group>"; };
-		6809CD952EF3EFA40061BDAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6809CD952EF3EFA40061BDAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6809CD962EF3FFBF0061BDAA /* LikesPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesPill.swift; sourceTree = "<group>"; };
 		6809CD9F2EF405CE0061BDAA /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
 		6809CDA12EF409B80061BDAA /* ScorePill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePill.swift; sourceTree = "<group>"; };
@@ -50,6 +53,11 @@
 		6809CDAD2EF44DA90061BDAA /* StarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarButton.swift; sourceTree = "<group>"; };
 		6809CDB12EF450AA0061BDAA /* ReviewInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewInputView.swift; sourceTree = "<group>"; };
 		685F52EF2EF00CA600D4BB6C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		6889DE5C2EF540070035BCE3 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		6889DE5F2EF5448D0035BCE3 /* LayoutRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutRules.swift; sourceTree = "<group>"; };
+		6889DE652EF54EEB0035BCE3 /* ClothingContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingContainerViewModel.swift; sourceTree = "<group>"; };
+		6889DE672EF558890035BCE3 /* ClothingCategoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingCategoryRow.swift; sourceTree = "<group>"; };
+		6889DE6A2EF55BF30035BCE3 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,8 +74,8 @@
 		6800E6B62EEC621B00D07092 = {
 			isa = PBXGroup;
 			children = (
-				685F52EF2EF00CA600D4BB6C /* .gitignore */,
 				6800E6D52EEC654400D07092 /* joiefull */,
+				685F52EF2EF00CA600D4BB6C /* .gitignore */,
 				6800E6C02EEC621B00D07092 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,13 +100,13 @@
 		6800E6D52EEC654400D07092 /* joiefull */ = {
 			isa = PBXGroup;
 			children = (
-				6809CD952EF3EFA40061BDAA /* Info.plist */,
+				6889DE692EF55BE60035BCE3 /* Utils */,
 				6800E6D12EEC654400D07092 /* Models */,
 				6800E6DA2EEC655100D07092 /* Network */,
 				6800E6DB2EEC655A00D07092 /* ViewModel */,
 				6800E6DC2EEC656300D07092 /* Views */,
+				6889DE5E2EF5445D0035BCE3 /* Layout */,
 				6800E6D22EEC654400D07092 /* Assets.xcassets */,
-				6800E6D32EEC654400D07092 /* ContentView.swift */,
 				6800E6D42EEC654400D07092 /* JoiefullApp.swift */,
 			);
 			path = joiefull;
@@ -116,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				6800E6E12EEC65BE00D07092 /* ClothingListViewModel.swift */,
+				6889DE652EF54EEB0035BCE3 /* ClothingContainerViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -142,8 +151,27 @@
 				6809CDAB2EF44BCC0061BDAA /* ReviewRow.swift */,
 				6809CDAD2EF44DA90061BDAA /* StarButton.swift */,
 				6809CDB12EF450AA0061BDAA /* ReviewInputView.swift */,
+				6889DE672EF558890035BCE3 /* ClothingCategoryRow.swift */,
 			);
 			path = ExtractedViews;
+			sourceTree = "<group>";
+		};
+		6889DE5E2EF5445D0035BCE3 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				6889DE5C2EF540070035BCE3 /* RootView.swift */,
+				6889DE5F2EF5448D0035BCE3 /* LayoutRules.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		6889DE692EF55BE60035BCE3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6889DE6A2EF55BF30035BCE3 /* View+Extension.swift */,
+				6809CD952EF3EFA40061BDAA /* Info.plist */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,19 +250,23 @@
 				6800E6E02EEC65A800D07092 /* ClothingService.swift in Sources */,
 				6809CDAE2EF44DA90061BDAA /* StarButton.swift in Sources */,
 				6809CD972EF3FFBF0061BDAA /* LikesPill.swift in Sources */,
+				6889DE5D2EF540070035BCE3 /* RootView.swift in Sources */,
 				6809CDAA2EF435BA0061BDAA /* DescriptionRow.swift in Sources */,
 				6809CDAC2EF44BCC0061BDAA /* ReviewRow.swift in Sources */,
+				6889DE682EF558890035BCE3 /* ClothingCategoryRow.swift in Sources */,
 				6809CDA62EF40BB80061BDAA /* ImageView.swift in Sources */,
 				6809CDB22EF450AA0061BDAA /* ReviewInputView.swift in Sources */,
 				6800E6DE2EEC658200D07092 /* Picture.swift in Sources */,
 				6800E6D72EEC654400D07092 /* Clothing.swift in Sources */,
+				6889DE662EF54EEB0035BCE3 /* ClothingContainerViewModel.swift in Sources */,
 				6809CD8A2EF3E0070061BDAA /* ClothingListView.swift in Sources */,
 				6809CD8E2EF3E0460061BDAA /* ClothingDetailView.swift in Sources */,
-				6800E6D82EEC654400D07092 /* ContentView.swift in Sources */,
+				6889DE602EF5448D0035BCE3 /* LayoutRules.swift in Sources */,
 				6800E6E22EEC65BE00D07092 /* ClothingListViewModel.swift in Sources */,
 				6809CDA22EF409B80061BDAA /* ScorePill.swift in Sources */,
 				6809CD8C2EF3E0290061BDAA /* ClothingCardView.swift in Sources */,
 				6800E6D92EEC654400D07092 /* JoiefullApp.swift in Sources */,
+				6889DE6B2EF55BF30035BCE3 /* View+Extension.swift in Sources */,
 				6809CDA02EF405CE0061BDAA /* ShareButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,7 +405,7 @@
 				DEVELOPMENT_TEAM = F435NP2676;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = joiefull/Info.plist;
+				INFOPLIST_FILE = joiefull/Utils/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
@@ -411,7 +443,7 @@
 				DEVELOPMENT_TEAM = F435NP2676;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = joiefull/Info.plist;
+				INFOPLIST_FILE = joiefull/Utils/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
