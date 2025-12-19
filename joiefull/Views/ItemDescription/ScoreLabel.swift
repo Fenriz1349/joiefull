@@ -1,5 +1,5 @@
 //
-//  ScorePill.swift
+//  ScoreLabel.swift
 //  joiefull
 //
 //  Created by Julien Cotte on 18/12/2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ScorePill: View {
+struct ScoreLabel: View {
     let score: Double = 2.5
 
     var body: some View {
@@ -21,5 +21,5 @@ struct ScorePill: View {
 }
 
 #Preview {
-    ScorePill()
+    ScoreLabel()
 }

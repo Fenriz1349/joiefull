@@ -12,6 +12,10 @@ enum LayoutRules {
         size.width >= 700 && size.width > size.height
     }
 
+    static func usesLandscapeDetailLayout(size: CGSize, isCompact: Bool) -> Bool {
+        isCompact && size.width > size.height
+    }
+
     static func itemCount(for width: CGFloat) -> Int {
         switch width {
         case 0..<360:

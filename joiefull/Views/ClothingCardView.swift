@@ -14,7 +14,7 @@ struct ClothingCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
 
-            ImageView(imageURL: item.picture.url, likes: item.likes)
+            ProductImageContainer(imageURL: item.picture.url, likes: item.likes)
             .overlay(
                 RoundedRectangle(cornerRadius: 25)
                     .stroke(
