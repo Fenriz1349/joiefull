@@ -10,42 +10,41 @@ import SwiftUI
 struct ClothingListView: View {
     @StateObject private var viewModel = ClothingListViewModel()
 
-    var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    ForEach(Category.allCases, id: \.self) { category in
-                        VStack(alignment: .leading) {
-                            Text(category.title)
-                                .font(.title2)
-                                .bold()
-                                .padding(.horizontal)
+    var onSelect: ((Clothing) -> Void)?
 
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                LazyHStack(spacing: 16) {
-                                    ForEach(viewModel.clothes(for: category)) { item in
-                                        NavigationLink(value: item) {
-                                            ClothingCardView(item: item)
-                                                .containerRelativeFrame(.horizontal, count: 2, spacing: 16)
-                                        }
-                                        .buttonStyle(.plain)
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 24) {
+                ForEach(Category.allCases, id: \.self) { category in
+                    VStack(alignment: .leading) {
+                        Text(category.title)
+                            .font(.title2)
+                            .bold()
+                            .padding(.horizontal)
+
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            LazyHStack(spacing: 16) {
+                                ForEach(viewModel.clothes(for: category)) { item in
+                                    Button {
+                                        onSelect?(item)
+                                    } label: {
+                                        ClothingCardView(item: item)
+                                            .containerRelativeFrame(.horizontal, count: 2, spacing: 16)
                                     }
+                                    .buttonStyle(.plain)
                                 }
-                                .scrollTargetLayout()
                             }
-                            .contentMargins(.horizontal, 16, for: .scrollContent)
-                            .scrollTargetBehavior(.viewAligned)
+                            .scrollTargetLayout()
                         }
+                        .contentMargins(.horizontal, 16, for: .scrollContent)
+                        .scrollTargetBehavior(.viewAligned)
                     }
                 }
-                .padding(.vertical)
             }
-            .task {
-                await viewModel.load()
-            }
-            .navigationDestination(for: Clothing.self) { item in
-                ClothingDetailView(item: item)
-            }
+            .padding(.vertical)
+        }
+        .task {
+            await viewModel.load()
         }
     }
 }
