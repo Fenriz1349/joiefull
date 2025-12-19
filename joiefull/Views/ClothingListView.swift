@@ -14,36 +14,23 @@ struct ClothingListView: View {
     let onSelect: (Clothing) -> Void
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                ForEach(Category.allCases, id: \.self) { category in
-                    VStack(alignment: .leading) {
-                        Text(category.title)
-                            .font(.title2)
-                            .bold()
-                            .padding(.horizontal)
+        GeometryReader { geo in
+            let itemCount = LayoutRules.itemCount(for: geo.size.width)
 
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            LazyHStack(spacing: 16) {
-                                ForEach(viewModel.clothes(for: category)) { item in
-                                    Button {
-                                        onSelect(item)
-                                    } label: {
-                                        ClothingCardView(item: item,
-                                                         isSelected: selectedItem?.id == item.id)
-                                            .containerRelativeFrame(.horizontal, count: 3, spacing: 16)
-                                    }
-                                    .buttonStyle(.plain)
-                                }
-                            }
-                            .scrollTargetLayout()
-                        }
-                        .contentMargins(.horizontal, 16, for: .scrollContent)
-                        .scrollTargetBehavior(.viewAligned)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    ForEach(Category.allCases, id: \.self) { category in
+                        ClothingCategoryRow(
+                            category: category,
+                            items: viewModel.clothes(for: category),
+                            itemCount: itemCount,
+                            selectedItem: selectedItem,
+                            onSelect: onSelect
+                        )
                     }
                 }
+                .padding(.vertical)
             }
-            .padding(.vertical)
         }
         .task {
             await viewModel.load()
