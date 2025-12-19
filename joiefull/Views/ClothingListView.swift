@@ -10,7 +10,8 @@ import SwiftUI
 struct ClothingListView: View {
     @StateObject private var viewModel = ClothingListViewModel()
 
-    var onSelect: ((Clothing) -> Void)?
+    let selectedItem: Clothing?
+    let onSelect: (Clothing) -> Void
 
     var body: some View {
         ScrollView {
@@ -26,10 +27,11 @@ struct ClothingListView: View {
                             LazyHStack(spacing: 16) {
                                 ForEach(viewModel.clothes(for: category)) { item in
                                     Button {
-                                        onSelect?(item)
+                                        onSelect(item)
                                     } label: {
-                                        ClothingCardView(item: item)
-                                            .containerRelativeFrame(.horizontal, count: 2, spacing: 16)
+                                        ClothingCardView(item: item,
+                                                         isSelected: selectedItem?.id == item.id)
+                                            .containerRelativeFrame(.horizontal, count: 3, spacing: 16)
                                     }
                                     .buttonStyle(.plain)
                                 }
@@ -50,5 +52,5 @@ struct ClothingListView: View {
 }
 
 #Preview {
-    ClothingListView()
+    ClothingListView(selectedItem: Clothing.preview, onSelect: {_ in })
 }

@@ -15,8 +15,7 @@ struct ClothingDetailView: View {
             VStack(alignment: .leading, spacing: 20) {
                 ImageView(imageURL: item.picture.url,
                           likes: item.likes,
-                          isDetailScreen: true,
-                          aspectRatio: 0.9)
+                          isDetailScreen: true)
 
                 DescriptionRow(isDetail: true, item: item)
 
