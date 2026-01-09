@@ -27,7 +27,7 @@ struct ClothingDetailContentView: View {
                     container.setNewRating(for: item, rating: index)
                 })
 
-                ReviewInputView()
+                ReviewInputView(text: container.commentTextBinding(for: item))
             }
         }
     }

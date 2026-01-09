@@ -48,7 +48,7 @@ struct ClothingDetailView: View {
                                   starPressed: { index in
                             container.setNewRating(for: item, rating: index)
                         })
-                        ReviewInputView()
+                        ReviewInputView(text: container.commentTextBinding(for: item))
                     }
                 }
                 .padding()

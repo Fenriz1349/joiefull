@@ -15,6 +15,8 @@ final class ClothingUserData {
     let clothingId: Int
 
     var isLiked: Bool
+    /// User rating from 1 to 5
+    /// 0 means "not rated yet"
     var userRating: Int
     var userComment: String?
 
