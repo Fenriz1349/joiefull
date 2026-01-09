@@ -7,6 +7,8 @@
 
 import SwiftData
 
+/// Represents user-specific data associated with a clothing item
+/// Stores preferences such as liked status, rating, and comments using SwiftData
 @Model
 final class ClothingUserData {
     @Attribute(.unique)

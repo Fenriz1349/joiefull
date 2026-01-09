@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Displays a row with user avatar and star rating buttons
+/// Used for the review/rating interface
 struct ReviewRow: View {
     var body: some View {
         HStack(spacing: 10) {

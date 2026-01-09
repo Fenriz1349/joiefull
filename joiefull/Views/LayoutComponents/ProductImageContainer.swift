@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Image container with overlays (like button + optional share button)
+/// Enforces a given aspect ratio based on available width using GeometryReader
 struct ProductImageContainer: View {
     let imageURL: String
     let likes: Int
@@ -63,42 +65,50 @@ struct ProductImageContainer: View {
 }
 
 
-//#Preview("Card – carré") {
-//    ProductImageContainer(
-//        imageURL: Clothing.preview.picture.url,
-//        likes: 24
-//    )
-//    .padding()
-//}
-//
-//#Preview("Detail – iPhone portrait (rectangulaire)") {
-//    ProductImageContainer(
-//        imageURL: Clothing.preview.picture.url,
-//        likes: 24,
-//        aspectRatio: 3/4,
-//        showsShareButton: true
-//    )
-//    .padding()
-//}
-//
-//#Preview("Detail – iPhone paysage (carré)") {
-//    ProductImageContainer(
-//        imageURL: Clothing.preview.picture.url,
-//        likes: 24,
-//        aspectRatio: 1,
-//        showsShareButton: true
-//    )
-//    .frame(width: 350) // largeur simulée iPhone paysage
-//    .padding()
-//}
-//
-//#Preview("Detail – iPad split / paysage (rectangulaire)") {
-//    ProductImageContainer(
-//        imageURL: Clothing.preview.picture.url,
-//        likes: 24,
-//        aspectRatio: 3/4,
-//        showsShareButton: true
-//    )
-//    .frame(width: 500) // largeur simulée colonne iPad
-//    .padding()
-//}
+#Preview("Card – carré") {
+    ProductImageContainer(
+        imageURL: PreviewItems.item.picture.url,
+        likes: 24,
+        isLiked: true,
+        onLikeTapped: {}
+    )
+    .padding()
+}
+
+#Preview("Detail – iPhone portrait (rectangulaire)") {
+    ProductImageContainer(
+        imageURL: PreviewItems.item.picture.url,
+        likes: 24,
+        isLiked: true,
+        onLikeTapped: {},
+        aspectRatio: 3/4,
+        showsShareButton: true
+    )
+    .padding()
+}
+
+#Preview("Detail – iPhone paysage (carré)") {
+    ProductImageContainer(
+        imageURL: PreviewItems.item.picture.url,
+        likes: 24,
+        isLiked: true,
+        onLikeTapped: {},
+        aspectRatio: 1,
+        showsShareButton: true
+    )
+    .frame(width: 350) // simulated landscape Iphone width
+    .padding()
+}
+
+#Preview("Detail – iPad split / paysage (rectangulaire)") {
+    ProductImageContainer(
+        imageURL: PreviewItems.item.picture.url,
+        likes: 24,
+        isLiked: true,
+        onLikeTapped: {},
+        aspectRatio: 3/4,
+        showsShareButton: true
+    )
+    .frame(width: 500) // simulated portrait Ipad width
+    .padding()
+}

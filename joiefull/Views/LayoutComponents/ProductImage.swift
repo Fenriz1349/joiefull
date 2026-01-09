@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Lightweight image view used inside product containers
+/// Loads an image from URL and falls back to a local placeholder
 struct ProductImage: View {
     let imageURL: String
 
@@ -30,5 +32,5 @@ struct ProductImage: View {
 }
 
 #Preview {
-    ProductImage(imageURL: Clothing.preview.picture.url)
+    ProductImage(imageURL: PreviewItems.item.picture.url)
 }

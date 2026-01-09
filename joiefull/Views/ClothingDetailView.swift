@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Displays detailed information about a clothing item
+/// Adapts layout based on device size and orientation (portrait/landscape)
 struct ClothingDetailView: View {
     @EnvironmentObject private var containerVM: ClothingContainerViewModel
     
@@ -16,11 +18,13 @@ struct ClothingDetailView: View {
 
     var body: some View {
         GeometryReader { geo in
-            let isPhoneLandscape =
-            hSizeClass == .compact && geo.size.width > geo.size.height
+            // Detect if in landscape mode on iPhone
+            let isPhoneLandscape = hSizeClass == .compact && geo.size.width > geo.size.height
 
+            // Adjust image ratio based on orientation
             let imageRatio: CGFloat = isPhoneLandscape ? 1 : 3/4
 
+            // Use horizontal layout for landscape, vertical for portrait
             let layout = isPhoneLandscape
             ? AnyLayout(HStackLayout(alignment: .top, spacing: 20))
             : AnyLayout(VStackLayout(alignment: .leading, spacing: 20))
@@ -52,5 +56,6 @@ struct ClothingDetailView: View {
 }
 
 #Preview {
-    ClothingDetailView(item: .preview)
+    ClothingDetailView(item: PreviewItems.item)
+        .environmentObject(PreviewContainer.containerViewModel)
 }

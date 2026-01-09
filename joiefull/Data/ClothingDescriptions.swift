@@ -5,8 +5,11 @@
 //  Created by Julien Cotte on 19/12/2025.
 //
 
+/// Provides detailed descriptions for clothing items
+/// Contains a dictionary mapping clothing IDs to their French descriptions
 enum ClothingDescriptions {
 
+    /// Dictionary mapping clothing item IDs to their detailed descriptions
     static let byId: [Int: String] = [
         0: """
         Sac à main orange en cuir lisse, aux lignes structurées et au rabat élégant,
@@ -60,6 +63,7 @@ enum ClothingDescriptions {
         """
     ]
 
+    /// Default description used when a specific clothing item description is not available
     static let `default` = """
         Pièce essentielle au design soigné, pensée pour un usage quotidien.
         Coupe équilibrée, matière agréable et finitions discrètes

@@ -7,10 +7,15 @@
 
 import SwiftUI
 
+/// Displays a compact card representation of a clothing item in a list or grid
+/// Shows the product image, likes count, and essential information with optional selection state
 struct ClothingCardView: View {
     @EnvironmentObject private var containerVM: ClothingContainerViewModel
 
+    /// The clothing item to display
     let item: Clothing
+
+    /// Whether this card is currently selected (used for highlighting)
     let isSelected: Bool
 
     var body: some View {
@@ -37,5 +42,6 @@ struct ClothingCardView: View {
 }
 
 #Preview {
-    ClothingCardView(item: .preview, isSelected: true)
+    ClothingCardView(item: PreviewItems.item, isSelected: true)
+        .environmentObject(PreviewContainer.containerViewModel)
 }

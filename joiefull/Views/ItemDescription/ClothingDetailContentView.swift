@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Displays the scrollable content section of a clothing detail view
+/// Contains description, reviews, and user input areas
 struct ClothingDetailContentView: View {
     let item: Clothing
 
@@ -15,10 +17,7 @@ struct ClothingDetailContentView: View {
             VStack(alignment: .leading, spacing: 20) {
                 DescriptionRow(isDetail: true, item: item)
 
-                Text("""
-                Pull vert forêt à motif torsadé élégant, tricot finement travaillé avec manches bouffantes et col montant;
-                doux et chaleureux.
-                """)
+                Text(item.descriptionText)
                 .font(.subheadline)
 
                 ReviewRow()
@@ -29,5 +28,5 @@ struct ClothingDetailContentView: View {
 }
 
 #Preview {
-    ClothingDetailContentView(item: Clothing.preview)
+    ClothingDetailContentView(item: PreviewItems.item)
 }

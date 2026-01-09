@@ -8,12 +8,16 @@
 import SwiftUI
 import SwiftData
 
+/// Main app entry point for the Joiefull application
+/// Configures SwiftData persistence and initializes the view model hierarchy
 @main
 struct JoiefullApp: App {
 
     let modelContainer: ModelContainer
     let containerViewModel: ClothingContainerViewModel
 
+    /// Initializes the app with SwiftData model container and view models
+    /// Sets up the persistence layer and dependency injection
     init() {
         let container = try! ModelContainer(for: ClothingUserData.self)
         let dataManager = ClothingDataManager(context: container.mainContext)

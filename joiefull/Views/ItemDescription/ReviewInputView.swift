@@ -7,12 +7,15 @@
 
 import SwiftUI
 
+/// Text editor for users to write reviews about clothing items
+/// Shows placeholder text when empty
 struct ReviewInputView: View {
     @State private var text: String = ""
 
     var body: some View {
         ZStack(alignment: .topLeading) {
 
+            // Placeholder text shown when editor is empty
             if text.isEmpty {
                 Text("Partagez ici vos impressions sur cette pièce")
                     .foregroundStyle(.gray)

@@ -5,6 +5,8 @@
 //  Created by Julien Cotte on 12/12/2025.
 //
 
+/// Represents a clothing item with all its properties
+/// Conforms to Identifiable for use in SwiftUI lists and Decodable for API parsing
 struct Clothing: Identifiable, Decodable, Hashable {
     let id: Int
     let picture: Picture
@@ -21,19 +23,8 @@ struct Clothing: Identifiable, Decodable, Hashable {
 }
 
 extension Clothing {
-    static let preview = Clothing(
-        id: 0,
-        picture: Picture(
-            url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
-            description: "Sac à main orange posé sur une poignée de porte"
-        ),
-        name: "Sac à main orange",
-        category: .accessories,
-        likes: 56,
-        price: 69.99,
-        originalPrice: 69.99,
-    )
-
+    /// Returns the global rating for this clothing item (0.0 to 5.0 scale)
+    /// Hardcoded ratings based on item ID for demo purposes
     var globalRating: Double {
         switch id {
         case 0:  3.9
@@ -52,6 +43,8 @@ extension Clothing {
         }
     }
 
+    /// Returns the detailed description text for this clothing item
+    /// Falls back to a default description if no specific description exists
     var descriptionText: String {
         ClothingDescriptions.byId[id] ?? ClothingDescriptions.default
     }

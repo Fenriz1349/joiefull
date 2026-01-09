@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Displays an unselected star icon for rating interfaces
+/// Used as part of the review/rating system
 struct StarButton: View {
     var body: some View {
         Image(systemName: "star")

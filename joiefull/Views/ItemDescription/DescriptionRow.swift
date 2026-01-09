@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Displays clothing item name, rating, and pricing information
+/// Adapts typography and layout based on whether it's shown in detail or card view
 struct DescriptionRow: View {
     var  isDetail: Bool = false
     let item: Clothing
@@ -47,5 +49,5 @@ struct DescriptionRow: View {
 }
 
 #Preview {
-    DescriptionRow(item: Clothing.preview)
+    DescriptionRow(item: PreviewItems.item)
 }
