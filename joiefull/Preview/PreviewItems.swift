@@ -10,8 +10,8 @@ import Foundation
 /// Create a local item and an array of item for preview
 enum PreviewItems {
     /// Creates a sample clothing item with a given identifier
-    private static func makePreviewItem(_ id: Int)-> Clothing {
-        return Clothing (
+    private static func makePreviewItem(_ id: Int) -> Clothing {
+        return Clothing(
         id: id,
         picture: Picture(
             url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
@@ -24,10 +24,10 @@ enum PreviewItems {
         originalPrice: 69.99
         )
     }
-    
+
     /// Single preview item
     static var item: Clothing { makePreviewItem(0) }
-    
+
     /// List of preview items with incremental identifiers
     static var itemList: [Clothing] { (0..<5).map(makePreviewItem) }
 }

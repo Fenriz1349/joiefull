@@ -16,16 +16,16 @@ struct JoiefullApp: App {
     let modelContainer: ModelContainer
     let containerViewModel: ClothingContainerViewModel
 
-    /// Initializes the app with SwiftData model container and view models
-    /// Sets up the persistence layer and dependency injection
     init() {
-        let container = try! ModelContainer(for: ClothingUserData.self)
-        let dataManager = ClothingDataManager(context: container.mainContext)
+        do {
+            let container = try ModelContainer(for: ClothingUserData.self)
+            let dataManager = ClothingDataManager(context: container.mainContext)
 
-        self.modelContainer = container
-        self.containerViewModel = ClothingContainerViewModel(
-            dataManager: dataManager
-        )
+            self.modelContainer = container
+            self.containerViewModel = ClothingContainerViewModel(dataManager: dataManager)
+        } catch {
+            fatalError("Failed to initialize SwiftData ModelContainer: \(error)")
+        }
     }
 
     var body: some Scene {

@@ -16,7 +16,7 @@
 		6809CD8A2EF3E0070061BDAA /* ClothingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CD892EF3E0070061BDAA /* ClothingListView.swift */; };
 		6809CD8C2EF3E0290061BDAA /* ClothingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CD8B2EF3E0290061BDAA /* ClothingCardView.swift */; };
 		6809CD8E2EF3E0460061BDAA /* ClothingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CD8D2EF3E0460061BDAA /* ClothingDetailView.swift */; };
-		6809CD972EF3FFBF0061BDAA /* LikesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CD962EF3FFBF0061BDAA /* LikesButton.swift */; };
+		6809CD972EF3FFBF0061BDAA /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CD962EF3FFBF0061BDAA /* LikeButton.swift */; };
 		6809CDA02EF405CE0061BDAA /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CD9F2EF405CE0061BDAA /* ShareButton.swift */; };
 		6809CDA22EF409B80061BDAA /* RatingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CDA12EF409B80061BDAA /* RatingLabel.swift */; };
 		6809CDA62EF40BB80061BDAA /* ProductImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809CDA52EF40BB80061BDAA /* ProductImage.swift */; };
@@ -52,7 +52,7 @@
 		6809CD8B2EF3E0290061BDAA /* ClothingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingCardView.swift; sourceTree = "<group>"; };
 		6809CD8D2EF3E0460061BDAA /* ClothingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingDetailView.swift; sourceTree = "<group>"; };
 		6809CD952EF3EFA40061BDAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6809CD962EF3FFBF0061BDAA /* LikesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesButton.swift; sourceTree = "<group>"; };
+		6809CD962EF3FFBF0061BDAA /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		6809CD9F2EF405CE0061BDAA /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
 		6809CDA12EF409B80061BDAA /* RatingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingLabel.swift; sourceTree = "<group>"; };
 		6809CDA52EF40BB80061BDAA /* ProductImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImage.swift; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 		6809CD982EF4035A0061BDAA /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				6809CD962EF3FFBF0061BDAA /* LikesButton.swift */,
+				6809CD962EF3FFBF0061BDAA /* LikeButton.swift */,
 				6809CD9F2EF405CE0061BDAA /* ShareButton.swift */,
 				6809CDAD2EF44DA90061BDAA /* StarButton.swift */,
 			);
@@ -307,7 +307,7 @@
 				6809CDAE2EF44DA90061BDAA /* StarButton.swift in Sources */,
 				682A95032F11072E003D63CB /* PreviewItems.swift in Sources */,
 				6889DE732EF58FEB0035BCE3 /* ClothingUserData.swift in Sources */,
-				6809CD972EF3FFBF0061BDAA /* LikesButton.swift in Sources */,
+				6809CD972EF3FFBF0061BDAA /* LikeButton.swift in Sources */,
 				6889DE5D2EF540070035BCE3 /* RootView.swift in Sources */,
 				6809CDAA2EF435BA0061BDAA /* DescriptionRow.swift in Sources */,
 				6889DE782EF5A01D0035BCE3 /* ClothingDescriptions.swift in Sources */,

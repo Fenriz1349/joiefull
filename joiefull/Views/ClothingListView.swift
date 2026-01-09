@@ -14,7 +14,7 @@ struct ClothingListView: View {
 
     /// Currently selected clothing item (for highlighting in split view)
     let selectedItem: Clothing?
-    
+
     /// Callback when a clothing item is selected
     let onSelect: (Clothing) -> Void
 

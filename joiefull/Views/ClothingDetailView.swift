@@ -10,8 +10,7 @@ import SwiftUI
 /// Displays detailed information about a clothing item
 /// Adapts layout based on device size and orientation (portrait/landscape)
 struct ClothingDetailView: View {
-    @EnvironmentObject private var containerVM: ClothingContainerViewModel
-    
+    @EnvironmentObject private var container: ClothingContainerViewModel
     let item: Clothing
 
     @Environment(\.horizontalSizeClass) private var hSizeClass
@@ -32,20 +31,23 @@ struct ClothingDetailView: View {
                 layout {
                     ProductImageContainer(
                         imageURL: item.picture.url,
-                        likes: item.likes + (containerVM.isLiked(item) ? 1 : 0),
-                        isLiked: containerVM.isLiked(item),
-                        onLikeTapped: { containerVM.toggleLike(for: item) },
+                        likes: item.likes + (container.isLiked(item) ? 1 : 0),
+                        isLiked: container.isLiked(item),
+                        onLikeTapped: { container.toggleLike(for: item) },
                         aspectRatio: imageRatio,
                         showsShareButton: true
                     )
 
                     VStack(alignment: .leading, spacing: 20) {
-                        DescriptionRow(isDetail: true, item: item)
+                        DescriptionRow(isDetail: true, rating: container.getCalculatedRating(item), item: item)
 
                         Text(item.descriptionText)
                             .font(.subheadline)
 
-                        ReviewRow()
+                        ReviewRow(rating: container.getRating(for: item),
+                                  starPressed: { index in
+                            container.setNewRating(for: item, rating: index)
+                        })
                         ReviewInputView()
                     }
                 }

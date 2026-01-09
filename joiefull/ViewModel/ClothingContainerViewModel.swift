@@ -17,11 +17,15 @@ final class ClothingContainerViewModel: ObservableObject {
     /// Set of IDs representing clothing items that have been liked by the user
     @Published private(set) var likedItemIds: Set<Int> = []
 
+    /// Array of Dictionnary of IDs representing clothing items with their rating
+    @Published private(set) var ratingsById: [Int: Int] = [:]
+
     private let dataManager: ClothingDataManager
 
     init(dataManager: ClothingDataManager) {
         self.dataManager = dataManager
         self.likedItemIds = dataManager.loadLikedIds()
+        self.ratingsById = dataManager.loadRatings()
     }
 
     // MARK: - Selection
@@ -54,5 +58,30 @@ final class ClothingContainerViewModel: ObservableObject {
         } else {
             likedItemIds.remove(item.id)
         }
+    }
+
+    // MARK: - Rating
+
+    /// Get the rating of an item from the persistent storage
+    /// - Parameter item: The Item we want the rating
+    /// - Returns:
+    func getRating(for item: Clothing) -> Int {
+        ratingsById[item.id] ?? 0
+    }
+
+    /// Set new rating for a clothing item
+    /// Updates both the UI state and persistent storage
+    /// - Parameter item: The clothing item whose like status should be toggled
+    func setNewRating(for item: Clothing, rating: Int) {
+        guard (1...5).contains(rating), getRating(for: item) != rating else { return }
+
+        dataManager.setRating(rating, for: item.id)
+        ratingsById[item.id] = rating
+    }
+
+    /// Return the selectedItem global rating or its average with the item rating
+    func getCalculatedRating (_ item: Clothing) -> Double {
+        let itemRating = Double(getRating(for: item))
+        return itemRating == 0 ? item.globalRating : (item.globalRating * 0.9 + itemRating * 0.1)
     }
 }

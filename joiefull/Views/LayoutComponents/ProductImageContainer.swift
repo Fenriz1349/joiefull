@@ -49,7 +49,7 @@ struct ProductImageContainer: View {
                         Spacer()
                     }
 
-                    LikesButton(
+                    LikeButton(
                         likes: likes,
                         isLiked: isLiked,
                         action: onLikeTapped
@@ -63,7 +63,6 @@ struct ProductImageContainer: View {
         .aspectRatio(aspectRatio, contentMode: .fit)
     }
 }
-
 
 #Preview("Card – carré") {
     ProductImageContainer(

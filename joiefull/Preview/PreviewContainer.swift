@@ -14,10 +14,12 @@ enum PreviewContainer {
 
     /// In-memory SwiftData container for previews
     static let modelContainer: ModelContainer = {
-        try! ModelContainer(
-            for: ClothingUserData.self,
-            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
-        )
+        do {
+            return try ModelContainer(for: ClothingUserData.self,
+                                               configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        } catch {
+            fatalError("Failed to initialize SwiftData ModelContainer: \(error)")
+        }
     }()
 
     /// Data manager backed by the preview model context
