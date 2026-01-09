@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Horizontal row showing items for a single category
+/// Uses horizontal scrolling and adapts card width with `containerRelativeFrame`
 struct ClothingCategoryRow: View {
     let category: Category
     let items: [Clothing]
@@ -50,5 +52,10 @@ struct ClothingCategoryRow: View {
 }
 
 #Preview {
-//    ClothingCategoryRow()
+    ClothingCategoryRow(category: PreviewItems.item.category,
+                        items: PreviewItems.itemList,
+                        itemCount: PreviewItems.itemList.count,
+                        selectedItem: PreviewItems.item,
+                        onSelect: {_ in })
+    .environmentObject(PreviewContainer.containerViewModel)
 }

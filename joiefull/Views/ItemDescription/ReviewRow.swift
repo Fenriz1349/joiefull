@@ -7,7 +7,12 @@
 
 import SwiftUI
 
+/// Displays a row with user avatar and star rating buttons
+/// Used for the review/rating interface
 struct ReviewRow: View {
+    let rating: Int
+    let starPressed: (Int) -> Void
+
     var body: some View {
         HStack(spacing: 10) {
             Image(.avatar)
@@ -15,16 +20,17 @@ struct ReviewRow: View {
                 .frame(width: 44, height: 44)
                 .clipShape(Circle())
 
-            HStack {
-                ForEach(0..<5) { _ in
-                    StarButton()
+                HStack {
+                    ForEach(1..<6) { index in
+                        StarButton(isSelected: index <= rating,
+                                   action: { starPressed(index) })
+                    }
                 }
-            }
             Spacer()
         }
     }
 }
 
 #Preview {
-    ReviewRow()
+    ReviewRow(rating: 0, starPressed: {_ in })
 }

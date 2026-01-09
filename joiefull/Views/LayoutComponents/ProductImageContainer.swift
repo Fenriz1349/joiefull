@@ -7,9 +7,14 @@
 
 import SwiftUI
 
+/// Image container with overlays (like button + optional share button)
+/// Enforces a given aspect ratio based on available width using GeometryReader
 struct ProductImageContainer: View {
     let imageURL: String
     let likes: Int
+    let isLiked: Bool
+    let onLikeTapped: () -> Void
+
     var aspectRatio: CGFloat = 1
     var showsShareButton: Bool = false
 
@@ -43,8 +48,13 @@ struct ProductImageContainer: View {
                             .padding(16)
                         Spacer()
                     }
-                    LikesButton(likes: likes)
-                        .padding(16)
+
+                    LikeButton(
+                        likes: likes,
+                        isLiked: isLiked,
+                        action: onLikeTapped
+                    )
+                    .padding(16)
                 }
             }
             .frame(width: width, height: height)
@@ -54,19 +64,22 @@ struct ProductImageContainer: View {
     }
 }
 
-
 #Preview("Card – carré") {
     ProductImageContainer(
-        imageURL: Clothing.preview.picture.url,
-        likes: 24
+        imageURL: PreviewItems.item.picture.url,
+        likes: 24,
+        isLiked: true,
+        onLikeTapped: {}
     )
     .padding()
 }
 
 #Preview("Detail – iPhone portrait (rectangulaire)") {
     ProductImageContainer(
-        imageURL: Clothing.preview.picture.url,
+        imageURL: PreviewItems.item.picture.url,
         likes: 24,
+        isLiked: true,
+        onLikeTapped: {},
         aspectRatio: 3/4,
         showsShareButton: true
     )
@@ -75,23 +88,26 @@ struct ProductImageContainer: View {
 
 #Preview("Detail – iPhone paysage (carré)") {
     ProductImageContainer(
-        imageURL: Clothing.preview.picture.url,
+        imageURL: PreviewItems.item.picture.url,
         likes: 24,
+        isLiked: true,
+        onLikeTapped: {},
         aspectRatio: 1,
         showsShareButton: true
     )
-    .frame(width: 350) // largeur simulée iPhone paysage
+    .frame(width: 350) // simulated landscape Iphone width
     .padding()
 }
 
 #Preview("Detail – iPad split / paysage (rectangulaire)") {
     ProductImageContainer(
-        imageURL: Clothing.preview.picture.url,
+        imageURL: PreviewItems.item.picture.url,
         likes: 24,
+        isLiked: true,
+        onLikeTapped: {},
         aspectRatio: 3/4,
         showsShareButton: true
     )
-    .frame(width: 500) // largeur simulée colonne iPad
+    .frame(width: 500) // simulated portrait Ipad width
     .padding()
 }
-
