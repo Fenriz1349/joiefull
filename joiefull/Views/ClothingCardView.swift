@@ -25,7 +25,8 @@ struct ClothingCardView: View {
                 imageURL: item.picture.url,
                 likes: item.likes + (container.isLiked(item) ? 1 : 0),
                 isLiked: container.isLiked(item),
-                onLikeTapped: { container.toggleLike(for: item) }
+                onLikeTapped: { container.toggleLike(for: item) },
+                aspectRatio: 3 / 4
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 25)

@@ -20,9 +20,6 @@ struct ClothingDetailView: View {
             // Detect if in landscape mode on iPhone
             let isPhoneLandscape = hSizeClass == .compact && geo.size.width > geo.size.height
 
-            // Adjust image ratio based on orientation
-            let imageRatio: CGFloat = isPhoneLandscape ? 1 : 3/4
-
             // Use horizontal layout for landscape, vertical for portrait
             let layout = isPhoneLandscape
             ? AnyLayout(HStackLayout(alignment: .top, spacing: 20))
@@ -34,7 +31,6 @@ struct ClothingDetailView: View {
                         likes: item.likes + (container.isLiked(item) ? 1 : 0),
                         isLiked: container.isLiked(item),
                         onLikeTapped: { container.toggleLike(for: item) },
-                        aspectRatio: imageRatio,
                         showsShareButton: true
                     )
 
