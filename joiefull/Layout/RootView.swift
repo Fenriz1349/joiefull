@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
+/// Root view of the application that manages adaptive layout
+/// Displays a split view on large screens (iPad) or navigation stack on small screens (iPhone)
 struct RootView: View {
-    @StateObject private var containerVM = ClothingContainerViewModel()
+    @EnvironmentObject var containerVM: ClothingContainerViewModel
 
     var body: some View {
         NavigationStack {
@@ -47,4 +50,5 @@ struct RootView: View {
 
 #Preview {
     RootView()
+        .environmentObject(PreviewContainer.containerViewModel)
 }

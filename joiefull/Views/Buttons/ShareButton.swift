@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+/// Circular button for sharing content
+/// Uses the system share icon with a frosted glass background
 struct ShareButton: View {
+    /// Action to perform when tapped
     let action: () -> Void
 
     var body: some View {

@@ -7,27 +7,33 @@
 
 import SwiftUI
 
+/// Displays the scrollable content section of a clothing detail view
+/// Contains description, reviews, and user input areas
 struct ClothingDetailContentView: View {
+    @EnvironmentObject private var container: ClothingContainerViewModel
+
     let item: Clothing
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                DescriptionRow(isDetail: true, item: item)
+                DescriptionRow(isDetail: true, rating: container.getCalculatedRating(item), item: item)
 
-                Text("""
-                Pull vert forêt à motif torsadé élégant, tricot finement travaillé avec manches bouffantes et col montant;
-                doux et chaleureux.
-                """)
+                Text(item.descriptionText)
                 .font(.subheadline)
 
-                ReviewRow()
-                ReviewInputView()
+                ReviewRow(rating: container.getRating(for: item),
+                          starPressed: { index in
+                    container.setNewRating(for: item, rating: index)
+                })
+
+                ReviewInputView(text: container.commentTextBinding(for: item))
             }
         }
     }
 }
 
 #Preview {
-    ClothingDetailContentView(item: Clothing.preview)
+    ClothingDetailContentView(item: PreviewItems.item)
+        .environmentObject(PreviewContainer.containerViewModel)
 }

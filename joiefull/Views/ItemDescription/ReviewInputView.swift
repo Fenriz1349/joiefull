@@ -7,33 +7,53 @@
 
 import SwiftUI
 
+/// Text editor for users to write reviews about clothing items
+/// Shows placeholder text when empty
 struct ReviewInputView: View {
-    @State private var text: String = ""
+    @Binding var text: String
+
+    let maxCharacters: Int = 180
+
+    private var remaining: Int { maxCharacters - text.count }
 
     var body: some View {
-        ZStack(alignment: .topLeading) {
+        VStack(alignment: .leading, spacing: 8) {
 
-            if text.isEmpty {
-                Text("Partagez ici vos impressions sur cette pièce")
-                    .foregroundStyle(.gray)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
+            ZStack(alignment: .topLeading) {
+                if text.isEmpty {
+                    Text("Partagez ici vos impressions sur cette pièce")
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
+                }
+
+                TextEditor(text: $text)
+                    .padding(12)
+                    .scrollContentBackground(.hidden)
+                    .onChange(of: text) { _, newValue in
+                        if newValue.count > maxCharacters {
+                            text = String(newValue.prefix(maxCharacters))
+                        }
+                    }
             }
+            .frame(height: 120)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+            )
 
-            TextEditor(text: $text)
-                .padding(12)
-                .background(Color.clear)
-                .scrollContentBackground(.hidden)
+            HStack {
+                Spacer()
+                Text("\(remaining) caractères restants")
+                    .font(.caption)
+                    .foregroundStyle(remaining < 0 ? .red : .secondary)
+                    .monospacedDigit()
+            }
         }
-        .frame(height: 120)
-        .background(Color.white)
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.gray.opacity(0.4), lineWidth: 1)
-        )
     }
 }
 
 #Preview {
-    ReviewInputView()
+    ReviewInputView(text: .constant("ceci est un commentaire très très interessant"))
+
+    ReviewInputView(text: .constant(""))
 }
