@@ -24,6 +24,11 @@ final class ClothingContainerViewModel: ObservableObject {
     /// Array of Dictionnary of IDs representing clothing items with their comment
     @Published private(set) var commentsById: [Int: String?] = [:]
 
+    /// Current share payload to present the Share Sheet
+    @Published var sharePayload: SharePayload?
+    @Published var shareNoteDraft: String = ""
+    @Published var isShareComposerPresented = false
+
     private let dataManager: ClothingDataManager
 
     init(dataManager: ClothingDataManager) {
@@ -107,13 +112,38 @@ final class ClothingContainerViewModel: ObservableObject {
         commentsById[item.id] = comment
     }
     
-    /// <#Description#>
-    /// - Parameter item: <#item description#>
-    /// - Returns: <#description#>
+    /// Returns a binding to the comment associated with a clothing item
+    /// - Parameter item: The clothing item to retrieve and update the comment for
+    /// - Returns: A binding used to read and persist the comment text
     func commentTextBinding(for item: Clothing) -> Binding<String> {
         Binding<String>(
             get: { self.getComment(for: item) ?? "" },
             set: { self.setNewComment(for: item, comment: $0) }
         )
+    }
+
+    // MARK: - Share
+
+    /// Builds and stores a share payload for a clothing item.
+    /// - Parameters:
+    ///   - item: The clothing item to share.
+    ///   - shareNote: Optional user-provided note to include in the shared content.
+    /// - Note: If `shareNote` is empty, a default message is used.
+    /// - Result: Updates `sharePayload` with a ready-to-share item (text + image URL).
+    func makeSharePayload(for item: Clothing, shareNote: String) {
+        let url = URL(string: item.picture.url)
+
+        let note = shareNote.trimmingCharacters(in: .whitespacesAndNewlines)
+        let defaultNote = "Voici un article que j'ai vraiment adoré! 👇"
+
+        let message: String
+        if note.isEmpty {
+            message = "\(item.name)\n\n\(defaultNote)"
+        } else {
+            message = "\(item.name)\n\n\(note)"
+        }
+
+        let source = ShareItemSource(subject: item.name, message: message, url: url)
+        sharePayload = SharePayload(items: [source])
     }
 }

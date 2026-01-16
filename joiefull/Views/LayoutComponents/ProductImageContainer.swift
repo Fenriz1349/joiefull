@@ -14,9 +14,9 @@ struct ProductImageContainer: View {
     let likes: Int
     let isLiked: Bool
     let onLikeTapped: () -> Void
+    var onShareTapped: (() -> Void)? = nil
 
     var aspectRatio: CGFloat = 1
-    var showsShareButton: Bool = false
 
     var body: some View {
         GeometryReader { geo in
@@ -43,17 +43,13 @@ struct ProductImageContainer: View {
                 .clipped()
 
                 VStack(alignment: .trailing) {
-                    if showsShareButton {
-                        ShareButton(action: {})
+                    if (onShareTapped != nil) {
+                        ShareButton(action: { onShareTapped?() })
                             .padding(16)
                         Spacer()
                     }
 
-                    LikeButton(
-                        likes: likes,
-                        isLiked: isLiked,
-                        action: onLikeTapped
-                    )
+                    LikeButton(likes: likes, isLiked: isLiked, action: onLikeTapped)
                     .padding(16)
                 }
             }
@@ -64,24 +60,24 @@ struct ProductImageContainer: View {
     }
 }
 
-#Preview("Card – carré") {
-    ProductImageContainer(
-        imageURL: PreviewItems.item.picture.url,
-        likes: 24,
-        isLiked: true,
-        onLikeTapped: {}
-    )
-    .padding()
-}
-
-#Preview("Detail – iPhone portrait (rectangulaire)") {
+#Preview("Card – portrait (rectangulaire)") {
     ProductImageContainer(
         imageURL: PreviewItems.item.picture.url,
         likes: 24,
         isLiked: true,
         onLikeTapped: {},
-        aspectRatio: 3/4,
-        showsShareButton: true
+        aspectRatio: 3/4
+    )
+    .padding()
+}
+
+#Preview("Detail – iPhone") {
+    ProductImageContainer(
+        imageURL: PreviewItems.item.picture.url,
+        likes: 24,
+        isLiked: true,
+        onLikeTapped: {},
+        onShareTapped: {}
     )
     .padding()
 }
@@ -92,8 +88,7 @@ struct ProductImageContainer: View {
         likes: 24,
         isLiked: true,
         onLikeTapped: {},
-        aspectRatio: 1,
-        showsShareButton: true
+        onShareTapped: {}
     )
     .frame(width: 350) // simulated landscape Iphone width
     .padding()
@@ -105,8 +100,7 @@ struct ProductImageContainer: View {
         likes: 24,
         isLiked: true,
         onLikeTapped: {},
-        aspectRatio: 3/4,
-        showsShareButton: true
+        onShareTapped: {}
     )
     .frame(width: 500) // simulated portrait Ipad width
     .padding()
