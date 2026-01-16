@@ -31,7 +31,7 @@ struct ClothingDetailView: View {
                         likes: item.likes + (container.isLiked(item) ? 1 : 0),
                         isLiked: container.isLiked(item),
                         onLikeTapped: { container.toggleLike(for: item) },
-                        showsShareButton: true
+                        onShareTapped: { container.isShareComposerPresented = true }
                     )
 
                     VStack(alignment: .leading, spacing: 20) {
@@ -49,6 +49,22 @@ struct ClothingDetailView: View {
                 }
                 .padding()
             }
+        }
+        .sheet(isPresented: $container.isShareComposerPresented) {
+            ShareComposerView(
+                itemName: item.name,
+                text: $container.shareNoteDraft,
+                onShare: {
+                    container.makeSharePayload(for: item, shareNote: container.shareNoteDraft)
+                    container.isShareComposerPresented = false
+                },
+                onCancel: {
+                    container.isShareComposerPresented = false
+                }
+            )
+        }
+        .sheet(item: $container.sharePayload) { payload in
+            ShareSheet(items: payload.items)
         }
     }
 }
