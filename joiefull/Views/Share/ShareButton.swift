@@ -16,11 +16,14 @@ struct ShareButton: View {
     var body: some View {
         Button(action: action) {
             Image(systemName: "square.and.arrow.up")
-                    .foregroundStyle(.primary)
-                    .padding(10)
-                    .background(.ultraThinMaterial)
-                    .clipShape(Circle())
+                .foregroundStyle(.primary)
+                .padding(10)
+                .background(.ultraThinMaterial)
+                .clipShape(Circle())
         }
+        // ACCESSIBILITY
+        .accessibilityLabel(AccessibilityHandler.ShareButton.label)
+        .accessibilityHint(AccessibilityHandler.ShareButton.hint)
     }
 }
 

@@ -28,6 +28,8 @@
 		68243D012F1A2494001E041B /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68243D002F1A2494001E041B /* ShareSheet.swift */; };
 		68243D032F1A2E3E001E041B /* ShareItemSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68243D022F1A2E3E001E041B /* ShareItemSource.swift */; };
 		68243D052F1A2E8D001E041B /* ShareComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68243D042F1A2E8D001E041B /* ShareComposerView.swift */; };
+		68243D072F1A6444001E041B /* AccessibilityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68243D062F1A6444001E041B /* AccessibilityHandler.swift */; };
+		6826B7FF2F1E22A400E27EF7 /* ButtonsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6826B7FE2F1E22A400E27EF7 /* ButtonsOverlay.swift */; };
 		682A95012F110586003D63CB /* PreviewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A95002F110586003D63CB /* PreviewContainer.swift */; };
 		682A95032F11072E003D63CB /* PreviewItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A95022F11072E003D63CB /* PreviewItems.swift */; };
 		685F52F02EF00CA600D4BB6C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 685F52EF2EF00CA600D4BB6C /* .gitignore */; };
@@ -68,6 +70,8 @@
 		68243D002F1A2494001E041B /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		68243D022F1A2E3E001E041B /* ShareItemSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareItemSource.swift; sourceTree = "<group>"; };
 		68243D042F1A2E8D001E041B /* ShareComposerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareComposerView.swift; sourceTree = "<group>"; };
+		68243D062F1A6444001E041B /* AccessibilityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityHandler.swift; sourceTree = "<group>"; };
+		6826B7FE2F1E22A400E27EF7 /* ButtonsOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsOverlay.swift; sourceTree = "<group>"; };
 		682A95002F110586003D63CB /* PreviewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContainer.swift; sourceTree = "<group>"; };
 		682A95022F11072E003D63CB /* PreviewItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewItems.swift; sourceTree = "<group>"; };
 		685F52EF2EF00CA600D4BB6C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -153,6 +157,7 @@
 			children = (
 				6800E6E12EEC65BE00D07092 /* ClothingLoadingViewModel.swift */,
 				6889DE652EF54EEB0035BCE3 /* ClothingContainerViewModel.swift */,
+				68243D062F1A6444001E041B /* AccessibilityHandler.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -236,6 +241,7 @@
 				6889DE672EF558890035BCE3 /* ClothingCategoryRow.swift */,
 				6809CDA52EF40BB80061BDAA /* ProductImage.swift */,
 				6889DE702EF586B20035BCE3 /* ProductImageContainer.swift */,
+				6826B7FE2F1E22A400E27EF7 /* ButtonsOverlay.swift */,
 			);
 			path = LayoutComponents;
 			sourceTree = "<group>";
@@ -288,11 +294,12 @@
 				};
 			};
 			buildConfigurationList = 6800E6BA2EEC621B00D07092 /* Build configuration list for PBXProject "joiefull" */;
-			developmentRegion = en;
+			developmentRegion = fr;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 6800E6B62EEC621B00D07092;
 			minimizedProjectReferenceProxies = 1;
@@ -326,6 +333,7 @@
 				6800E6E02EEC65A800D07092 /* ClothingService.swift in Sources */,
 				6809CDAE2EF44DA90061BDAA /* StarButton.swift in Sources */,
 				68243D012F1A2494001E041B /* ShareSheet.swift in Sources */,
+				68243D072F1A6444001E041B /* AccessibilityHandler.swift in Sources */,
 				68243D032F1A2E3E001E041B /* ShareItemSource.swift in Sources */,
 				682A95032F11072E003D63CB /* PreviewItems.swift in Sources */,
 				68243D052F1A2E8D001E041B /* ShareComposerView.swift in Sources */,
@@ -351,6 +359,7 @@
 				6889DE712EF586B20035BCE3 /* ProductImageContainer.swift in Sources */,
 				6809CDA22EF409B80061BDAA /* RatingLabel.swift in Sources */,
 				6809CD8C2EF3E0290061BDAA /* ClothingCardView.swift in Sources */,
+				6826B7FF2F1E22A400E27EF7 /* ButtonsOverlay.swift in Sources */,
 				6800E6D92EEC654400D07092 /* JoiefullApp.swift in Sources */,
 				6889DE6B2EF55BF30035BCE3 /* View+Extension.swift in Sources */,
 				6889DE7C2EF5A95A0035BCE3 /* ClothingDataManager.swift in Sources */,

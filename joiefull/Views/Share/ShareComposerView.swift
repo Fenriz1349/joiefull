@@ -16,24 +16,32 @@ struct ShareComposerView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Message") {
-                    TextField("Ajoutez un commentaire...", text: $text, axis: .vertical)
-                        .lineLimit(3...6)
+                Section(AccessibilityHandler.ShareComposer.messageFieldLabel) {
+                    TextField(
+                        AccessibilityHandler.ShareComposer.messageFieldLabel,
+                        text: $text,
+                        axis: .vertical
+                    )
+                    .lineLimit(3...6)
+                    // ACCESSIBILITY
+                    .accessibilityLabel(AccessibilityHandler.ShareComposer.messageFieldLabel)
+                    .accessibilityHint(AccessibilityHandler.ShareComposer.messageFieldHint)
                 }
             }
-            .navigationTitle(itemName)
+            .navigationTitle(
+                AccessibilityHandler.ShareComposer.title(itemName: itemName)
+            )
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel", action: onCancel)
+                    Button(AccessibilityHandler.ShareComposer.cancelButton, action: onCancel)
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Share", action: onShare)
+                    Button(AccessibilityHandler.ShareComposer.shareButton, action: onShare)
                 }
             }
         }
     }
 }
-
 
 #Preview {
     ShareComposerView(itemName: PreviewItems.item.name, text: .constant(""), onShare: {}, onCancel: {})

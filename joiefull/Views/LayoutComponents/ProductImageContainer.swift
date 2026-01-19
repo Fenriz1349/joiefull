@@ -11,11 +11,6 @@ import SwiftUI
 /// Enforces a given aspect ratio based on available width using GeometryReader
 struct ProductImageContainer: View {
     let imageURL: String
-    let likes: Int
-    let isLiked: Bool
-    let onLikeTapped: () -> Void
-    var onShareTapped: (() -> Void)? = nil
-
     var aspectRatio: CGFloat = 1
 
     var body: some View {
@@ -23,8 +18,7 @@ struct ProductImageContainer: View {
             let width = geo.size.width
             let height = width / aspectRatio
 
-            ZStack(alignment: .bottomTrailing) {
-
+            VStack {
                 AsyncImage(url: URL(string: imageURL)) { phase in
                     switch phase {
                     case .success(let image):
@@ -41,17 +35,7 @@ struct ProductImageContainer: View {
                 }
                 .frame(width: width, height: height)
                 .clipped()
-
-                VStack(alignment: .trailing) {
-                    if (onShareTapped != nil) {
-                        ShareButton(action: { onShareTapped?() })
-                            .padding(16)
-                        Spacer()
-                    }
-
-                    LikeButton(likes: likes, isLiked: isLiked, action: onLikeTapped)
-                    .padding(16)
-                }
+                .accessibilityHidden(true)
             }
             .frame(width: width, height: height)
             .clipShape(RoundedRectangle(cornerRadius: 25))
@@ -63,9 +47,6 @@ struct ProductImageContainer: View {
 #Preview("Card – portrait (rectangulaire)") {
     ProductImageContainer(
         imageURL: PreviewItems.item.picture.url,
-        likes: 24,
-        isLiked: true,
-        onLikeTapped: {},
         aspectRatio: 3/4
     )
     .padding()
@@ -73,22 +54,14 @@ struct ProductImageContainer: View {
 
 #Preview("Detail – iPhone") {
     ProductImageContainer(
-        imageURL: PreviewItems.item.picture.url,
-        likes: 24,
-        isLiked: true,
-        onLikeTapped: {},
-        onShareTapped: {}
+        imageURL: PreviewItems.item.picture.url
     )
     .padding()
 }
 
 #Preview("Detail – iPhone paysage (carré)") {
     ProductImageContainer(
-        imageURL: PreviewItems.item.picture.url,
-        likes: 24,
-        isLiked: true,
-        onLikeTapped: {},
-        onShareTapped: {}
+        imageURL: PreviewItems.item.picture.url
     )
     .frame(width: 350) // simulated landscape Iphone width
     .padding()
@@ -96,11 +69,7 @@ struct ProductImageContainer: View {
 
 #Preview("Detail – iPad split / paysage (rectangulaire)") {
     ProductImageContainer(
-        imageURL: PreviewItems.item.picture.url,
-        likes: 24,
-        isLiked: true,
-        onLikeTapped: {},
-        onShareTapped: {}
+        imageURL: PreviewItems.item.picture.url
     )
     .frame(width: 500) // simulated portrait Ipad width
     .padding()

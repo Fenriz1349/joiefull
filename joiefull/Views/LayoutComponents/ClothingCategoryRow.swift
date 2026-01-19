@@ -18,30 +18,31 @@ struct ClothingCategoryRow: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-
             Text(category.title)
                 .font(.title2)
                 .bold()
                 .padding(.horizontal)
+                // ACCESSIBILITY
+                .accessibilityLabel(AccessibilityHandler.ClothingCategoryRow.sectionLabel(category.title))
+                .accessibilityHint(AccessibilityHandler.ClothingCategoryRow.scrollHint)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 16) {
                     ForEach(items) { item in
-                        Button {
-                            onSelect(item)
-                        } label: {
-                            ClothingCardView(
-                                item: item,
-                                isSelected: selectedItem?.id == item.id
-                            )
-                            .containerRelativeFrame(
-                                .horizontal,
-                                count: itemCount,
-                                spacing: 16
-                            )
-                        }
-                        .buttonStyle(.plain)
+                        ClothingCardView(
+                            item: item,
+                            isSelected: selectedItem?.id == item.id,
+                            onOpen: { onSelect(item) }
+                        )
+                        .containerRelativeFrame(.horizontal, count: itemCount, spacing: 16)
+                        .contentShape(Rectangle())
+                        .onTapGesture { onSelect(item) }
+
+                        // VoiceOver: The card is “activable”
+                        .accessibilityAddTraits(.isButton)
+                        .accessibilityAction { onSelect(item) }
                     }
+
                 }
                 .scrollTargetLayout()
             }

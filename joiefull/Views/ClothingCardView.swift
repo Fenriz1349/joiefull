@@ -11,38 +11,50 @@ import SwiftUI
 /// Shows the product image, likes count, and essential information with optional selection state
 struct ClothingCardView: View {
     @EnvironmentObject private var container: ClothingContainerViewModel
-
-    /// The clothing item to display
     let item: Clothing
-
-    /// Whether this card is currently selected (used for highlighting)
     let isSelected: Bool
+    let onOpen: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
+            ZStack(alignment: .bottomTrailing) {
+                ProductImageContainer(imageURL: item.picture.url, aspectRatio: 3 / 4)
 
-            ProductImageContainer(
-                imageURL: item.picture.url,
-                likes: item.likes + (container.isLiked(item) ? 1 : 0),
-                isLiked: container.isLiked(item),
-                onLikeTapped: { container.toggleLike(for: item) },
-                aspectRatio: 3 / 4
-            )
+                ButtonsOverlay(
+                    likes: item.likes,
+                    isLiked: container.isLiked(item),
+                    onLikeTapped: { container.toggleLike(for: item) }
+                )
+                .accessibilitySortPriority(-1)
+            }
             .overlay(
                 RoundedRectangle(cornerRadius: 25)
-                    .stroke(
-                        isSelected ? Color.accentColor : .clear,
-                        lineWidth: 3
-                    )
+                    .stroke(isSelected ? Color.accentColor : .clear, lineWidth: 3)
             )
 
             DescriptionRow(rating: container.getCalculatedRating(item), item: item)
                 .foregroundStyle(isSelected ? Color.accentColor : .primary)
         }
+        // ACCESSIBILITY
+        .accessibilityElement(children: .contain)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityLabel(
+            AccessibilityHandler.ClothingCard.fullLabel(
+                itemName: item.name,
+                imageDescription: item.picture.description,
+                price: item.price,
+                originalPrice: item.originalPrice,
+                rating: container.getCalculatedRating(item),
+                category: item.category.title
+            )
+        )
+        .accessibilityHint(AccessibilityHandler.ClothingCard.hint)
+        .accessibilityAction { onOpen() }
+        .accessibilitySortPriority(1)
     }
 }
 
 #Preview {
-    ClothingCardView(item: PreviewItems.item, isSelected: true)
+    ClothingCardView(item: PreviewItems.item, isSelected: true, onOpen: {})
         .environmentObject(PreviewContainer.containerViewModel)
 }

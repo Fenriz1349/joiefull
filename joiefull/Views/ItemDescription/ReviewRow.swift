@@ -19,13 +19,23 @@ struct ReviewRow: View {
                 .resizable()
                 .frame(width: 44, height: 44)
                 .clipShape(Circle())
+                // ACCESSIBILITY - Hide Avatar because it's purely visual
+                .accessibilityHidden(true)
 
-                HStack {
-                    ForEach(1..<6) { index in
-                        StarButton(isSelected: index <= rating,
-                                   action: { starPressed(index) })
-                    }
+            HStack {
+                ForEach(1..<6) { index in
+                    StarButton(
+                        index: index,
+                        isSelected: index <= rating,
+                        action: { starPressed(index) }
+                    )
                 }
+            }
+            // ACCESSIBILITY - Group stars
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel(AccessibilityHandler.ReviewRow.label)
+            .accessibilityHint(AccessibilityHandler.ReviewRow.hint)
+
             Spacer()
         }
     }

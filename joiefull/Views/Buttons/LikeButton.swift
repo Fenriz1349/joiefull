@@ -18,17 +18,19 @@ struct LikeButton: View {
         Button(action: action) {
             HStack(spacing: 6) {
                 Image(systemName: isLiked ? "heart.fill" : "heart")
-                Text("\(likes)")
+                Text("\(likes + (isLiked ? 1 : 0))")
                     .font(.caption.weight(.semibold))
             }
             .foregroundStyle(isLiked ? .white : .black)
             .padding(.horizontal, 10)
             .padding(.vertical, 6)
-            .background(
-                Capsule().fill(isLiked ? .red : .white)
-            )
+            .background(Capsule().fill(isLiked ? .red : .white))
         }
         .buttonStyle(.plain)
+        // ACCESSIBILITY
+        .accessibilityLabel(AccessibilityHandler.LikeButton.label(isLiked: isLiked))
+        .accessibilityHint(AccessibilityHandler.LikeButton.hint(isLiked: isLiked))
+        .accessibilityValue(AccessibilityHandler.LikeButton.value(likes: likes))
     }
 }
 
