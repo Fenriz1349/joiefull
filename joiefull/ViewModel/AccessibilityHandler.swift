@@ -32,13 +32,15 @@ struct AccessibilityHandler {
     
     struct StarButton {
         static func label(index: Int) -> String {
-            "Étoile \(index)"
+            "Donner \(index) étoile\(index > 1 ? "s" : "")"
         }
-        
-        static func hint(isSelected: Bool) -> String {
-            isSelected
-            ? "Sélectionnée. Double-tap pour retirer cette note"
-            : "Double-tap pour noter avec cette étoile"
+
+        static func hint(index: Int) -> String {
+            "Double-tap pour attribuer \(index) étoile\(index > 1 ? "s" : "")"
+        }
+
+        static func value(isSelected: Bool) -> String {
+            isSelected ? "Sélectionnée" : ""
         }
     }
     
@@ -71,13 +73,6 @@ struct AccessibilityHandler {
         }
 
         static let hint = "Double-tap pour voir les détails de cet article"
-    }
-    
-    // MARK: - Review Row (Stars)
-    
-    struct ReviewRow {
-        static let label = "Votre note"
-        static let hint = "Sélectionnez entre 1 et 5 étoiles pour noter cet article"
     }
     
     // MARK: - Review Input (Comment)

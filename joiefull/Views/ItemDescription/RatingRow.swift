@@ -1,5 +1,5 @@
 //
-//  ReviewRow.swift
+//  RatingRow.swift
 //  joiefull
 //
 //  Created by Julien Cotte on 18/12/2025.
@@ -9,7 +9,7 @@ import SwiftUI
 
 /// Displays a row with user avatar and star rating buttons
 /// Used for the review/rating interface
-struct ReviewRow: View {
+struct RatingRow: View {
     let rating: Int
     let starPressed: (Int) -> Void
 
@@ -26,21 +26,19 @@ struct ReviewRow: View {
                 ForEach(1..<6) { index in
                     StarButton(
                         index: index,
+                        currentRating: rating,
                         isSelected: index <= rating,
                         action: { starPressed(index) }
                     )
                 }
             }
-            // ACCESSIBILITY - Group stars
+            // ACCESSIBILITY
             .accessibilityElement(children: .contain)
-            .accessibilityLabel(AccessibilityHandler.ReviewRow.label)
-            .accessibilityHint(AccessibilityHandler.ReviewRow.hint)
-
             Spacer()
         }
     }
 }
 
 #Preview {
-    ReviewRow(rating: 0, starPressed: {_ in })
+    RatingRow(rating: 0, starPressed: {_ in })
 }

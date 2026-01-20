@@ -41,7 +41,7 @@ struct ClothingDetailView: View {
                         Text(item.descriptionText)
                             .font(.subheadline)
 
-                        ReviewRow(rating: container.getRating(for: item),
+                        RatingRow(rating: container.getRating(for: item),
                                   starPressed: { index in
                             container.setNewRating(for: item, rating: index)
                         })
