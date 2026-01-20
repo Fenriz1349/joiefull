@@ -28,21 +28,16 @@ struct ClothingCategoryRow: View {
 
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 16) {
-                    ForEach(items) { item in
+                    ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
                         ClothingCardView(
                             item: item,
                             isSelected: selectedItem?.id == item.id,
-                            onOpen: { onSelect(item) }
+                            basePriority: Double((items.count - index) * 10), onOpen: { onSelect(item) }
                         )
                         .containerRelativeFrame(.horizontal, count: itemCount, spacing: 16)
                         .contentShape(Rectangle())
                         .onTapGesture { onSelect(item) }
-
-                        // VoiceOver: The card is “activable”
-                        .accessibilityAddTraits(.isButton)
-                        .accessibilityAction { onSelect(item) }
                     }
-
                 }
                 .scrollTargetLayout()
             }
