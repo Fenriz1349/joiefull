@@ -26,7 +26,7 @@ struct ClothingCardView: View {
                             .stroke(isSelected ? Color.accentColor : .clear, lineWidth: 3)
                     )
                 ButtonsOverlay(
-                    likes: item.likes,
+                    likes: container.getActualLikes(for: item),
                     isLiked: container.isLiked(item),
                     onLikeTapped: { container.toggleLike(for: item) }
                 )
@@ -36,27 +36,30 @@ struct ClothingCardView: View {
         }
         // ACCESSIBILITY - Read Card as one then the like button
         .accessibilityRepresentation {
-            VStack(alignment: .leading, spacing: 0) {
-                Text("")
-                    .accessibilityElement()
-                    .accessibilityAddTraits(.isButton)
-                    .accessibilityLabel(AccessibilityHandler.ClothingCard.fullLabel(
-                        itemName: item.name,
-                        imageDescription: item.picture.description,
-                        price: item.price,
-                        originalPrice: item.originalPrice,
-                        rating: container.getCalculatedRating(item),
-                        category: item.category.title)
-                    )
-                    .accessibilityHint(AccessibilityHandler.ClothingCard.hint)
-                    .accessibilityAction { onOpen() }
-                    .accessibilitySortPriority(basePriority + 1)
+            VStack(alignment: .trailing, spacing: 0) {
+                VStack(alignment: .leading, spacing: 8) {                ProductImageContainer(imageURL: item.picture.url, aspectRatio: 3 / 4)
+                    DescriptionRow(rating: container.getCalculatedRating(item), item: item)
+                }
+                .accessibilityElement()
+                .accessibilityAddTraits(.isButton)
+                .accessibilityLabel(AccessibilityHandler.ClothingCard.fullLabel(
+                    itemName: item.name,
+                    imageDescription: item.picture.description,
+                    price: item.price,
+                    originalPrice: item.originalPrice,
+                    rating: container.getCalculatedRating(item),
+                    category: item.category.title)
+                )
+                .accessibilityHint(AccessibilityHandler.ClothingCard.hint)
+                .accessibilityAction { onOpen() }
+                .accessibilitySortPriority(basePriority + 1)
 
                 ButtonsOverlay(
-                    likes: item.likes,
+                    likes: container.getActualLikes(for: item),
                     isLiked: container.isLiked(item),
                     onLikeTapped: { container.toggleLike(for: item) }
                 )
+                .padding(.bottom, 100)
                 .accessibilitySortPriority(basePriority)
             }
         }

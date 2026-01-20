@@ -17,12 +17,19 @@ final class ClothingLoadingViewModel: ObservableObject {
     @Published var clothes: [Clothing] = []
 
     private let service = ClothingService()
+    private let dataManager: ClothingDataManager
+
+    init(dataManager: ClothingDataManager) {
+        self.dataManager = dataManager
+    }
 
     /// Fetches clothing items from the remote API
     /// Updates the clothes array on success or logs an error on failure
     func load() async {
         do {
             clothes = try await service.fetchClothes()
+            let likesDict = Dictionary(uniqueKeysWithValues: clothes.map { ($0.id, $0.likes) })
+            dataManager.setAllActualLikes(likesDict)
         } catch {
             print("Erreur chargement données")
         }

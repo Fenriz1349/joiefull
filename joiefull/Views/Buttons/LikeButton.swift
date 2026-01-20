@@ -18,7 +18,7 @@ struct LikeButton: View {
         Button(action: action) {
             HStack(spacing: 6) {
                 Image(systemName: isLiked ? "heart.fill" : "heart")
-                Text("\(likes + (isLiked ? 1 : 0))")
+                Text("\(likes)")
                     .font(.caption.weight(.semibold))
             }
             .foregroundStyle(isLiked ? .white : .black)
