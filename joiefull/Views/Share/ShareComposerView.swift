@@ -15,30 +15,31 @@ struct ShareComposerView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
-                Section(AccessibilityHandler.ShareComposer.messageFieldLabel) {
-                    TextField(
-                        AccessibilityHandler.ShareComposer.messageFieldLabel,
-                        text: $text,
-                        axis: .vertical
-                    )
-                    .lineLimit(3...6)
-                    // ACCESSIBILITY
-                    .accessibilityLabel(AccessibilityHandler.ShareComposer.messageFieldLabel)
-                    .accessibilityHint(AccessibilityHandler.ShareComposer.messageFieldHint)
-                }
-            }
-            .navigationTitle(
-                AccessibilityHandler.ShareComposer.title(itemName: itemName)
-            )
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
+            VStack(alignment: .leading, spacing: 12) {
+                Text(AccessibilityHandler.ShareComposer.messageFieldLabel)
+                    .font(.headline)
+
+                TextField(
+                    AccessibilityHandler.ShareComposer.messageFieldLabel,
+                    text: $text,
+                    axis: .vertical
+                )
+                .lineLimit(3...6)
+                .textFieldStyle(.roundedBorder)
+                .accessibilityHint(AccessibilityHandler.ShareComposer.messageFieldHint)
+                HStack {
                     Button(AccessibilityHandler.ShareComposer.cancelButton, action: onCancel)
-                }
-                ToolbarItem(placement: .confirmationAction) {
+                    Spacer()
                     Button(AccessibilityHandler.ShareComposer.shareButton, action: onShare)
                 }
+                .padding()
+                .background(.bar)
+
+                Spacer()
             }
+            .padding()
+            .navigationTitle(AccessibilityHandler.ShareComposer.title(itemName: itemName))
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
