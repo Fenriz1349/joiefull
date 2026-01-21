@@ -46,16 +46,17 @@ struct AccessibilityHandler {
     
     // MARK: - Clothing Card
     
-    struct ClothingCard {
-
-        static func fullLabel(
+    struct Clothing {
+        static func itemSummary(
             itemName: String,
-            imageDescription: String,
+            imageDescription: String? = nil,
+            itemDescription: String? = nil,
             price: Double,
             originalPrice: Double,
             rating: Double,
-            category: String
+            category: String? = nil
         ) -> String {
+
             let ratingString = String(format: "%.1f", rating).replacingOccurrences(of: ".", with: ",")
             var priceText = "Prix : \(Int(price))€"
 
@@ -63,16 +64,28 @@ struct AccessibilityHandler {
                 priceText += ", anciennement \(Int(originalPrice))€"
             }
 
-            return """
-            \(itemName).
-            \(imageDescription).
-            \(priceText).
-            Note : \(ratingString) sur 5.
-            Catégorie : \(category).
-            """
+            var parts: [String] = []
+            parts.append("\(itemName).")
+            parts.append("\(priceText).")
+
+            if let imageDescription, !imageDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                parts.append("\(imageDescription).")
+            }
+
+            if let itemDescription, !itemDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                parts.append("\(itemDescription).")
+            }
+
+            parts.append("Note : \(ratingString) sur 5.")
+
+            if let category, !category.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                parts.append("Catégorie : \(category).")
+            }
+
+            return parts.joined(separator: "\n")
         }
 
-        static let hint = "Double-tap pour voir les détails de cet article"
+        static let hintCard = "Double-tap pour voir les détails de cet article"
     }
     
     // MARK: - Review Input (Comment)
@@ -166,58 +179,6 @@ struct AccessibilityHandler {
         
         static func categoryHint(_ categoryTitle: String) -> String {
             "Articles de la catégorie \(categoryTitle). Scroll horizontalement pour voir plus"
-        }
-    }
-    
-    // MARK: - Clothing Detail View
-    
-    struct ClothingDetailView {
-        static func title(itemName: String) -> String {
-            "Détails de \(itemName)"
-        }
-        
-        static let descriptionSectionLabel = "Description du produit"
-        static let pricingLabel = "Tarification"
-        static let ratingAndReviewLabel = "Avis et notes"
-        static let commentsSectionLabel = "Vos commentaires"
-        
-        static func backButtonLabel(itemName: String) -> String {
-            "Retour depuis \(itemName)"
-        }
-        
-        static let shareButtonLabel = "Partager cet article"
-        static let shareButtonHint = "Double-tap pour partager ce produit avec vos amis"
-        
-        static func priceWithDiscountLabel(
-            currentPrice: Int,
-            originalPrice: Int
-        ) -> String {
-            if originalPrice != currentPrice {
-                let discount = Int(Double(originalPrice - currentPrice) / Double(originalPrice) * 100)
-                return "\(currentPrice)€ au lieu de \(originalPrice)€, économie de \(discount)%"
-            }
-            return "\(currentPrice)€"
-        }
-        
-        static func fullDescription(
-            itemName: String,
-            price: Int,
-            originalPrice: Int,
-            category: String,
-            rating: Double
-        ) -> String {
-            var desc = "\(itemName), catégorie \(category)\n"
-            
-            if originalPrice != price {
-                let discount = Int(Double(originalPrice - price) / Double(originalPrice) * 100)
-                desc += "Prix : \(price)€ au lieu de \(originalPrice)€ (-\(discount)%)\n"
-            } else {
-                desc += "Prix : \(price)€\n"
-            }
-            
-            desc += "Note : \(String(format: "%.1f", rating)) sur 5"
-            
-            return desc
         }
     }
     

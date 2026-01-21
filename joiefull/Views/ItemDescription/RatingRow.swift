@@ -32,8 +32,6 @@ struct RatingRow: View {
                     )
                 }
             }
-            // ACCESSIBILITY
-            .accessibilityElement(children: .contain)
             Spacer()
         }
     }

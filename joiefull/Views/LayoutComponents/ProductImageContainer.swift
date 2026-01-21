@@ -10,67 +10,132 @@ import SwiftUI
 /// Image container with overlays (like button + optional share button)
 /// Enforces a given aspect ratio based on available width using GeometryReader
 struct ProductImageContainer: View {
-    let imageURL: String
+    @EnvironmentObject private var container: ClothingContainerViewModel
+    let item: Clothing
     var aspectRatio: CGFloat = 1
+    let likes: Int
+    let isLiked: Bool
+    // Used to order VO priority in the list
+    var basePriority: Double
+    let onLikeTapped: () -> Void
+    var onShareTapped: (() -> Void)? = nil
+    
+    var isDetailView: Bool { onShareTapped != nil }
 
     var body: some View {
         GeometryReader { geo in
             let width = geo.size.width
             let height = width / aspectRatio
-
-            VStack {
-                AsyncImage(url: URL(string: imageURL)) { phase in
-                    switch phase {
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-
-                    default:
-                        Image("AppIconPreview")
-                            .resizable()
-                            .scaledToFit()
-                            .padding(24)
-                    }
+            ZStack(alignment: .bottomTrailing) {
+                VStack {
+                    ProductImage(imageURL: item.picture.url)
+                    .frame(width: width, height: height)
+                    .clipped()
+                    .accessibilityHidden(true)
                 }
                 .frame(width: width, height: height)
-                .clipped()
-                .accessibilityHidden(true)
+                .clipShape(RoundedRectangle(cornerRadius: 25))
+                ButtonsOverlay(
+                    likes: likes,
+                    isLiked: isLiked,
+                    onLikeTapped: onLikeTapped,
+                    onShareTapped: onShareTapped
+                )
             }
-            .frame(width: width, height: height)
-            .clipShape(RoundedRectangle(cornerRadius: 25))
         }
         .aspectRatio(aspectRatio, contentMode: .fit)
+        .accessibilityRepresentation {
+            ZStack(alignment: .topTrailing) {
+                // Summary (single VO stop)
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(.clear)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .accessibilityElement()
+                    .accessibilityLabel(
+                    AccessibilityHandler.Clothing.itemSummary(
+                        itemName: item.name,
+                        imageDescription: isDetailView ? nil :item.picture.description,
+                        itemDescription: isDetailView ? item.descriptionText : nil,
+                        price: item.price,
+                        originalPrice: item.originalPrice,
+                        rating: container.getCalculatedRating(item)
+                    )
+                )
+                .accessibilitySortPriority(basePriority + 2)
+                
+                // Actions
+                if isDetailView {
+                    ShareButton(action: { container.isShareComposerPresented = true })
+                        .fixedSize()
+                        .frame(width: 34, height: 34)
+                        .contentShape(Circle())
+                        .padding(22)
+                        .accessibilitySortPriority(basePriority + 1)
+                }
+
+                LikeButton(
+                    likes: container.getActualLikes(for: item),
+                    isLiked: container.isLiked(item),
+                    action: { container.toggleLike(for: item) }
+                )
+                .accessibilitySortPriority(basePriority)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                .padding(16)
+            }
+        }
     }
 }
 
 #Preview("Card – portrait (rectangulaire)") {
     ProductImageContainer(
-        imageURL: PreviewItems.item.picture.url,
-        aspectRatio: 3/4
+        item: PreviewItems.item,
+        aspectRatio: 3/4,
+        likes: 15,
+        isLiked: true,
+        basePriority: 10,
+        onLikeTapped: {}
     )
+    .environmentObject(PreviewContainer.containerViewModel)
     .padding()
 }
 
 #Preview("Detail – iPhone") {
     ProductImageContainer(
-        imageURL: PreviewItems.item.picture.url
+        item: PreviewItems.item,
+        likes: 15,
+        isLiked: true,
+        basePriority: 10,
+        onLikeTapped: {},
+        onShareTapped: {}
     )
+    .environmentObject(PreviewContainer.containerViewModel)
     .padding()
 }
 
 #Preview("Detail – iPhone paysage (carré)") {
     ProductImageContainer(
-        imageURL: PreviewItems.item.picture.url
+        item: PreviewItems.item,
+        likes: 15,
+        isLiked: true,
+        basePriority: 10,
+        onLikeTapped: {},
+        onShareTapped: {}
     )
+    .environmentObject(PreviewContainer.containerViewModel)
     .frame(width: 350) // simulated landscape Iphone width
     .padding()
 }
 
 #Preview("Detail – iPad split / paysage (rectangulaire)") {
     ProductImageContainer(
-        imageURL: PreviewItems.item.picture.url
+        item: PreviewItems.item,
+        likes: 15,
+        isLiked: true,
+        basePriority: 10,
+        onLikeTapped: {},
+        onShareTapped: {}
     )
+    .environmentObject(PreviewContainer.containerViewModel)
     .frame(width: 500) // simulated portrait Ipad width
     .padding()
 }

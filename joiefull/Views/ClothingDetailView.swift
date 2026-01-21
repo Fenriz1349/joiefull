@@ -26,19 +26,21 @@ struct ClothingDetailView: View {
             : AnyLayout(VStackLayout(alignment: .leading, spacing: 20))
             ScrollView {
                 layout {
-                    ZStack(alignment: .topTrailing) {
-                        ProductImageContainer(
-                            imageURL: item.picture.url
-                        )
-                        ButtonsOverlay(likes: item.likes ,
-                                       isLiked: container.isLiked(item),
-                                       onLikeTapped: { container.toggleLike(for: item) },
-                                       onShareTapped: { container.isShareComposerPresented = true })
-                    }
+                    ProductImageContainer(
+                        item: item,
+                        likes: container.getActualLikes(for: item),
+                        isLiked: container.isLiked(item),
+                        basePriority: 1000,
+                        onLikeTapped: { container.toggleLike(for: item) },
+                        onShareTapped: { container.isShareComposerPresented = true }
+                    )
+
                     VStack(alignment: .leading, spacing: 20) {
                         DescriptionRow(isDetail: true, rating: container.getCalculatedRating(item), item: item)
+                            .accessibilityHidden(true)
 
                         Text(item.descriptionText)
+                            .accessibilityHidden(true)
                             .font(.subheadline)
 
                         RatingRow(rating: container.getRating(for: item),

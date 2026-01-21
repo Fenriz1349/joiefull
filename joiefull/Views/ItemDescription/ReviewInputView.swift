@@ -50,7 +50,7 @@ struct ReviewInputView: View {
                     .font(.caption)
                     .foregroundStyle(remaining < 0 ? .red : .secondary)
                     .monospacedDigit()
-                    // ACCESSIBILITY - Hide because it's dynamique
+                    // ACCESSIBILITY - Hide because it's dynamic
                     .accessibilityHidden(true)
             }
         }
