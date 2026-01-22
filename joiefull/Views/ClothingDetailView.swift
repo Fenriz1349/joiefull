@@ -40,15 +40,17 @@ struct ClothingDetailView: View {
                     .accessibilityFocused($focusOnSummary)
                     .onAppear {
                         if UIAccessibility.isVoiceOverRunning {
-                            UIAccessibility.post(
-                                notification: .announcement,
-                                argument: AccessibilityHandler.DetailView.detailOpen(itemName: item.name)
-                            )
-
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                UIAccessibility.post(
+                                    notification: .announcement,
+                                    argument: AccessibilityHandler.DetailView.detailOpen(itemName: item.name)
+                                )
                                 focusOnSummary = true
                             }
                         }
+                    }
+                    .onDisappear {
+                        focusOnSummary = false
                     }
 
                     VStack(alignment: .leading, spacing: 20) {
