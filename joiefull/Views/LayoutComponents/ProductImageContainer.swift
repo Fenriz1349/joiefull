@@ -15,11 +15,16 @@ struct ProductImageContainer: View {
     var aspectRatio: CGFloat = 1
     let likes: Int
     let isLiked: Bool
-    // Used to order VO priority in the list
+
+    // Accessibility
     var basePriority: Double
+    @AccessibilityFocusState private var focusOnSummary: Bool
+    
+    // Actions
     var onOpen: (() -> Void)? = nil
     let onLikeTapped: () -> Void
     var onShareTapped: (() -> Void)? = nil
+    var onClose: (() -> Void)? = nil
     
     var isDetailView: Bool { onShareTapped != nil }
 
@@ -32,9 +37,9 @@ struct ProductImageContainer: View {
             ZStack(alignment: .bottomTrailing) {
                 VStack {
                     ProductImage(imageURL: item.picture.url)
-                    .frame(width: width, height: height)
-                    .clipped()
-                    .accessibilityHidden(true)
+                        .frame(width: width, height: height)
+                        .clipped()
+                        .accessibilityHidden(true)
                 }
                 .frame(width: width, height: height)
                 .clipShape(RoundedRectangle(cornerRadius: 25))
@@ -42,13 +47,14 @@ struct ProductImageContainer: View {
                     likes: likes,
                     isLiked: isLiked,
                     onLikeTapped: onLikeTapped,
-                    onShareTapped: onShareTapped
+                    onShareTapped: onShareTapped,
+                    onClose: onClose
                 )
             }
         }
         .aspectRatio(aspectRatio, contentMode: .fit)
         .accessibilityRepresentation {
-            ZStack(alignment: .topTrailing) {
+            ZStack(alignment: .center){
                 // Summary (single VO stop)
                 RoundedRectangle(cornerRadius: 25)
                     .fill(.clear)
@@ -56,29 +62,40 @@ struct ProductImageContainer: View {
                     .contentShape(RoundedRectangle(cornerRadius: 25))
                     .accessibilityElement()
                     .accessibilityLabel(
-                    AccessibilityHandler.Clothing.itemSummary(
-                        itemName: item.name,
-                        imageDescription: isDetailView ? nil :item.picture.description,
-                        itemDescription: isDetailView ? item.descriptionText : nil,
-                        price: item.price,
-                        originalPrice: item.originalPrice,
-                        rating: container.getCalculatedRating(item)
+                        AccessibilityHandler.Clothing.itemSummary(
+                            itemName: item.name,
+                            imageDescription: isDetailView ? nil :item.picture.description,
+                            itemDescription: isDetailView ? item.descriptionText : nil,
+                            price: item.price,
+                            originalPrice: item.originalPrice,
+                            rating: container.getCalculatedRating(item)
+                        )
                     )
-                )
-                .accessibilityAddTraits(isCard ? .isButton : [])
-                .accessibilityAction { onOpen?() }
-                .accessibilitySortPriority(basePriority + 2)
-                
+                    .accessibilityAddTraits(isCard ? .isButton : [])
+                    .accessibilityAction { onOpen?() }
+                    .accessibilityFocused($focusOnSummary)
+                    .accessibilitySortPriority(basePriority + 3)
+            }
+            .overlay(alignment: .topLeading) {
                 // Actions
-                if isDetailView {
-                    ShareButton(action: { container.isShareComposerPresented = true })
-                        .fixedSize()
+                if isDetailView, let onClose {
+                    CloseButton(action: onClose)
                         .frame(width: 34, height: 34)
                         .contentShape(Circle())
                         .padding(22)
-                        .accessibilitySortPriority(basePriority + 1)
+                        .accessibilitySortPriority(basePriority + 2)
                 }
-
+            }
+            .overlay(alignment: .topTrailing) {
+                if isDetailView {
+                    ShareButton(action: { container.isShareComposerPresented = true })
+                        .frame(width: 34, height: 34)
+                        .contentShape(Circle())
+                        .padding(22)
+                        .accessibilitySortPriority(basePriority + 1.5)
+                }
+            }
+            .overlay(alignment: .bottomTrailing) {
                 LikeButton(
                     likes: container.getActualLikes(for: item),
                     isLiked: container.isLiked(item),
@@ -112,7 +129,8 @@ struct ProductImageContainer: View {
         isLiked: true,
         basePriority: 10,
         onLikeTapped: {},
-        onShareTapped: {}
+        onShareTapped: {},
+        onClose: {}
     )
     .environmentObject(PreviewContainer.containerViewModel)
     .padding()
@@ -125,7 +143,8 @@ struct ProductImageContainer: View {
         isLiked: true,
         basePriority: 10,
         onLikeTapped: {},
-        onShareTapped: {}
+        onShareTapped: {},
+        onClose: {}
     )
     .environmentObject(PreviewContainer.containerViewModel)
     .frame(width: 350) // simulated landscape Iphone width
@@ -139,7 +158,8 @@ struct ProductImageContainer: View {
         isLiked: true,
         basePriority: 10,
         onLikeTapped: {},
-        onShareTapped: {}
+        onShareTapped: {},
+        onClose: {}
     )
     .environmentObject(PreviewContainer.containerViewModel)
     .frame(width: 500) // simulated portrait Ipad width

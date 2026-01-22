@@ -12,15 +12,23 @@ struct ButtonsOverlay: View {
     let isLiked: Bool
     let onLikeTapped: () -> Void
     var onShareTapped: (() -> Void)? = nil
+    var onClose: (() -> Void)? = nil
 
     var body: some View {
         VStack(alignment: .trailing) {
-            if onShareTapped != nil {
-                ShareButton(action: { onShareTapped?() })
-                    .padding(16)
-                Spacer()
-            }
+            HStack {
+                if let onClose {
+                    CloseButton(action: onClose)
+                        .padding(16)
+                }
 
+                Spacer()
+                if let onShareTapped {
+                    ShareButton(action: { onShareTapped() })
+                        .padding(16)
+                }
+            }
+            Spacer()
             LikeButton(likes: likes, isLiked: isLiked, action: onLikeTapped)
                 .padding(16)
         }
@@ -31,6 +39,7 @@ struct ButtonsOverlay: View {
     ButtonsOverlay(likes: 24,
                    isLiked: true,
                    onLikeTapped: {},
-                   onShareTapped: {}
+                   onShareTapped: {},
+                   onClose: {}
     )
 }

@@ -12,8 +12,10 @@ import SwiftUI
 struct ClothingDetailView: View {
     @EnvironmentObject private var container: ClothingContainerViewModel
     let item: Clothing
+    let onClose: (() -> Void)?
 
     @Environment(\.horizontalSizeClass) private var hSizeClass
+    @AccessibilityFocusState private var focusOnSummary: Bool
 
     var body: some View {
         GeometryReader { geo in
@@ -32,8 +34,22 @@ struct ClothingDetailView: View {
                         isLiked: container.isLiked(item),
                         basePriority: 1000,
                         onLikeTapped: { container.toggleLike(for: item) },
-                        onShareTapped: { container.isShareComposerPresented = true }
+                        onShareTapped: { container.isShareComposerPresented = true },
+                        onClose: onClose
                     )
+                    .accessibilityFocused($focusOnSummary)
+                    .onAppear {
+                        if UIAccessibility.isVoiceOverRunning {
+                            UIAccessibility.post(
+                                notification: .announcement,
+                                argument: AccessibilityHandler.DetailView.detailOpen(itemName: item.name)
+                            )
+
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                focusOnSummary = true
+                            }
+                        }
+                    }
 
                     VStack(alignment: .leading, spacing: 20) {
                         DescriptionRow(isDetail: true, rating: container.getCalculatedRating(item), item: item)
@@ -73,6 +89,6 @@ struct ClothingDetailView: View {
 }
 
 #Preview {
-    ClothingDetailView(item: PreviewItems.item)
+    ClothingDetailView(item: PreviewItems.item, onClose: {})
         .environmentObject(PreviewContainer.containerViewModel)
 }

@@ -107,6 +107,14 @@ struct AccessibilityHandler {
         static let hint = "Double-tap pour partager cet article avec vos amis"
     }
     
+    
+    // MARK: - Close Button
+    
+    struct CloseButton {
+        static let label = "Fermer"
+        static let hint = "Double-tap pour fermer le detain de cet article"
+    }
+
     // MARK: - Rating Label
     
     struct RatingLabel {
@@ -158,13 +166,9 @@ struct AccessibilityHandler {
     // MARK: - Detail View
     
     struct DetailView {
-        static func backButton(itemName: String) -> String {
-            "Retour depuis les détails de \(itemName)"
-        }
+        static func backButton(itemName: String) -> String { "Retour depuis les détails de \(itemName)" }
         
-        static let descriptionLabel = "Description du produit"
-        static let reviewsLabel = "Avis et notes"
-        static let commentsLabel = "Commentaires utilisateurs"
+        static func detailOpen(itemName: String) -> String { "Détail ouvert pour \(itemName)" }
     }
     
     // MARK: - Clothing List View
