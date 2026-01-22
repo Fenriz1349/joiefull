@@ -24,6 +24,7 @@ struct ClothingCardView: View {
                                   likes: container.getActualLikes(for: item),
                                   isLiked: container.isLiked(item),
                                   basePriority: basePriority,
+                                  onOpen: onOpen,
                                   onLikeTapped: { container.toggleLike(for: item) })
             .overlay(
                 RoundedRectangle(cornerRadius: 25)

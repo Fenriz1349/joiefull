@@ -17,10 +17,13 @@ struct ProductImageContainer: View {
     let isLiked: Bool
     // Used to order VO priority in the list
     var basePriority: Double
+    var onOpen: (() -> Void)? = nil
     let onLikeTapped: () -> Void
     var onShareTapped: (() -> Void)? = nil
     
     var isDetailView: Bool { onShareTapped != nil }
+
+    var isCard: Bool { onOpen != nil }
 
     var body: some View {
         GeometryReader { geo in
@@ -50,6 +53,7 @@ struct ProductImageContainer: View {
                 RoundedRectangle(cornerRadius: 25)
                     .fill(.clear)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .contentShape(RoundedRectangle(cornerRadius: 25))
                     .accessibilityElement()
                     .accessibilityLabel(
                     AccessibilityHandler.Clothing.itemSummary(
@@ -61,6 +65,8 @@ struct ProductImageContainer: View {
                         rating: container.getCalculatedRating(item)
                     )
                 )
+                .accessibilityAddTraits(isCard ? .isButton : [])
+                .accessibilityAction { onOpen?() }
                 .accessibilitySortPriority(basePriority + 2)
                 
                 // Actions
