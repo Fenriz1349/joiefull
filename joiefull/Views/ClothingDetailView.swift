@@ -30,13 +30,14 @@ struct ClothingDetailView: View {
                 layout {
                     ProductImageContainer(
                         item: item,
-                        likes: container.getActualLikes(for: item),
+                        displayedLikes: container.getdisplayedLikes(for: item),
                         isLiked: container.isLiked(item),
+                        rating: container.getCalculatedRating(item),
                         basePriority: 1000,
                         onLikeTapped: { container.toggleLike(for: item) },
                         onShareTapped: { container.isShareComposerPresented = true },
-                        onClose: onClose
-                    )
+                        onClose: onClose,
+                        isSummaryFocused: $focusOnSummary)
                     .accessibilityFocused($focusOnSummary)
                     .onAppear {
                         if UIAccessibility.isVoiceOverRunning {

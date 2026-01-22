@@ -112,7 +112,7 @@ struct AccessibilityHandler {
     
     struct CloseButton {
         static let label = "Fermer"
-        static let hint = "Double-tap pour fermer le detain de cet article"
+        static let hint = "Double-tap pour fermer le detail de cet article"
     }
 
     // MARK: - Rating Label

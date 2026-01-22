@@ -14,7 +14,7 @@ final class ClothingUserData {
     @Attribute(.unique)
     let clothingId: Int
     var isLiked: Bool
-    var actualLikes: Int
+    var displayedLikes: Int
     /// User rating from 1 to 5 - 0 means "not rated yet"
     var userRating: Int
     var userComment: String?
@@ -22,13 +22,13 @@ final class ClothingUserData {
     init(
         clothingId: Int,
         isLiked: Bool = false,
-        actualLikes: Int = 0,
+        displayedLikes: Int = 0,
         userRating: Int = 0,
         userComment: String? = nil
     ) {
         self.clothingId = clothingId
         self.isLiked = isLiked
-        self.actualLikes = actualLikes
+        self.displayedLikes = displayedLikes
         self.userRating = userRating
         self.userComment = userComment
     }

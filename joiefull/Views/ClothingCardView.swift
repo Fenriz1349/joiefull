@@ -13,6 +13,7 @@ struct ClothingCardView: View {
     @EnvironmentObject private var container: ClothingContainerViewModel
     let item: Clothing
     let isSelected: Bool
+
     // Used to order VO priority in the list
     let basePriority: Double
     let onOpen: () -> Void
@@ -21,8 +22,9 @@ struct ClothingCardView: View {
         VStack(alignment: .leading, spacing: 8) {
             ProductImageContainer(item: item,
                                   aspectRatio: 3 / 4,
-                                  likes: container.getActualLikes(for: item),
+                                  displayedLikes: container.getdisplayedLikes(for: item),
                                   isLiked: container.isLiked(item),
+                                  rating: container.getCalculatedRating(item),
                                   basePriority: basePriority,
                                   onOpen: onOpen,
                                   onLikeTapped: { container.toggleLike(for: item) })

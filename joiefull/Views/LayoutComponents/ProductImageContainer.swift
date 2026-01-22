@@ -10,25 +10,28 @@ import SwiftUI
 /// Image container with overlays (like button + optional share button)
 /// Enforces a given aspect ratio based on available width using GeometryReader
 struct ProductImageContainer: View {
-    @EnvironmentObject private var container: ClothingContainerViewModel
     let item: Clothing
     var aspectRatio: CGFloat = 1
-    let likes: Int
+
+    // UI state (already computed upstream)
+    let displayedLikes: Int
     let isLiked: Bool
+    let rating: Double
 
     // Accessibility
     var basePriority: Double
-    @AccessibilityFocusState private var focusOnSummary: Bool
-    
+
     // Actions
     var onOpen: (() -> Void)? = nil
     let onLikeTapped: () -> Void
     var onShareTapped: (() -> Void)? = nil
     var onClose: (() -> Void)? = nil
-    
-    var isDetailView: Bool { onShareTapped != nil }
 
-    var isCard: Bool { onOpen != nil }
+    // Focus (optional, controlled by parent)
+    var isSummaryFocused: AccessibilityFocusState<Bool>.Binding? = nil
+
+    private var isDetailView: Bool { onShareTapped != nil }
+    private var isCard: Bool { onOpen != nil }
 
     var body: some View {
         GeometryReader { geo in
@@ -44,7 +47,7 @@ struct ProductImageContainer: View {
                 .frame(width: width, height: height)
                 .clipShape(RoundedRectangle(cornerRadius: 25))
                 ButtonsOverlay(
-                    likes: likes,
+                    likes: displayedLikes,
                     isLiked: isLiked,
                     onLikeTapped: onLikeTapped,
                     onShareTapped: onShareTapped,
@@ -54,9 +57,8 @@ struct ProductImageContainer: View {
         }
         .aspectRatio(aspectRatio, contentMode: .fit)
         .accessibilityRepresentation {
-            ZStack(alignment: .center){
-                // Summary (single VO stop)
-                RoundedRectangle(cornerRadius: 25)
+            ZStack(alignment: .center) {
+                let summary = RoundedRectangle(cornerRadius: 25)
                     .fill(.clear)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .contentShape(RoundedRectangle(cornerRadius: 25))
@@ -64,17 +66,23 @@ struct ProductImageContainer: View {
                     .accessibilityLabel(
                         AccessibilityHandler.Clothing.itemSummary(
                             itemName: item.name,
-                            imageDescription: isDetailView ? nil :item.picture.description,
+                            imageDescription: isDetailView ? nil : item.picture.description,
                             itemDescription: isDetailView ? item.descriptionText : nil,
                             price: item.price,
                             originalPrice: item.originalPrice,
-                            rating: container.getCalculatedRating(item)
+                            rating: rating
                         )
                     )
                     .accessibilityAddTraits(isCard ? .isButton : [])
+                    .accessibilityHint(isCard ? AccessibilityHandler.Clothing.hintCard : "")
                     .accessibilityAction { onOpen?() }
-                    .accessibilityFocused($focusOnSummary)
                     .accessibilitySortPriority(basePriority + 3)
+
+                if let isSummaryFocused {
+                    summary.accessibilityFocused(isSummaryFocused)
+                } else {
+                    summary
+                }
             }
             .overlay(alignment: .topLeading) {
                 // Actions
@@ -87,8 +95,8 @@ struct ProductImageContainer: View {
                 }
             }
             .overlay(alignment: .topTrailing) {
-                if isDetailView {
-                    ShareButton(action: { container.isShareComposerPresented = true })
+                if isDetailView, let onShareTapped  {
+                    ShareButton(action: onShareTapped)
                         .frame(width: 34, height: 34)
                         .contentShape(Circle())
                         .padding(22)
@@ -97,9 +105,9 @@ struct ProductImageContainer: View {
             }
             .overlay(alignment: .bottomTrailing) {
                 LikeButton(
-                    likes: container.getActualLikes(for: item),
-                    isLiked: container.isLiked(item),
-                    action: { container.toggleLike(for: item) }
+                    likes: displayedLikes,
+                    isLiked: isLiked,
+                    action: onLikeTapped
                 )
                 .accessibilitySortPriority(basePriority)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
@@ -113,8 +121,9 @@ struct ProductImageContainer: View {
     ProductImageContainer(
         item: PreviewItems.item,
         aspectRatio: 3/4,
-        likes: 15,
+        displayedLikes: 15,
         isLiked: true,
+        rating: 4.1,
         basePriority: 10,
         onLikeTapped: {}
     )
@@ -125,8 +134,9 @@ struct ProductImageContainer: View {
 #Preview("Detail – iPhone") {
     ProductImageContainer(
         item: PreviewItems.item,
-        likes: 15,
+        displayedLikes: 15,
         isLiked: true,
+        rating: 4.1,
         basePriority: 10,
         onLikeTapped: {},
         onShareTapped: {},
@@ -139,8 +149,9 @@ struct ProductImageContainer: View {
 #Preview("Detail – iPhone paysage (carré)") {
     ProductImageContainer(
         item: PreviewItems.item,
-        likes: 15,
+        displayedLikes: 15,
         isLiked: true,
+        rating: 4.1,
         basePriority: 10,
         onLikeTapped: {},
         onShareTapped: {},
@@ -154,8 +165,9 @@ struct ProductImageContainer: View {
 #Preview("Detail – iPad split / paysage (rectangulaire)") {
     ProductImageContainer(
         item: PreviewItems.item,
-        likes: 15,
+        displayedLikes: 15,
         isLiked: true,
+        rating: 4.1,
         basePriority: 10,
         onLikeTapped: {},
         onShareTapped: {},

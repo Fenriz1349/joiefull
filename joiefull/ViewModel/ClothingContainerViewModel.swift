@@ -22,7 +22,7 @@ final class ClothingContainerViewModel: ObservableObject {
     @Published private(set) var ratingsById: [Int: Int] = [:]
     
     /// Array of Dictionnary of IDs representing clothing items with their comment
-    @Published private(set) var commentsById: [Int: String?] = [:]
+    @Published private(set) var commentsById: [Int: String] = [:]
 
     /// Current share payload to present the Share Sheet
     @Published var sharePayload: SharePayload?
@@ -49,11 +49,11 @@ final class ClothingContainerViewModel: ObservableObject {
 
     // MARK: - Likes
 
-    /// Retrieves the actual number of likes for a clothing item
+    /// Retrieves the displayed number of likes for a clothing item
     /// - Parameter item: The clothing item to get likes for
     /// - Returns: The current like count from persistent storage
-    func getActualLikes(for item: Clothing) -> Int {
-         dataManager.getActualLikes(for: item.id)
+    func getdisplayedLikes(for item: Clothing) -> Int {
+         dataManager.getdisplayedLikes(for: item.id)
     }
 
     /// Checks if a clothing item is currently liked by the user
@@ -107,8 +107,8 @@ final class ClothingContainerViewModel: ObservableObject {
     /// Get the comment of an item from the persistent storage
     /// - Parameter item: The Item we want the rating
     /// - Returns:
-    func getComment(for item: Clothing) -> String? {
-        commentsById[item.id] ?? nil
+    func getComment(for item: Clothing) -> String {
+        commentsById[item.id] ?? ""
     }
 
     /// Set new coment for a clothing item
@@ -124,7 +124,7 @@ final class ClothingContainerViewModel: ObservableObject {
     /// - Returns: A binding used to read and persist the comment text
     func commentTextBinding(for item: Clothing) -> Binding<String> {
         Binding<String>(
-            get: { self.getComment(for: item) ?? "" },
+            get: { self.getComment(for: item) },
             set: { self.setNewComment(for: item, comment: $0) }
         )
     }

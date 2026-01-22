@@ -29,7 +29,7 @@ final class ClothingLoadingViewModel: ObservableObject {
         do {
             clothes = try await service.fetchClothes()
             let likesDict = Dictionary(uniqueKeysWithValues: clothes.map { ($0.id, $0.likes) })
-            dataManager.setAllActualLikes(likesDict)
+            dataManager.setAllDisplayedLikes(likesDict)
         } catch {
             print("Erreur chargement données")
         }
