@@ -10,7 +10,7 @@ import SwiftUI
 /// Main list view displaying clothing items organized by category
 /// Adapts the number of columns based on available screen width
 struct ClothingListView: View {
-    @StateObject private var viewModel = ClothingLoadingViewModel()
+    @EnvironmentObject private var loader: ClothingLoadingViewModel
 
     /// Currently selected clothing item (for highlighting in split view)
     let selectedItem: Clothing?
@@ -28,7 +28,7 @@ struct ClothingListView: View {
                     ForEach(Category.allCases, id: \.self) { category in
                         ClothingCategoryRow(
                             category: category,
-                            items: viewModel.clothes(for: category),
+                            items: loader.clothes(for: category),
                             itemCount: itemCount,
                             selectedItem: selectedItem,
                             onSelect: onSelect
@@ -39,7 +39,7 @@ struct ClothingListView: View {
             }
         }
         .task {
-            await viewModel.load()
+            await loader.load()
         }
     }
 }
@@ -47,4 +47,5 @@ struct ClothingListView: View {
 #Preview {
     ClothingListView(selectedItem: PreviewItems.item, onSelect: {_ in })
         .environmentObject(PreviewContainer.containerViewModel)
+        .environmentObject(PreviewContainer.loadingViewModel)
 }

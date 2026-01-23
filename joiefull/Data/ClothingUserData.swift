@@ -13,21 +13,22 @@ import SwiftData
 final class ClothingUserData {
     @Attribute(.unique)
     let clothingId: Int
-
     var isLiked: Bool
-    /// User rating from 1 to 5
-    /// 0 means "not rated yet"
+    var displayedLikes: Int
+    /// User rating from 1 to 5 - 0 means "not rated yet"
     var userRating: Int
     var userComment: String?
 
     init(
         clothingId: Int,
         isLiked: Bool = false,
+        displayedLikes: Int = 0,
         userRating: Int = 0,
         userComment: String? = nil
     ) {
         self.clothingId = clothingId
         self.isLiked = isLiked
+        self.displayedLikes = displayedLikes
         self.userRating = userRating
         self.userComment = userComment
     }
