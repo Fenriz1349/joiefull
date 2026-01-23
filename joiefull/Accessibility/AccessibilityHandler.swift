@@ -10,7 +10,14 @@ import Foundation
 /// Centralizes all accessibility labels, hints, and values
 /// Provides a single source of truth for VoiceOver text throughout the app
 struct AccessibilityHandler {
-    
+
+    // MARK: - Loading
+
+    enum Loading {
+        static var label: String { "Chargement en cours" }
+        static var hint: String { "Veuillez patienter" }
+    }
+
     // MARK: - Like Button
     
     struct LikeButton {
