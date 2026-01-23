@@ -6,10 +6,12 @@
 //
 
 import Combine
+import Toasty
 
 /// Loads clothing items from the API and exposes loading state for the UI.
 @MainActor
 final class ClothingLoadingViewModel: ObservableObject {
+    @Published var toastyManager: ToastyManager?
 
     // MARK: - State
 
@@ -27,6 +29,12 @@ final class ClothingLoadingViewModel: ObservableObject {
     private let service = ClothingService()
     private var hasLoaded: Bool = false
 
+    /// Configures the toast notification manager
+    /// - Parameter toastyManager: Manager for displaying toast notifications
+    func configure(toastyManager: ToastyManager) {
+        self.toastyManager = toastyManager
+    }
+
     // MARK: - Loading
 
     /// Loads data once. Subsequent calls are ignored unless you reset.
@@ -39,14 +47,12 @@ final class ClothingLoadingViewModel: ObservableObject {
     /// Reloads data from the API.
     func load() async {
         isLoading = true
-        errorMessage = nil
         defer { isLoading = false }
 
         do {
             clothes = try await service.fetchClothes()
         } catch {
-            // We'll handle proper errors + Toasty later.
-            errorMessage = "Erreur chargement données"
+            toastyManager?.showError(error)
         }
     }
 

@@ -7,12 +7,14 @@
 
 import SwiftUI
 import SwiftData
+import Toasty
 
 /// Root view of the application that manages adaptive layout
 /// Displays a split view on large screens (iPad) or navigation stack on small screens (iPhone)
 struct RootView: View {
-    @EnvironmentObject var containerVM: ClothingContainerViewModel
+    @EnvironmentObject var container: ClothingContainerViewModel
     @EnvironmentObject var loader: ClothingLoadingViewModel
+    @EnvironmentObject var toastyManager: ToastyManager
 
     var body: some View {
         NavigationStack {
@@ -25,12 +27,12 @@ struct RootView: View {
                 } else {
                     GeometryReader { geo in
                         let allowsSplit = LayoutRules.allowsSplit(geo.size)
-                        let hasSelection = containerVM.selectedItem != nil
+                        let hasSelection = container.selectedItem != nil
 
                         HStack(spacing: 0) {
                             ClothingListView(
-                                selectedItem: containerVM.selectedItem,
-                                onSelect: containerVM.toggleSelection
+                                selectedItem: container.selectedItem,
+                                onSelect: container.toggleSelection
                             )
                             .frame(
                                 width: allowsSplit && hasSelection
@@ -38,14 +40,14 @@ struct RootView: View {
                                 : geo.size.width
                             )
 
-                            if allowsSplit, let item = containerVM.selectedItem {
-                                ClothingDetailView(item: item, onClose: { containerVM.selectedItem = nil })
+                            if allowsSplit, let item = container.selectedItem {
+                                ClothingDetailView(item: item, onClose: { container.selectedItem = nil })
                                     .frame(width: geo.size.width / 3)
                             }
                         }
                         .if(!allowsSplit) { view in
                             view.navigationDestination(
-                                item: $containerVM.selectedItem
+                                item: $container.selectedItem
                             ) { item in
                                 ClothingDetailView(item: item, onClose: nil)
                             }
@@ -53,6 +55,8 @@ struct RootView: View {
                     }
                 }
             }
+        }.onAppear {
+            container.configure(toastyManager: toastyManager)
         }
     }
 }
