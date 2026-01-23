@@ -19,11 +19,8 @@ struct ClothingDetailView: View {
 
     var body: some View {
         GeometryReader { geo in
-            // Detect if in landscape mode on iPhone
-            let isPhoneLandscape = hSizeClass == .compact && geo.size.width > geo.size.height
-
             // Use horizontal layout for landscape, vertical for portrait
-            let layout = isPhoneLandscape
+            let layout = hSizeClass == .compact && geo.size.width > geo.size.height
             ? AnyLayout(HStackLayout(alignment: .top, spacing: 20))
             : AnyLayout(VStackLayout(alignment: .leading, spacing: 20))
             ScrollView {

@@ -15,7 +15,9 @@ struct LoadingScreen: View {
                 .foregroundColor(.launchBackground)
             VStack(spacing: 24) {
                 Image(.launchLogo)
-                    .padding(.vertical, 48)
+                    .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: UIScreen.main.bounds.width * 0.75)
                 ProgressView("Chargement…")
                     .accessibilityLabel(AccessibilityHandler.Loading.label)
                     .accessibilityHint(AccessibilityHandler.Loading.hint)

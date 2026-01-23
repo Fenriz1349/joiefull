@@ -26,7 +26,7 @@ struct RootView: View {
                         }
                 } else {
                     GeometryReader { geo in
-                        let allowsSplit = LayoutRules.allowsSplit(geo.size)
+                        let allowsSplit = DeviceType.isSplitViewEnabled
                         let hasSelection = container.selectedItem != nil
 
                         HStack(spacing: 0) {
