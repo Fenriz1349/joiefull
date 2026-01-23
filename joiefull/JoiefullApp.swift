@@ -24,7 +24,7 @@ struct JoiefullApp: App {
 
             self.modelContainer = container
             self.containerViewModel = ClothingContainerViewModel(dataManager: dataManager)
-            self.clothingLoadingViewModel = ClothingLoadingViewModel(dataManager: dataManager)
+            self.clothingLoadingViewModel = ClothingLoadingViewModel()
         } catch {
             fatalError("Failed to initialize SwiftData ModelContainer: \(error)")
         }

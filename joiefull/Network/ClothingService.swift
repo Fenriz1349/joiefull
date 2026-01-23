@@ -15,11 +15,18 @@ final class ClothingService {
         "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/api/clothes.json"
     )!
 
-    /// Fetches all clothing items from the remote API
+    /// Fetches all clothing items from the remote API detached from mainthread
     /// - Returns: An array of decoded Clothing objects
     /// - Throws: Network errors or JSON decoding errors
     func fetchClothes() async throws -> [Clothing] {
-        let (data, _) = try await URLSession.shared.data(from: url)
-        return try JSONDecoder().decode([Clothing].self, from: data)
+        let (data, response) = try await URLSession.shared.data(from: url)
+
+        if let http = response as? HTTPURLResponse, !(200...299).contains(http.statusCode) {
+            throw URLError(.badServerResponse)
+        }
+
+        return try await Task.detached(priority: .userInitiated) {
+            try JSONDecoder().decode([Clothing].self, from: data)
+        }.value
     }
 }

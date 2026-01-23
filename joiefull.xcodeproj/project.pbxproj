@@ -33,6 +33,7 @@
 		682A95012F110586003D63CB /* PreviewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A95002F110586003D63CB /* PreviewContainer.swift */; };
 		682A95032F11072E003D63CB /* PreviewItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A95022F11072E003D63CB /* PreviewItems.swift */; };
 		685ECD972F2363E900E12FA4 /* Toasty in Frameworks */ = {isa = PBXBuildFile; productRef = 685ECD962F2363E900E12FA4 /* Toasty */; };
+		685ECD9B2F237D8900E12FA4 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685ECD9A2F237D8900E12FA4 /* LoadingScreen.swift */; };
 		685F52F02EF00CA600D4BB6C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 685F52EF2EF00CA600D4BB6C /* .gitignore */; };
 		6889DE5D2EF540070035BCE3 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889DE5C2EF540070035BCE3 /* RootView.swift */; };
 		6889DE602EF5448D0035BCE3 /* LayoutRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889DE5F2EF5448D0035BCE3 /* LayoutRules.swift */; };
@@ -58,7 +59,6 @@
 		6809CD892EF3E0070061BDAA /* ClothingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingListView.swift; sourceTree = "<group>"; };
 		6809CD8B2EF3E0290061BDAA /* ClothingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingCardView.swift; sourceTree = "<group>"; };
 		6809CD8D2EF3E0460061BDAA /* ClothingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingDetailView.swift; sourceTree = "<group>"; };
-		6809CD952EF3EFA40061BDAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6809CD962EF3FFBF0061BDAA /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		6809CD9F2EF405CE0061BDAA /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
 		6809CDA12EF409B80061BDAA /* RatingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingLabel.swift; sourceTree = "<group>"; };
@@ -75,6 +75,7 @@
 		6826B7FE2F1E22A400E27EF7 /* ButtonsOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsOverlay.swift; sourceTree = "<group>"; };
 		682A95002F110586003D63CB /* PreviewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContainer.swift; sourceTree = "<group>"; };
 		682A95022F11072E003D63CB /* PreviewItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewItems.swift; sourceTree = "<group>"; };
+		685ECD9A2F237D8900E12FA4 /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		685F52EF2EF00CA600D4BB6C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		6889DE5C2EF540070035BCE3 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		6889DE5F2EF5448D0035BCE3 /* LayoutRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutRules.swift; sourceTree = "<group>"; };
@@ -87,6 +88,7 @@
 		6889DE772EF5A01D0035BCE3 /* ClothingDescriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingDescriptions.swift; sourceTree = "<group>"; };
 		6889DE7B2EF5A95A0035BCE3 /* ClothingDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingDataManager.swift; sourceTree = "<group>"; };
 		68C2D4BF2F221C42001EC830 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		68D8A9912F238FFE00D8C94B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 		6800E6D52EEC654400D07092 /* joiefull */ = {
 			isa = PBXGroup;
 			children = (
+				68D8A9912F238FFE00D8C94B /* Info.plist */,
 				685ECD982F23669E00E12FA4 /* Accessibility */,
 				682A94FF2F110566003D63CB /* Preview */,
 				6800E6D12EEC654400D07092 /* Models */,
@@ -142,7 +145,6 @@
 				6889DE692EF55BE60035BCE3 /* Utils */,
 				6800E6D22EEC654400D07092 /* Assets.xcassets */,
 				6800E6D42EEC654400D07092 /* JoiefullApp.swift */,
-				6809CD952EF3EFA40061BDAA /* Info.plist */,
 			);
 			path = joiefull;
 			sourceTree = "<group>";
@@ -174,6 +176,7 @@
 				6809CD8B2EF3E0290061BDAA /* ClothingCardView.swift */,
 				6809CD8D2EF3E0460061BDAA /* ClothingDetailView.swift */,
 				6889DE5C2EF540070035BCE3 /* RootView.swift */,
+				685ECD9A2F237D8900E12FA4 /* LoadingScreen.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				682A95032F11072E003D63CB /* PreviewItems.swift in Sources */,
 				68243D052F1A2E8D001E041B /* ShareComposerView.swift in Sources */,
 				6889DE732EF58FEB0035BCE3 /* ClothingUserData.swift in Sources */,
+				685ECD9B2F237D8900E12FA4 /* LoadingScreen.swift in Sources */,
 				6809CD972EF3FFBF0061BDAA /* LikeButton.swift in Sources */,
 				6889DE5D2EF540070035BCE3 /* RootView.swift in Sources */,
 				6809CDAA2EF435BA0061BDAA /* DescriptionRow.swift in Sources */,
@@ -438,6 +442,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -496,6 +502,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;

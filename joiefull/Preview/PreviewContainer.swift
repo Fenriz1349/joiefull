@@ -33,7 +33,5 @@ enum PreviewContainer {
     )
 
     /// Loader ViewModel used across previews
-    static let loadingViewModel = ClothingLoadingViewModel(
-        dataManager: dataManager
-    )
+    static let loadingViewModel = ClothingLoadingViewModel()
 }

@@ -7,20 +7,19 @@
 
 import SwiftUI
 
-/// Main list view displaying clothing items organized by category
-/// Adapts the number of columns based on available screen width
+/// Main list view displaying clothing items organized by category.
+/// Adapts the number of columns based on available screen width.
 struct ClothingListView: View {
     @EnvironmentObject private var loader: ClothingLoadingViewModel
 
-    /// Currently selected clothing item (for highlighting in split view)
+    /// Currently selected clothing item (for highlighting in split view).
     let selectedItem: Clothing?
 
-    /// Callback when a clothing item is selected
+    /// Callback when a clothing item is selected.
     let onSelect: (Clothing) -> Void
 
     var body: some View {
         GeometryReader { geo in
-            // Calculate optimal number of items per row based on width
             let itemCount = LayoutRules.itemCount(for: geo.size.width)
 
             ScrollView {
@@ -38,14 +37,10 @@ struct ClothingListView: View {
                 .padding(.vertical)
             }
         }
-        .task {
-            await loader.load()
-        }
     }
 }
 
 #Preview {
-    ClothingListView(selectedItem: PreviewItems.item, onSelect: {_ in })
-        .environmentObject(PreviewContainer.containerViewModel)
+    ClothingListView(selectedItem: PreviewItems.item, onSelect: { _ in })
         .environmentObject(PreviewContainer.loadingViewModel)
 }

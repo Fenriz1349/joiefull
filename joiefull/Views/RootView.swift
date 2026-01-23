@@ -12,35 +12,44 @@ import SwiftData
 /// Displays a split view on large screens (iPad) or navigation stack on small screens (iPhone)
 struct RootView: View {
     @EnvironmentObject var containerVM: ClothingContainerViewModel
+    @EnvironmentObject var loader: ClothingLoadingViewModel
 
     var body: some View {
         NavigationStack {
-            GeometryReader { geo in
-                let allowsSplit = LayoutRules.allowsSplit(geo.size)
-                let hasSelection = containerVM.selectedItem != nil
+            Group {
+                if loader.clothes.isEmpty {
+                    LoadingScreen()
+                        .task {
+                            await loader.loadIfNeeded()
+                        }
+                } else {
+                    GeometryReader { geo in
+                        let allowsSplit = LayoutRules.allowsSplit(geo.size)
+                        let hasSelection = containerVM.selectedItem != nil
 
-                HStack(spacing: 0) {
+                        HStack(spacing: 0) {
+                            ClothingListView(
+                                selectedItem: containerVM.selectedItem,
+                                onSelect: containerVM.toggleSelection
+                            )
+                            .frame(
+                                width: allowsSplit && hasSelection
+                                ? geo.size.width * 2 / 3
+                                : geo.size.width
+                            )
 
-                    ClothingListView(
-                        selectedItem: containerVM.selectedItem,
-                        onSelect: containerVM.toggleSelection
-                    )
-                    .frame(
-                        width: allowsSplit && hasSelection
-                            ? geo.size.width * 2 / 3
-                            : geo.size.width
-                    )
-
-                    if allowsSplit, let item = containerVM.selectedItem {
-                        ClothingDetailView(item: item, onClose: { containerVM.selectedItem = nil })
-                            .frame(width: geo.size.width / 3)
-                    }
-                }
-                .if(!allowsSplit) { view in
-                    view.navigationDestination(
-                        item: $containerVM.selectedItem
-                    ) { item in
-                        ClothingDetailView(item: item, onClose: nil)
+                            if allowsSplit, let item = containerVM.selectedItem {
+                                ClothingDetailView(item: item, onClose: { containerVM.selectedItem = nil })
+                                    .frame(width: geo.size.width / 3)
+                            }
+                        }
+                        .if(!allowsSplit) { view in
+                            view.navigationDestination(
+                                item: $containerVM.selectedItem
+                            ) { item in
+                                ClothingDetailView(item: item, onClose: nil)
+                            }
+                        }
                     }
                 }
             }
@@ -51,4 +60,5 @@ struct RootView: View {
 #Preview {
     RootView()
         .environmentObject(PreviewContainer.containerViewModel)
+        .environmentObject(PreviewContainer.loadingViewModel)
 }

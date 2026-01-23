@@ -53,7 +53,7 @@ final class ClothingContainerViewModel: ObservableObject {
     /// - Parameter item: The clothing item to get likes for
     /// - Returns: The current like count from persistent storage
     func getdisplayedLikes(for item: Clothing) -> Int {
-         dataManager.getdisplayedLikes(for: item.id)
+        isLiked(item) ? item.likes + 1 : item.likes
     }
 
     /// Checks if a clothing item is currently liked by the user
