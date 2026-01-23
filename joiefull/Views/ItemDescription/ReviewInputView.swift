@@ -11,19 +11,19 @@ import SwiftUI
 /// Shows placeholder text when empty
 struct ReviewInputView: View {
     @Binding var text: String
-
     let maxCharacters: Int = 180
 
     private var remaining: Int { maxCharacters - text.count }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-
             ZStack(alignment: .topLeading) {
                 if text.isEmpty {
-                    Text("Partagez ici vos impressions sur cette pièce")
+                    Text(AccessibilityHandler.ReviewInput.placeholder)
                         .padding(.horizontal, 16)
                         .padding(.vertical, 12)
+                        // ACCESSIBILITY - Hide placeholder
+                        .accessibilityHidden(true)
                 }
 
                 TextEditor(text: $text)
@@ -34,6 +34,9 @@ struct ReviewInputView: View {
                             text = String(newValue.prefix(maxCharacters))
                         }
                     }
+                    // ACCESSIBILITY
+                    .accessibilityLabel(AccessibilityHandler.ReviewInput.label)
+                    .accessibilityHint(AccessibilityHandler.ReviewInput.hint(maxCharacters: maxCharacters))
             }
             .frame(height: 120)
             .overlay(
@@ -47,6 +50,8 @@ struct ReviewInputView: View {
                     .font(.caption)
                     .foregroundStyle(remaining < 0 ? .red : .secondary)
                     .monospacedDigit()
+                    // ACCESSIBILITY - Hide because it's dynamic
+                    .accessibilityHidden(true)
             }
         }
     }

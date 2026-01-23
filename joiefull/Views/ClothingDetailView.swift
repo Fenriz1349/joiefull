@@ -12,8 +12,10 @@ import SwiftUI
 struct ClothingDetailView: View {
     @EnvironmentObject private var container: ClothingContainerViewModel
     let item: Clothing
+    let onClose: (() -> Void)?
 
     @Environment(\.horizontalSizeClass) private var hSizeClass
+    @AccessibilityFocusState private var focusOnSummary: Bool
 
     var body: some View {
         GeometryReader { geo in
@@ -27,20 +29,40 @@ struct ClothingDetailView: View {
             ScrollView {
                 layout {
                     ProductImageContainer(
-                        imageURL: item.picture.url,
-                        likes: item.likes + (container.isLiked(item) ? 1 : 0),
+                        item: item,
+                        displayedLikes: container.getdisplayedLikes(for: item),
                         isLiked: container.isLiked(item),
+                        rating: container.getCalculatedRating(item),
+                        basePriority: 1000,
                         onLikeTapped: { container.toggleLike(for: item) },
-                        onShareTapped: { container.isShareComposerPresented = true }
-                    )
+                        onShareTapped: { container.isShareComposerPresented = true },
+                        onClose: onClose,
+                        isSummaryFocused: $focusOnSummary)
+                    .accessibilityFocused($focusOnSummary)
+                    .onAppear {
+                        if UIAccessibility.isVoiceOverRunning {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                UIAccessibility.post(
+                                    notification: .announcement,
+                                    argument: AccessibilityHandler.DetailView.detailOpen(itemName: item.name)
+                                )
+                                focusOnSummary = true
+                            }
+                        }
+                    }
+                    .onDisappear {
+                        focusOnSummary = false
+                    }
 
                     VStack(alignment: .leading, spacing: 20) {
                         DescriptionRow(isDetail: true, rating: container.getCalculatedRating(item), item: item)
+                            .accessibilityHidden(true)
 
                         Text(item.descriptionText)
+                            .accessibilityHidden(true)
                             .font(.subheadline)
 
-                        ReviewRow(rating: container.getRating(for: item),
+                        RatingRow(rating: container.getRating(for: item),
                                   starPressed: { index in
                             container.setNewRating(for: item, rating: index)
                         })
@@ -70,6 +92,6 @@ struct ClothingDetailView: View {
 }
 
 #Preview {
-    ClothingDetailView(item: PreviewItems.item)
+    ClothingDetailView(item: PreviewItems.item, onClose: {})
         .environmentObject(PreviewContainer.containerViewModel)
 }

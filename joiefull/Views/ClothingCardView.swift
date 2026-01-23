@@ -11,38 +11,35 @@ import SwiftUI
 /// Shows the product image, likes count, and essential information with optional selection state
 struct ClothingCardView: View {
     @EnvironmentObject private var container: ClothingContainerViewModel
-
-    /// The clothing item to display
     let item: Clothing
-
-    /// Whether this card is currently selected (used for highlighting)
     let isSelected: Bool
+
+    // Used to order VO priority in the list
+    let basePriority: Double
+    let onOpen: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-
-            ProductImageContainer(
-                imageURL: item.picture.url,
-                likes: item.likes + (container.isLiked(item) ? 1 : 0),
-                isLiked: container.isLiked(item),
-                onLikeTapped: { container.toggleLike(for: item) },
-                aspectRatio: 3 / 4
-            )
+            ProductImageContainer(item: item,
+                                  aspectRatio: 3 / 4,
+                                  displayedLikes: container.getdisplayedLikes(for: item),
+                                  isLiked: container.isLiked(item),
+                                  rating: container.getCalculatedRating(item),
+                                  basePriority: basePriority,
+                                  onOpen: onOpen,
+                                  onLikeTapped: { container.toggleLike(for: item) })
             .overlay(
                 RoundedRectangle(cornerRadius: 25)
-                    .stroke(
-                        isSelected ? Color.accentColor : .clear,
-                        lineWidth: 3
-                    )
+                    .stroke(isSelected ? Color.accentColor : .clear, lineWidth: 3)
             )
-
             DescriptionRow(rating: container.getCalculatedRating(item), item: item)
                 .foregroundStyle(isSelected ? Color.accentColor : .primary)
+                .accessibilityHidden(true)
         }
     }
 }
 
 #Preview {
-    ClothingCardView(item: PreviewItems.item, isSelected: true)
+    ClothingCardView(item: PreviewItems.item, isSelected: true, basePriority: 10, onOpen: {})
         .environmentObject(PreviewContainer.containerViewModel)
 }

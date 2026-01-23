@@ -24,11 +24,13 @@ struct LikeButton: View {
             .foregroundStyle(isLiked ? .white : .black)
             .padding(.horizontal, 10)
             .padding(.vertical, 6)
-            .background(
-                Capsule().fill(isLiked ? .red : .white)
-            )
+            .background(Capsule().fill(isLiked ? .red : .white))
         }
         .buttonStyle(.plain)
+        // ACCESSIBILITY
+        .accessibilityLabel(AccessibilityHandler.LikeButton.label(isLiked: isLiked))
+        .accessibilityHint(AccessibilityHandler.LikeButton.hint(isLiked: isLiked))
+        .accessibilityValue(AccessibilityHandler.LikeButton.value(likes: likes))
     }
 }
 

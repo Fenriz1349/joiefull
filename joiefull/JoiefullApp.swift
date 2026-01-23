@@ -15,6 +15,7 @@ struct JoiefullApp: App {
 
     let modelContainer: ModelContainer
     let containerViewModel: ClothingContainerViewModel
+    let clothingLoadingViewModel : ClothingLoadingViewModel
 
     init() {
         do {
@@ -23,6 +24,7 @@ struct JoiefullApp: App {
 
             self.modelContainer = container
             self.containerViewModel = ClothingContainerViewModel(dataManager: dataManager)
+            self.clothingLoadingViewModel = ClothingLoadingViewModel(dataManager: dataManager)
         } catch {
             fatalError("Failed to initialize SwiftData ModelContainer: \(error)")
         }
@@ -32,6 +34,7 @@ struct JoiefullApp: App {
         WindowGroup {
             RootView()
                 .environmentObject(containerViewModel)
+                .environmentObject(clothingLoadingViewModel)
         }
         .modelContainer(modelContainer)
     }

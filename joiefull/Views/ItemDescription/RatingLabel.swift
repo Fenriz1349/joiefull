@@ -17,9 +17,16 @@ struct RatingLabel: View {
         HStack(spacing: 6) {
             Image(systemName: "star.fill")
                 .foregroundStyle(.orange)
+                // ACCESSIBILITY - Hide Icon
+                .accessibilityHidden(true)
+            
             Text(String(format: "%0.1f", rating))
                 .fontWeight(.semibold)
         }
+        // ACCESSIBILITY - Group label + value
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(AccessibilityHandler.RatingLabel.label)
+        .accessibilityValue(AccessibilityHandler.RatingLabel.value(rating))
     }
 }
 

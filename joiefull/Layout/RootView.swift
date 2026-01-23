@@ -32,7 +32,7 @@ struct RootView: View {
                     )
 
                     if allowsSplit, let item = containerVM.selectedItem {
-                        ClothingDetailView(item: item)
+                        ClothingDetailView(item: item, onClose: { containerVM.selectedItem = nil })
                             .frame(width: geo.size.width / 3)
                     }
                 }
@@ -40,7 +40,7 @@ struct RootView: View {
                     view.navigationDestination(
                         item: $containerVM.selectedItem
                     ) { item in
-                        ClothingDetailView(item: item)
+                        ClothingDetailView(item: item, onClose: nil)
                     }
                 }
             }

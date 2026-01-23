@@ -15,12 +15,10 @@ struct DescriptionRow: View {
     let item: Clothing
 
     private var titleFont: Font { isDetail ? .title3 : .subheadline }
-
     private var priceFont: Font { isDetail ? .headline : .subheadline }
 
     var body: some View {
         VStack(alignment: .leading, spacing: isDetail ? 12 : 8) {
-
             HStack {
                 Text(item.name)
                     .font(titleFont)
@@ -29,7 +27,18 @@ struct DescriptionRow: View {
 
                 Spacer()
 
-                RatingLabel(rating: rating)
+                HStack(spacing: 6) {
+                    Image(systemName: "star.fill")
+                        .foregroundStyle(.orange)
+                        // ACCESSIBILITY - Hide icon
+                        .accessibilityHidden(true)
+                    Text(String(format: "%0.1f", rating))
+                        .fontWeight(.semibold)
+                }
+                // ACCESSIBILITY - Group the rating
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(AccessibilityHandler.RatingLabel.label)
+                .accessibilityValue(AccessibilityHandler.RatingLabel.value(rating))
             }
 
             HStack {
@@ -43,6 +52,8 @@ struct DescriptionRow: View {
                         .font(priceFont)
                         .foregroundStyle(.secondary)
                         .strikethrough()
+                        // ACCESSIBILITY - Indicate it's the original price
+                        .accessibilityLabel(AccessibilityHandler.DescriptionRow.originalPriceLabel)
                 }
             }
         }
