@@ -8,6 +8,7 @@
 /// Represents a clothing item with all its properties
 /// Conforms to Identifiable for use in SwiftUI lists and Decodable for API parsing
 struct Clothing: Identifiable, Decodable, Hashable {
+
     let id: Int
     let picture: Picture
     let name: String
@@ -23,6 +24,7 @@ struct Clothing: Identifiable, Decodable, Hashable {
 }
 
 extension Clothing {
+
     /// Returns the global rating for this clothing item (0.0 to 5.0 scale)
     /// Hardcoded ratings based on item ID for demo purposes
     var globalRating: Double {

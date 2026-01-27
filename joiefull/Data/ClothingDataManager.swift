@@ -24,7 +24,7 @@ final class ClothingDataManager {
     /// Fetches all clothing IDs that have been marked as liked by the user
     /// - Throws: ClothingDataManagerError
     /// - Returns: A set containing the IDs of all liked clothing items
-    func loadLikedIds() throws -> Set<Int>{
+    func loadLikedIds() throws -> Set<Int> {
         let descriptor = FetchDescriptor<ClothingUserData>()
         do {
             let results = try context.fetch(descriptor)
@@ -88,7 +88,7 @@ final class ClothingDataManager {
         )
 
         let data: ClothingUserData
-        
+
         do {
             if let existing = try context.fetch(descriptor).first {
                 data = existing

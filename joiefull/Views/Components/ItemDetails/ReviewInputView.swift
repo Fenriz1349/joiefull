@@ -10,6 +10,7 @@ import SwiftUI
 /// Text editor for users to write reviews about clothing items
 /// Shows placeholder text when empty
 struct ReviewInputView: View {
+
     @Binding var text: String
     let maxCharacters: Int = 180
 

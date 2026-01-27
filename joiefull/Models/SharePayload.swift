@@ -9,6 +9,7 @@ import Foundation
 
 /// Simple model describing what should be shared
 struct SharePayload: Identifiable {
+
     let id = UUID()
     let items: [Any]
 }

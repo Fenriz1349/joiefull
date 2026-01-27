@@ -7,6 +7,7 @@
 
 /// Represents the different categories of clothing items available in the app
 enum Category: String, Decodable, CaseIterable, Hashable {
+
     case tops = "TOPS"
     case bottoms = "BOTTOMS"
     case shoes = "SHOES"

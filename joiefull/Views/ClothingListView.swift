@@ -10,6 +10,7 @@ import SwiftUI
 /// Main list view displaying clothing items organized by category.
 /// Adapts the number of columns based on available screen width.
 struct ClothingListView: View {
+
     @EnvironmentObject private var loader: ClothingLoadingViewModel
 
     /// Currently selected clothing item (for highlighting in split view).

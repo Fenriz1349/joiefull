@@ -11,6 +11,7 @@ import Toasty
 /// Loads clothing items from the API and exposes loading state for the UI.
 @MainActor
 final class ClothingLoadingViewModel: ObservableObject {
+
     @Published var toastyManager: ToastyManager?
 
     // MARK: - State
@@ -21,8 +22,8 @@ final class ClothingLoadingViewModel: ObservableObject {
     /// True while loading is in progress.
     @Published private(set) var isLoading: Bool = false
 
-    /// Optional error message (we'll later display it via Toasty).
-    @Published private(set) var errorMessage: String? = nil
+    /// Optional error message..
+    @Published private(set) var errorMessage: String?
 
     // MARK: - Dependencies
 

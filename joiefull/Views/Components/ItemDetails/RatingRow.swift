@@ -10,6 +10,7 @@ import SwiftUI
 /// Displays a row with user avatar and star rating buttons
 /// Used for the review/rating interface
 struct RatingRow: View {
+
     let rating: Int
     let starPressed: (Int) -> Void
 
