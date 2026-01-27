@@ -8,6 +8,7 @@
 import Foundation
 
 enum ClothingDataManagerError: Error, Equatable, LocalizedError {
+
     case fetchFailed
     case saveFailed
     case loadFailed

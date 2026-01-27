@@ -11,6 +11,7 @@ import SwiftData
 /// Stores preferences such as liked status, rating, and comments using SwiftData
 @Model
 final class ClothingUserData {
+
     @Attribute(.unique)
     let clothingId: Int
     var isLiked: Bool

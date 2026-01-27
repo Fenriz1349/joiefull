@@ -7,6 +7,7 @@
 
 /// Represents an image with its URL and accessibility description
 struct Picture: Decodable, Hashable {
+
     let url: String
     let description: String
 }

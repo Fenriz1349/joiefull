@@ -10,6 +10,7 @@ import UIKit
 
 /// SwiftUI wrapper around iOS Share Sheet (UIActivityViewController)
 struct ShareSheet: UIViewControllerRepresentable {
+
     let items: [Any]
 
     func makeUIViewController(context: Context) -> UIActivityViewController {
@@ -18,4 +19,3 @@ struct ShareSheet: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
-

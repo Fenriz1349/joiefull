@@ -10,6 +10,7 @@ import SwiftUI
 /// Interactive button displaying like count with heart icon
 /// Changes appearance based on liked state
 struct LikeButton: View {
+
     let likes: Int
     let isLiked: Bool
     let action: () -> Void

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import Toasty
 
 /// Shared preview container providing a ready-to-use
 /// `ClothingContainerViewModel` with an in-memory SwiftData stack.
@@ -16,7 +17,7 @@ enum PreviewContainer {
     static let modelContainer: ModelContainer = {
         do {
             return try ModelContainer(for: ClothingUserData.self,
-                                               configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+                                      configurations: ModelConfiguration(isStoredInMemoryOnly: true))
         } catch {
             fatalError("Failed to initialize SwiftData ModelContainer: \(error)")
         }
@@ -34,4 +35,9 @@ enum PreviewContainer {
 
     /// Loader ViewModel used across previews
     static let loadingViewModel = ClothingLoadingViewModel()
+
+    /// Toasty Manager used across previews
+    static var sampleToastyManager: ToastyManager {
+        ToastyManager()
+    }
 }

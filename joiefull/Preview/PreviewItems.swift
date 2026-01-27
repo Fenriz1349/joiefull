@@ -9,6 +9,7 @@ import Foundation
 
 /// Create a local item and an array of item for preview
 enum PreviewItems {
+
     /// Creates a sample clothing item with a given identifier
     private static func makePreviewItem(_ id: Int) -> Clothing {
         return Clothing(

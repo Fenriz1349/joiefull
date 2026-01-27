@@ -13,6 +13,7 @@ import Toasty
 /// Coordinates between the UI and persistent storage for user preferences
 @MainActor
 final class ClothingContainerViewModel: ObservableObject {
+
     @Published var toastyManager: ToastyManager?
 
     /// Currently selected clothing item for detail view display
@@ -23,7 +24,7 @@ final class ClothingContainerViewModel: ObservableObject {
 
     /// Array of Dictionnary of IDs representing clothing items with their rating
     @Published private(set) var ratingsByItemId: [Int: Int] = [:]
-    
+
     /// Array of Dictionnary of IDs representing clothing items with their comment
     @Published private(set) var commentsByItemId: [Int: String] = [:]
 
@@ -46,7 +47,7 @@ final class ClothingContainerViewModel: ObservableObject {
     }
 
     // MARK: - User Data Loader
-    
+
     func loadUserData() {
         do {
             likedItemIds = try dataManager.loadLikedIds()
@@ -127,7 +128,7 @@ final class ClothingContainerViewModel: ObservableObject {
         let itemRating = Double(getRating(for: item))
         return itemRating == 0 ? item.globalRating : (item.globalRating * 0.9 + itemRating * 0.1)
     }
-    
+
     // MARK: - Comment
 
     /// Get the comment of an item from the persistent storage
@@ -148,7 +149,7 @@ final class ClothingContainerViewModel: ObservableObject {
             toastyManager?.showError(error)
         }
     }
-    
+
     /// Returns a binding to the comment associated with a clothing item
     /// - Parameter item: The clothing item to retrieve and update the comment for
     /// - Returns: A binding used to read and persist the comment text

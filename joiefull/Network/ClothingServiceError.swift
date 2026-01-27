@@ -8,6 +8,7 @@
 import Foundation
 
 enum ClothingServiceError: Error, Equatable, LocalizedError {
+
     case invalidResponse
     case httpStatus(Int)
     case network
@@ -26,4 +27,3 @@ enum ClothingServiceError: Error, Equatable, LocalizedError {
         }
     }
 }
-

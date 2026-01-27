@@ -10,6 +10,7 @@ import SwiftUI
 /// Displays an selected or unselected star icon for rating interfaces
 /// Used as part of the review/rating system
 struct StarButton: View {
+
     let index: Int
     let currentRating: Int
     var isSelected: Bool = false
@@ -30,7 +31,6 @@ struct StarButton: View {
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
-
 
 #Preview("not selected"){
     StarButton(index: 1, currentRating: 3, action: {})

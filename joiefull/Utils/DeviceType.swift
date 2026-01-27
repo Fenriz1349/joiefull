@@ -8,9 +8,10 @@
 import UIKit
 
 enum DeviceType {
+
     case iPhone
     case iPad
-    
+
     static var current: DeviceType {
         UIDevice.current.userInterfaceIdiom == .pad ? .iPad : .iPhone
     }

@@ -10,6 +10,7 @@ import SwiftUI
 /// Lightweight image view used inside product containers
 /// Loads an image from URL and falls back to a local placeholder
 struct ProductImage: View {
+
     let imageURL: String
 
     var body: some View {

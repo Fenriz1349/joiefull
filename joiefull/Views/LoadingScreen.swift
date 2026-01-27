@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoadingScreen: View {
+
     var body: some View {
         ZStack {
             Rectangle()
@@ -23,7 +24,6 @@ struct LoadingScreen: View {
                     .accessibilityHint(AccessibilityHandler.Loading.hint)
             }
         }
-       
     }
 }
 

@@ -10,6 +10,7 @@ import SwiftUI
 /// Image container with overlays (like button + optional share button)
 /// Enforces a given aspect ratio based on available width using GeometryReader
 struct ProductImageContainer: View {
+
     let item: Clothing
     var aspectRatio: CGFloat = 1
 
@@ -22,13 +23,13 @@ struct ProductImageContainer: View {
     var basePriority: Double
 
     // Actions
-    var onOpen: (() -> Void)? = nil
+    var onOpen: (() -> Void)?
     let onLikeTapped: () -> Void
-    var onShareTapped: (() -> Void)? = nil
-    var onClose: (() -> Void)? = nil
+    var onShareTapped: (() -> Void)?
+    var onClose: (() -> Void)?
 
     // Focus (optional, controlled by parent)
-    var isSummaryFocused: AccessibilityFocusState<Bool>.Binding? = nil
+    var isSummaryFocused: AccessibilityFocusState<Bool>.Binding?
 
     private var isDetailView: Bool { onShareTapped != nil }
     private var isCard: Bool { onOpen != nil }
@@ -95,7 +96,7 @@ struct ProductImageContainer: View {
                 }
             }
             .overlay(alignment: .topTrailing) {
-                if isDetailView, let onShareTapped  {
+                if isDetailView, let onShareTapped {
                     ShareButton(action: onShareTapped)
                         .frame(width: 34, height: 34)
                         .contentShape(Circle())

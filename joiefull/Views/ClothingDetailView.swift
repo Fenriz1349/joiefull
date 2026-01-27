@@ -10,19 +10,16 @@ import SwiftUI
 /// Displays detailed information about a clothing item
 /// Adapts layout based on device size and orientation (portrait/landscape)
 struct ClothingDetailView: View {
+
     @EnvironmentObject private var container: ClothingContainerViewModel
+    @AccessibilityFocusState private var focusOnSummary: Bool
     let item: Clothing
     let onClose: (() -> Void)?
-
-    @Environment(\.horizontalSizeClass) private var hSizeClass
-    @AccessibilityFocusState private var focusOnSummary: Bool
 
     var body: some View {
         GeometryReader { geo in
             // Use horizontal layout for landscape, vertical for portrait
-            let layout = hSizeClass == .compact && geo.size.width > geo.size.height
-            ? AnyLayout(HStackLayout(alignment: .top, spacing: 20))
-            : AnyLayout(VStackLayout(alignment: .leading, spacing: 20))
+            let layout = LayoutRules.getDetailViewLayout(geo.size)
             ScrollView {
                 layout {
                     ProductImageContainer(

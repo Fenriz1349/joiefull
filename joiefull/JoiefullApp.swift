@@ -13,9 +13,10 @@ import Toasty
 /// Configures SwiftData persistence and initializes the view model hierarchy
 @main
 struct JoiefullApp: App {
+
     let modelContainer: ModelContainer
     let containerViewModel: ClothingContainerViewModel
-    let clothingLoadingViewModel : ClothingLoadingViewModel
+    let clothingLoadingViewModel: ClothingLoadingViewModel
     @StateObject private var toasty = ToastyManager()
 
     init() {
