@@ -14,7 +14,7 @@ import Toasty
 struct RootView: View {
 
     @EnvironmentObject var container: ClothingContainerViewModel
-    @EnvironmentObject var loader: ClothingLoadingViewModel
+    @EnvironmentObject var catalog: ClothingCatalogViewModel
     @EnvironmentObject var toastyManager: ToastyManager
 
     var allowsSplit: Bool { DeviceType.isSplitViewEnabled }
@@ -23,11 +23,8 @@ struct RootView: View {
     var body: some View {
         NavigationStack {
             Group {
-                if loader.clothes.isEmpty {
+                if catalog.isLoading {
                     LoadingScreen()
-                        .task {
-                            await loader.loadIfNeeded()
-                        }
                 } else {
                     GeometryReader { geo in
                         let layout = LayoutRules.splitLayout(for: geo.size)
@@ -56,7 +53,9 @@ struct RootView: View {
                     }
                 }
             }
-        }.onAppear {
+        }
+        .task { await catalog.loadIfNeeded() }
+        .onAppear {
             container.configure(toastyManager: toastyManager)
         }
     }

@@ -9,18 +9,18 @@ import SwiftUI
 
 struct LoadingScreen: View {
 
-    @EnvironmentObject var loader: ClothingLoadingViewModel
+    @EnvironmentObject var catalog: ClothingCatalogViewModel
 
     var body: some View {
         BrandingContentView {
-            if let error = loader.loadingError {
+            if let error = catalog.loadingError {
                 VStack(spacing: 24) {
                     Text(error.errorDescription)
                         .font(.headline)
                         .multilineTextAlignment(.center)
                         .accessibilityLabel(AccessibilityHandler.LoadingError.label)
                         .accessibilityHint(AccessibilityHandler.LoadingError.hint)
-                    ReloadButton(action: {Task { await loader.resetAndReload() }})
+                    ReloadButton(action: {Task { await catalog.resetAndReload() }})
                 }
                 .padding(.horizontal, 24)
             } else {
@@ -34,10 +34,10 @@ struct LoadingScreen: View {
 
 #Preview("Loading - In Progress") {
     LoadingScreen()
-        .environmentObject(PreviewContainer.loadingViewModel)
+        .environmentObject(PreviewContainer.catalogViewModel)
 }
 
 #Preview("Loading - HTTP Error") {
     LoadingScreen()
-        .environmentObject(PreviewContainer.loadingViewModelWithError(ClothingServiceError.network))
+        .environmentObject(PreviewContainer.catalogViewModelWithError(ClothingServiceError.network))
 }

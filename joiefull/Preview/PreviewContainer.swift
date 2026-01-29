@@ -33,14 +33,14 @@ enum PreviewContainer {
         dataManager: dataManager
     )
 
-    /// Loader ViewModel used across previews
-    static let loadingViewModel = ClothingLoadingViewModel()
+    /// Catalog ViewModel used across previews
+    static let catalogViewModel = ClothingCatalogViewModel()
     
-    /// Creates a loading view model with a network error for preview testing
-       static func loadingViewModelWithError(_ error: ClothingServiceError = .network) -> ClothingLoadingViewModel {
-           let loader = ClothingLoadingViewModel()
-           loader.setErrorForPreview(error)
-           return loader
+    /// Creates a catalog view model with a network error for preview testing
+       static func catalogViewModelWithError(_ error: ClothingServiceError = .network) -> ClothingCatalogViewModel {
+           let catalog = ClothingCatalogViewModel()
+           catalog.setErrorForPreview(error)
+           return catalog
        }
 
     /// Toasty Manager used across previews

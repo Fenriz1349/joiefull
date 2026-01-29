@@ -16,7 +16,7 @@ struct JoiefullApp: App {
 
     let modelContainer: ModelContainer
     let containerViewModel: ClothingContainerViewModel
-    let clothingLoadingViewModel: ClothingLoadingViewModel
+    let clothingLoadingViewModel: ClothingCatalogViewModel
     @StateObject private var toasty = ToastyManager()
 
     init() {
@@ -26,7 +26,7 @@ struct JoiefullApp: App {
 
             self.modelContainer = container
             self.containerViewModel = ClothingContainerViewModel(dataManager: dataManager)
-            self.clothingLoadingViewModel = ClothingLoadingViewModel()
+            self.clothingLoadingViewModel = ClothingCatalogViewModel()
         } catch {
             fatalError("Failed to initialize SwiftData ModelContainer: \(error)")
         }

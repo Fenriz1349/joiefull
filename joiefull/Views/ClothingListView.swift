@@ -11,7 +11,7 @@ import SwiftUI
 /// Adapts the number of columns based on available screen width.
 struct ClothingListView: View {
 
-    @EnvironmentObject private var loader: ClothingLoadingViewModel
+    @EnvironmentObject private var catalog: ClothingCatalogViewModel
     @EnvironmentObject private var container: ClothingContainerViewModel
 
     var body: some View {
@@ -21,7 +21,7 @@ struct ClothingListView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     ForEach(Category.allCases, id: \.self) { category in
-                        let items = loader.clothes(for: category)
+                        let items = catalog.clothes(for: category)
                         if !items.isEmpty {
                             ClothingCategoryRow(
                                 category: category,
@@ -35,7 +35,7 @@ struct ClothingListView: View {
                 }
                 .padding(.vertical)
             }
-            .searchable(text: $loader.searchText, placement: .navigationBarDrawer(displayMode: .always))
+            .searchable(text: $catalog.searchText, placement: .navigationBarDrawer(displayMode: .always))
         }
     }
 }
