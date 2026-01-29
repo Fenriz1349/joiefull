@@ -38,11 +38,8 @@ struct RootView: View {
                                                                  allowsSplit: allowsSplit,
                                                                  hasSelection: hasSelection)
                         layout {
-                            ClothingListView(
-                                selectedItem: container.selectedItem,
-                                onSelect: container.toggleSelection
-                            )
-                            .frame(width: listSize.width, height: listSize.height)
+                            ClothingListView()
+                                .frame(width: listSize.width, height: listSize.height)
 
                             if allowsSplit, let item = container.selectedItem {
                                 ClothingDetailView(item: item, onClose: { container.selectedItem = nil })

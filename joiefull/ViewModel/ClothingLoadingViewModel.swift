@@ -5,6 +5,7 @@
 //  Created by Julien Cotte on 12/12/2025.
 //
 
+import Foundation
 import Combine
 
 /// Loads clothing items from the API and exposes loading state for the UI.
@@ -13,8 +14,17 @@ final class ClothingLoadingViewModel: ObservableObject {
 
     // MARK: - State
 
-    /// Items loaded from the API.
+    /// Items loaded from the API and filtrated cloathes list
     @Published private(set) var clothes: [Clothing] = []
+    @Published var searchText = ""
+
+    var searchResults: [Clothing] {
+        if searchText.isEmpty {
+            return clothes
+        } else {
+            return clothes.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        }
+    }
 
     /// True while loading is in progress.
     @Published private(set) var isLoading: Bool = false
@@ -62,7 +72,14 @@ final class ClothingLoadingViewModel: ObservableObject {
     /// Filters items by category.
     /// - Parameter category: Category to filter by.
     func clothes(for category: Category) -> [Clothing] {
-        clothes.filter { $0.category == category }
+        let base = clothes.filter { $0.category == category }
+
+        guard !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return base
+        }
+
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        return base.filter { $0.name.localizedCaseInsensitiveContains(query) }
     }
 }
 extension ClothingLoadingViewModel {
