@@ -32,6 +32,7 @@
 		6826B7FF2F1E22A400E27EF7 /* ButtonsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6826B7FE2F1E22A400E27EF7 /* ButtonsOverlay.swift */; };
 		682A95012F110586003D63CB /* PreviewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A95002F110586003D63CB /* PreviewContainer.swift */; };
 		682A95032F11072E003D63CB /* PreviewItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A95022F11072E003D63CB /* PreviewItems.swift */; };
+		68407B1F2F2B501C00ED2B06 /* ReloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68407B1E2F2B501C00ED2B06 /* ReloadButton.swift */; };
 		685ECD972F2363E900E12FA4 /* Toasty in Frameworks */ = {isa = PBXBuildFile; productRef = 685ECD962F2363E900E12FA4 /* Toasty */; };
 		685ECD9B2F237D8900E12FA4 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685ECD9A2F237D8900E12FA4 /* LoadingScreen.swift */; };
 		685F52F02EF00CA600D4BB6C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 685F52EF2EF00CA600D4BB6C /* .gitignore */; };
@@ -78,6 +79,7 @@
 		6826B7FE2F1E22A400E27EF7 /* ButtonsOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsOverlay.swift; sourceTree = "<group>"; };
 		682A95002F110586003D63CB /* PreviewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContainer.swift; sourceTree = "<group>"; };
 		682A95022F11072E003D63CB /* PreviewItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewItems.swift; sourceTree = "<group>"; };
+		68407B1E2F2B501C00ED2B06 /* ReloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadButton.swift; sourceTree = "<group>"; };
 		685ECD9A2F237D8900E12FA4 /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		685F52EF2EF00CA600D4BB6C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		6889DE5C2EF540070035BCE3 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				6809CD962EF3FFBF0061BDAA /* LikeButton.swift */,
 				6809CDAD2EF44DA90061BDAA /* StarButton.swift */,
 				68C2D4BF2F221C42001EC830 /* CloseButton.swift */,
+				68407B1E2F2B501C00ED2B06 /* ReloadButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68407B1F2F2B501C00ED2B06 /* ReloadButton.swift in Sources */,
 				6800E6E02EEC65A800D07092 /* ClothingService.swift in Sources */,
 				6809CDAE2EF44DA90061BDAA /* StarButton.swift in Sources */,
 				68243D012F1A2494001E041B /* ShareSheet.swift in Sources */,

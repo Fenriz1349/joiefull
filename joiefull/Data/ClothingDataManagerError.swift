@@ -13,7 +13,7 @@ enum ClothingDataManagerError: Error, Equatable, LocalizedError {
     case saveFailed
     case loadFailed
 
-    var errorDescription: String? {
+    var errorDescription: String {
         switch self {
         case .fetchFailed:
             return "Erreur lors de la lecture des données locales."

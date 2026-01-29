@@ -11,11 +11,21 @@ import Foundation
 /// Provides a single source of truth for VoiceOver text throughout the app
 enum AccessibilityHandler {
 
-    // MARK: - Loading
+    // MARK: - Loading - Reloading
 
     struct Loading {
-        static var label: String { "Chargement en cours" }
-        static var hint: String { "Veuillez patienter" }
+        static var label = "Chargement en cours"
+        static var hint = "Veuillez patienter"
+    }
+
+    struct LoadingError {
+        static let label = "Erreur de chargement"
+        static let hint = "Appuie sur Réessayer pour relancer le chargement"
+    }
+
+    struct ReloadButton {
+        static var label = "Réessayer"
+        static var hint = "Appuie pour relancer le chargement"
     }
 
     // MARK: - Like Button
