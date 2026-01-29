@@ -56,18 +56,30 @@ enum LayoutRules {
         let hStack: Bool = (DeviceType.current == .iPad && isLandscape)
         || (DeviceType.current == .iPhone && isLandscape)
         return hStack ? AnyLayout(HStackLayout(alignment: .top, spacing: 20))
-        : AnyLayout(VStackLayout(alignment: .leading, spacing: 20))
+                      : AnyLayout(VStackLayout(alignment: .leading, spacing: 20))
     }
 
     /// Calculates the optimal number of items to display per row based on available width
-    /// - Parameter width: The available width in points
-    /// - Returns: Number of items (1, 2, 3, or 5) based on width
-    static func itemCount(for width: CGFloat) -> Int {
-        switch width {
-        case 0..<360: return 1
-        case 360..<600: return 2
-        case 600..<900: return 3
-        default: return 5
+    /// - Parameters:
+    ///   - geo: The available size in points
+    ///   - isSplitted: Whether the view is in split view mode (adjusts grid for iPad)
+    /// - Returns: Number of items (1, 2, 3, or 5) based on device and orientation
+    static func itemCount(for geo: CGSize, isSplitted: Bool = false) -> Int {
+        let availableWidth = geo.width - 48
+
+        switch DeviceType.current {
+        case .iPhone:
+            if isLandscape(geo) {
+                return availableWidth < 500 ? 2 : 3
+            } else {
+                return availableWidth < 300 ? 1 : 2
+            }
+        case .iPad:
+            if isLandscape(geo) && !isSplitted {
+                return availableWidth < 900 ? 3 : 5
+            } else {
+                return availableWidth < 600 ? 2 : 3
+            }
         }
     }
 }
