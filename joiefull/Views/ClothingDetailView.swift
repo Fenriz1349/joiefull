@@ -12,7 +12,7 @@ import SwiftUI
 struct ClothingDetailView: View {
 
     @EnvironmentObject private var container: ClothingContainerViewModel
-    @AccessibilityFocusState private var focusOnSummary: Bool
+    @AccessibilityFocusState var focusOnSummary: Bool
     let item: Clothing
     let onClose: (() -> Void)?
 
@@ -34,15 +34,10 @@ struct ClothingDetailView: View {
                         isSummaryFocused: $focusOnSummary)
                     .accessibilityFocused($focusOnSummary)
                     .onAppear {
-                        if UIAccessibility.isVoiceOverRunning {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                UIAccessibility.post(
-                                    notification: .announcement,
-                                    argument: AccessibilityHandler.DetailView.detailOpen(itemName: item.name)
-                                )
-                                focusOnSummary = true
-                            }
-                        }
+                       focusSummary()
+                    }
+                    .onChange(of: container.selectedItem) {
+                        focusSummary()
                     }
                     .onDisappear {
                         focusOnSummary = false

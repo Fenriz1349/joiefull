@@ -66,6 +66,11 @@ final class ClothingContainerViewModel: ObservableObject {
     func toggleSelection(_ item: Clothing) {
         selectedItem = selectedItem?.id == item.id ? nil : item
     }
+    
+    /// Return true only if deviceType is iPad and one item is selected
+    var isSplitted: Bool{
+        DeviceType.isSplitViewEnabled && selectedItem != nil
+    }
 
     // MARK: - Likes
 

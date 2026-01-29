@@ -12,6 +12,7 @@ import SwiftUI
 struct ClothingListView: View {
 
     @EnvironmentObject private var loader: ClothingLoadingViewModel
+    @EnvironmentObject private var container: ClothingContainerViewModel
 
     /// Currently selected clothing item (for highlighting in split view).
     let selectedItem: Clothing?
@@ -21,7 +22,7 @@ struct ClothingListView: View {
 
     var body: some View {
         GeometryReader { geo in
-            let itemCount = LayoutRules.itemCount(for: geo.size.width)
+            let itemCount = LayoutRules.itemCount(for: geo.size, isSplitted: container.isSplitted)
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
@@ -44,4 +45,5 @@ struct ClothingListView: View {
 #Preview {
     ClothingListView(selectedItem: PreviewItems.item, onSelect: { _ in })
         .environmentObject(PreviewContainer.loadingViewModel)
+        .environmentObject(PreviewContainer.containerViewModel)
 }

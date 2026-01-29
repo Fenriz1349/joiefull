@@ -14,7 +14,7 @@ enum ClothingServiceError: Error, Equatable, LocalizedError {
     case network
     case decoding
 
-    var errorDescription: String? {
+    var errorDescription: String {
         switch self {
         case .invalidResponse:
             return "Réponse serveur invalide."

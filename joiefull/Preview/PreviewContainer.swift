@@ -35,6 +35,13 @@ enum PreviewContainer {
 
     /// Loader ViewModel used across previews
     static let loadingViewModel = ClothingLoadingViewModel()
+    
+    /// Creates a loading view model with a network error for preview testing
+       static func loadingViewModelWithError(_ error: ClothingServiceError = .network) -> ClothingLoadingViewModel {
+           let loader = ClothingLoadingViewModel()
+           loader.setErrorForPreview(error)
+           return loader
+       }
 
     /// Toasty Manager used across previews
     static var sampleToastyManager: ToastyManager {
