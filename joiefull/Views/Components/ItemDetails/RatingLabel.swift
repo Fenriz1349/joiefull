@@ -26,8 +26,6 @@ struct RatingLabel: View {
         }
         // ACCESSIBILITY - Group label + value
         .accessibilityElement(children: .combine)
-        .accessibilityLabel(AccessibilityHandler.RatingLabel.label)
-        .accessibilityValue(AccessibilityHandler.RatingLabel.value(rating))
     }
 }
 

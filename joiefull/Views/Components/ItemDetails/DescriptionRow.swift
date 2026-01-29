@@ -38,8 +38,6 @@ struct DescriptionRow: View {
                 }
                 // ACCESSIBILITY - Group the rating
                 .accessibilityElement(children: .combine)
-                .accessibilityLabel(AccessibilityHandler.RatingLabel.label)
-                .accessibilityValue(AccessibilityHandler.RatingLabel.value(rating))
             }
 
             HStack {
@@ -53,8 +51,6 @@ struct DescriptionRow: View {
                         .font(priceFont)
                         .foregroundStyle(.secondary)
                         .strikethrough()
-                        // ACCESSIBILITY - Indicate it's the original price
-                        .accessibilityLabel(AccessibilityHandler.DescriptionRow.originalPriceLabel)
                 }
             }
         }
