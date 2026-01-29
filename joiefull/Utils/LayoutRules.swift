@@ -5,8 +5,6 @@
 //  Created by Julien Cotte on 19/12/2025.
 //
 
-import Foundation
-
 /// Provides layout decision logic based on screen dimensions
 /// Determines responsive layout behaviors for different device sizes and orientations
 import SwiftUI
