@@ -9,11 +9,11 @@ import Foundation
 
 /// Centralizes all accessibility labels, hints, and values
 /// Provides a single source of truth for VoiceOver text throughout the app
-struct AccessibilityHandler {
+enum AccessibilityHandler {
 
     // MARK: - Loading
 
-    enum Loading {
+    struct Loading {
         static var label: String { "Chargement en cours" }
         static var hint: String { "Veuillez patienter" }
     }
@@ -65,6 +65,7 @@ struct AccessibilityHandler {
         ) -> String {
 
             let ratingString = String(format: "%.1f", rating).replacingOccurrences(of: ".", with: ",")
+                .replacingOccurrences(of: ",0", with: "")
             var priceText = "Prix : \(Int(price))€"
 
             if originalPrice != price {
@@ -74,6 +75,7 @@ struct AccessibilityHandler {
             var parts: [String] = []
             parts.append("\(itemName).")
             parts.append("\(priceText).")
+            parts.append("Note : \(ratingString) sur 5.")
 
             if let imageDescription, !imageDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 parts.append("\(imageDescription).")
@@ -82,8 +84,6 @@ struct AccessibilityHandler {
             if let itemDescription, !itemDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 parts.append("\(itemDescription).")
             }
-
-            parts.append("Note : \(ratingString) sur 5.")
 
             if let category, !category.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 parts.append("Catégorie : \(category).")
@@ -119,25 +119,6 @@ struct AccessibilityHandler {
     struct CloseButton {
         static let label = "Fermer"
         static let hint = "Double-tap pour fermer le detail de cet article"
-    }
-
-    // MARK: - Rating Label
-
-    struct RatingLabel {
-        static let label = "Note"
-
-        static func value(_ rating: Double) -> String {
-            // Replace "." with "virgule" so VoiceOver can read it
-            let ratingString = String(format: "%.1f", rating).replacingOccurrences(of: ".", with: ",")
-            return "\(ratingString) sur 5"
-        }
-    }
-
-    // MARK: - Description Row
-
-    struct DescriptionRow {
-        static let priceLabel = "Prix"
-        static let originalPriceLabel = "Prix original"
     }
 
     // MARK: - Product Image Container
