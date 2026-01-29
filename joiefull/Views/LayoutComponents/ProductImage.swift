@@ -21,7 +21,7 @@ struct ProductImage: View {
                     .resizable()
                     .scaledToFill()
             default:
-                Image("AppIcon")
+                Image(.launchLogo)
                     .resizable()
                     .scaledToFit()
                     .padding(24)
