@@ -10,16 +10,16 @@ import SwiftUI
 /// Reusable branding view with background and logo
 /// Allows injecting custom content overlay
 struct BrandingContentView<Content: View>: View {
-    
+
     @ViewBuilder let content: () -> Content
-    
+
     var body: some View {
         GeometryReader { geo in
-            ZStack{
+            ZStack {
                 Rectangle()
                     .ignoresSafeArea()
                     .foregroundColor(.launchBackground)
-                
+
                 Image(.launchLogo)
                     .resizable()
                     .scaledToFit()
@@ -34,14 +34,6 @@ struct BrandingContentView<Content: View>: View {
     }
 }
 
-// MARK: - Convenience initializer (no content)
-
-extension BrandingContentView where Content == EmptyView {
-    init() {
-        self.init(content: { EmptyView() })
-    }
-}
-
 #Preview {
     BrandingContentView()
 }
@@ -49,7 +41,7 @@ extension BrandingContentView where Content == EmptyView {
 #Preview("With Content") {
     BrandingContentView {
         VStack {
-            Text("Custom Content zpgjhohzbhtgozpjgbiaubtgôi    hgbpéiuhgoh^çuahofhgoiehrçuivbi ozehrçbeçubrolfg ozçurbguzilgehkl hzpàeiuhgbpeium hzleohgbçveu" )
+            Text("Ceci est un texte afin de tester l'affichage d'un contenu très interessant" )
         }
     }
 }

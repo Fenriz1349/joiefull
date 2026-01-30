@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 extension View {
 
     /// Conditionally applies a transformation to the view based on a boolean condition
@@ -27,7 +26,7 @@ extension View {
 }
 
 extension ClothingDetailView {
-    
+
     /// Handle focus of VoiceOver when DetailView is open and when selectedItem si changed
     func focusSummary() {
         if UIAccessibility.isVoiceOverRunning {
@@ -39,5 +38,13 @@ extension ClothingDetailView {
                 focusOnSummary = true
             }
         }
+    }
+}
+
+// MARK: - Convenience initializer (no content)
+
+extension BrandingContentView where Content == EmptyView {
+    init() {
+        self.init(content: { EmptyView() })
     }
 }

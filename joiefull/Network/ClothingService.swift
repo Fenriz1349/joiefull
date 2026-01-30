@@ -12,34 +12,55 @@ final class ClothingService {
 
     private let url = URL(string:
         "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/api/clothes.json"
-    )!
+    )
 
-    /// Fetches all clothing items from the remote API
-    /// - Returns: Decoded list of items
-    /// - Throws: ClothingServiceError
+    /// Fetches all clothing items from the remote API.
+    /// - Returns: Decoded list of items.
+    /// - Throws: `ClothingServiceError`.
     func fetchClothes() async throws -> [Clothing] {
+        let (data, response) = try await fetchData()
+        try validate(response: response)
+        return try decodeClothes(from: data)
+    }
+
+    /// Fetches raw JSON data from the API.
+    /// - Returns: Raw data and response.
+    /// - Throws: `ClothingServiceError.network` if request fails.
+    private func fetchData() async throws -> (Data, URLResponse) {
+        guard let url else { throw  ClothingServiceError.invalidURL }
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 8
+
         do {
-            let (data, response) = try await URLSession.shared.data(from: url)
-
-            guard let http = response as? HTTPURLResponse else {
-                throw ClothingServiceError.invalidResponse
-            }
-            guard (200..<300).contains(http.statusCode) else {
-                throw ClothingServiceError.httpStatus(http.statusCode)
-            }
-
-            do {
-                return try JSONDecoder().decode([Clothing].self, from: data)
-            } catch {
-                throw ClothingServiceError.decoding
-            }
-
+            return try await URLSession.shared.data(for: request)
         } catch is URLError {
             throw ClothingServiceError.network
-        } catch let error as ClothingServiceError {
-            throw error
         } catch {
             throw ClothingServiceError.network
+        }
+    }
+
+    /// Validates HTTP response status.
+    /// - Parameter response: URL response.
+    /// - Throws: `ClothingServiceError` if invalid or non-2xx.
+    private func validate(response: URLResponse) throws {
+        guard let http = response as? HTTPURLResponse else {
+            throw ClothingServiceError.invalidResponse
+        }
+        guard (200..<300).contains(http.statusCode) else {
+            throw ClothingServiceError.httpStatus(http.statusCode)
+        }
+    }
+
+    /// Decodes clothes JSON payload.
+    /// - Parameter data: Raw JSON data.
+    /// - Returns: Decoded clothes list.
+    /// - Throws: `ClothingServiceError.decoding` if decoding fails.
+    private func decodeClothes(from data: Data) throws -> [Clothing] {
+        do {
+            return try JSONDecoder().decode([Clothing].self, from: data)
+        } catch {
+            throw ClothingServiceError.decoding
         }
     }
 }

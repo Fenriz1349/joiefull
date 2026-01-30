@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 import Toasty
 
 /// Root view of the application that manages adaptive layout
@@ -14,7 +13,7 @@ import Toasty
 struct RootView: View {
 
     @EnvironmentObject var container: ClothingContainerViewModel
-    @EnvironmentObject var loader: ClothingLoadingViewModel
+    @EnvironmentObject var catalog: ClothingCatalogViewModel
     @EnvironmentObject var toastyManager: ToastyManager
 
     var allowsSplit: Bool { DeviceType.isSplitViewEnabled }
@@ -23,11 +22,8 @@ struct RootView: View {
     var body: some View {
         NavigationStack {
             Group {
-                if loader.clothes.isEmpty {
+                if catalog.isLoading {
                     LoadingScreen()
-                        .task {
-                            await loader.loadIfNeeded()
-                        }
                 } else {
                     GeometryReader { geo in
                         let layout = LayoutRules.splitLayout(for: geo.size)
@@ -38,11 +34,8 @@ struct RootView: View {
                                                                  allowsSplit: allowsSplit,
                                                                  hasSelection: hasSelection)
                         layout {
-                            ClothingListView(
-                                selectedItem: container.selectedItem,
-                                onSelect: container.toggleSelection
-                            )
-                            .frame(width: listSize.width, height: listSize.height)
+                            ClothingListView()
+                                .frame(width: listSize.width, height: listSize.height)
 
                             if allowsSplit, let item = container.selectedItem {
                                 ClothingDetailView(item: item, onClose: { container.selectedItem = nil })
@@ -59,7 +52,9 @@ struct RootView: View {
                     }
                 }
             }
-        }.onAppear {
+        }
+        .task { await catalog.loadIfNeeded() }
+        .onAppear {
             container.configure(toastyManager: toastyManager)
         }
     }
@@ -68,14 +63,14 @@ struct RootView: View {
 #Preview {
     RootView()
         .environmentObject(PreviewContainer.containerViewModel)
-        .environmentObject(PreviewContainer.loadingViewModel)
+        .environmentObject(PreviewContainer.catalogViewModel)
         .environmentObject(PreviewContainer.sampleToastyManager)
 }
 
 #Preview("320x568 forced") {
     RootView()
         .environmentObject(PreviewContainer.containerViewModel)
-        .environmentObject(PreviewContainer.loadingViewModel)
+        .environmentObject(PreviewContainer.catalogViewModel)
         .environmentObject(PreviewContainer.sampleToastyManager)
         .frame(width: 320, height: 568)
         .clipped()
@@ -84,7 +79,7 @@ struct RootView: View {
 #Preview("iPad mini (portrait)") {
     RootView()
         .environmentObject(PreviewContainer.containerViewModel)
-        .environmentObject(PreviewContainer.loadingViewModel)
+        .environmentObject(PreviewContainer.catalogViewModel)
         .environmentObject(PreviewContainer.sampleToastyManager)
         .frame(width: 744, height: 1133)
         .clipped()
@@ -93,7 +88,7 @@ struct RootView: View {
 #Preview("iPad mini (landscape)") {
     RootView()
         .environmentObject(PreviewContainer.containerViewModel)
-        .environmentObject(PreviewContainer.loadingViewModel)
+        .environmentObject(PreviewContainer.catalogViewModel)
         .environmentObject(PreviewContainer.sampleToastyManager)
         .frame(width: 1133, height: 744)
         .clipped()

@@ -192,4 +192,14 @@ enum AccessibilityHandler {
 
         static let scrollHint = "Scroll horizontalement pour voir plus d'articles dans cette catégorie"
     }
+
+    // MARK: - EmptyState
+
+    struct EmptyState {
+        static let noResultsLabel = "Aucun résultat"
+        static let noResultsHint = "Aucun article ne correspond à votre recherche. Effacez la recherche pour voir tous les articles."
+
+        static let catalogEmptyLabel = "Catalogue vide"
+        static let catalogEmptyHint = "Aucun article n’est disponible pour le moment."
+    }
 }
