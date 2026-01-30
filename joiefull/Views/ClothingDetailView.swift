@@ -13,6 +13,8 @@ struct ClothingDetailView: View {
 
     @EnvironmentObject private var container: ClothingContainerViewModel
     @AccessibilityFocusState var focusOnSummary: Bool
+    let externalFocus: FocusState<Bool>.Binding?
+
     let item: Clothing
     let onClose: (() -> Void)?
 
@@ -38,6 +40,7 @@ struct ClothingDetailView: View {
                     }
                     .onChange(of: container.selectedItem) {
                         focusSummary()
+                        externalFocus?.wrappedValue = false
                     }
                     .onDisappear {
                         focusOnSummary = false
@@ -55,10 +58,14 @@ struct ClothingDetailView: View {
                                   starPressed: { index in
                             container.setNewRating(for: item, rating: index)
                         })
-                        ReviewInputView(text: container.commentTextBinding(for: item))
+                        ReviewInputView(text: container.commentTextBinding(for: item), externalFocus: externalFocus)
                     }
                 }
                 .padding()
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                externalFocus?.wrappedValue = false
             }
         }
         .sheet(isPresented: $container.isShareComposerPresented) {
@@ -81,6 +88,6 @@ struct ClothingDetailView: View {
 }
 
 #Preview {
-    ClothingDetailView(item: PreviewItems.item, onClose: {})
+    ClothingDetailView(externalFocus: nil, item: PreviewItems.item, onClose: {})
         .environmentObject(PreviewContainer.containerViewModel)
 }

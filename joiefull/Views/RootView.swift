@@ -15,6 +15,8 @@ struct RootView: View {
     @EnvironmentObject var container: ClothingContainerViewModel
     @EnvironmentObject var catalog: ClothingCatalogViewModel
     @EnvironmentObject var toastyManager: ToastyManager
+    
+    @FocusState private var isReviewFocused: Bool
 
     var allowsSplit: Bool { DeviceType.isSplitViewEnabled }
     var hasSelection: Bool {container.selectedItem != nil }
@@ -38,15 +40,19 @@ struct RootView: View {
                                 .frame(width: listSize.width, height: listSize.height)
 
                             if allowsSplit, let item = container.selectedItem {
-                                ClothingDetailView(item: item, onClose: { container.selectedItem = nil })
+                                ClothingDetailView(externalFocus: $isReviewFocused,
+                                                   item: item,
+                                                   onClose: { container.selectedItem = nil })
                                     .frame(width: detailSize.width, height: detailSize.height)
                             }
                         }
+                        .contentShape(Rectangle())
+                        .onTapGesture { isReviewFocused = false }
                         .if(!allowsSplit) { view in
                             view.navigationDestination(
                                 item: $container.selectedItem
                             ) { item in
-                                ClothingDetailView(item: item, onClose: nil)
+                                ClothingDetailView(externalFocus: $isReviewFocused,item: item, onClose: nil)
                             }
                         }
                     }

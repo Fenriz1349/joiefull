@@ -32,11 +32,11 @@ struct EmptyListView: View {
                 .multilineTextAlignment(.center)
 
             switch catalog.state {
-            case .emptySearch :
+            case .emptySearch:
                 Button("Effacer la recherche") {
                     catalog.resetSearch()
                 }
-            case .emptyCatalog :
+            case .emptyCatalog:
                 Button("Recharger") {
                     Task { await catalog.resetAndReload() }
                 }
