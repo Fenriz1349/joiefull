@@ -22,7 +22,7 @@ struct LoadingScreen: View {
                         .multilineTextAlignment(.center)
                         .accessibilityLabel(AccessibilityHandler.LoadingError.label)
                         .accessibilityHint(AccessibilityHandler.LoadingError.hint)
-                    ReloadButton(action: {Task { await catalog.resetAndReload() }})
+                    ReloadButton(action: {Task { await catalog.loadIfNeeded() }})
                 }
                 .padding(.horizontal, 24)
             } else {

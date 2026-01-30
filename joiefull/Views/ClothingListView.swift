@@ -16,10 +16,10 @@ struct ClothingListView: View {
 
     var body: some View {
         GeometryReader { geo in
-            if let state = catalog.state, !catalog.isLoading {
+            if let state = catalog.state {
                 EmptyListView(state: state,
                               searchReset: catalog.resetSearch,
-                              catalogReset: { Task { await catalog.resetAndReload() } })
+                              catalogReset: { Task { await catalog.refreshInBackground() } })
             } else {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
@@ -36,6 +36,9 @@ struct ClothingListView: View {
                         }
                     }
                     .padding(.vertical)
+                }
+                .refreshable {
+                    await catalog.refreshInBackground()
                 }
             }
         }
