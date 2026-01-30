@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Handle errors when saving on SwiftData
 enum ClothingDataManagerError: Error, Equatable, LocalizedError {
 
     case fetchFailed

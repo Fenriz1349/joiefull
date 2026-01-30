@@ -149,6 +149,8 @@ final class ClothingDataManager {
 }
 
 extension ClothingDataManager {
+
+    /// helpers to save or throwing error
     private func safeSave() throws {
         do {
             try context.save()

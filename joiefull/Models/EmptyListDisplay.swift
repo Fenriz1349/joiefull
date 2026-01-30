@@ -5,6 +5,7 @@
 //  Created by Julien Cotte on 30/01/2026.
 //
 
+/// Represent all the variables needed for the EmptyListView
 struct EmptyListDisplay {
     let image: String
     let title: String
@@ -12,7 +13,7 @@ struct EmptyListDisplay {
     let accessibilityMessage: String
     let accessibilityHint: String
 
-    static func display(_ state: ClothingCatalogViewModel.ClothingCatalogState) -> EmptyListDisplay {
+    static func display(for  state: ClothingCatalogViewModel.ClothingCatalogState) -> EmptyListDisplay {
         switch state {
         case .emptyCatalog:
             return EmptyListDisplay(
@@ -28,8 +29,6 @@ struct EmptyListDisplay {
                 message: "Aucun article ne correspond à votre recherche.",
                 accessibilityMessage: AccessibilityHandler.EmptyState.noResultsLabel,
                 accessibilityHint: AccessibilityHandler.EmptyState.noResultsHint)
-        default:
-            return EmptyListDisplay(image: "", title: "", message: "", accessibilityMessage: "", accessibilityHint: "")
         }
     }
 }

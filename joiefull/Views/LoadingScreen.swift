@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// View to diplay when loading
+/// Can diplays a ProgressView or an Error message
 struct LoadingScreen: View {
 
     @EnvironmentObject var catalog: ClothingCatalogViewModel
@@ -20,7 +22,7 @@ struct LoadingScreen: View {
                         .multilineTextAlignment(.center)
                         .accessibilityLabel(AccessibilityHandler.LoadingError.label)
                         .accessibilityHint(AccessibilityHandler.LoadingError.hint)
-                    ReloadButton(action: {Task { await catalog.resetAndReload() }})
+                    ReloadButton(action: {Task { await catalog.loadIfNeeded() }})
                 }
                 .padding(.horizontal, 24)
             } else {

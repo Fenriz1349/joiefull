@@ -14,6 +14,10 @@ struct ReviewInputView: View {
     @Binding var text: String
     let maxCharacters: Int = 180
 
+    @FocusState private var isReviewFocused: Bool
+    var externalFocus: FocusState<Bool>.Binding?
+    @State private var draftBeforeEdit: String = ""
+
     private var remaining: Int { maxCharacters - text.count }
 
     var body: some View {
@@ -28,6 +32,7 @@ struct ReviewInputView: View {
                 }
 
                 TextEditor(text: $text)
+                    .focused(externalFocus ?? $isReviewFocused)
                     .padding(12)
                     .scrollContentBackground(.hidden)
                     .onChange(of: text) { _, newValue in
@@ -35,6 +40,19 @@ struct ReviewInputView: View {
                             text = String(newValue.prefix(maxCharacters))
                         }
                     }
+                    .onChange(of: isReviewFocused) { _, focused in
+                        // Save the original text when editing starts
+                        if focused { draftBeforeEdit = text }
+                    }
+                    .keyboardDoneCancelToolbar(
+                        onCancel: {
+                            text = draftBeforeEdit
+                            (externalFocus ?? $isReviewFocused).wrappedValue = false
+                        },
+                        onDone: {
+                            (externalFocus ?? $isReviewFocused).wrappedValue = false
+                        }
+                    )
                     // ACCESSIBILITY
                     .accessibilityLabel(AccessibilityHandler.ReviewInput.label)
                     .accessibilityHint(AccessibilityHandler.ReviewInput.hint(maxCharacters: maxCharacters))
@@ -54,6 +72,10 @@ struct ReviewInputView: View {
                     // ACCESSIBILITY - Hide because it's dynamic
                     .accessibilityHidden(true)
             }
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            (externalFocus ?? $isReviewFocused).wrappedValue = false
         }
     }
 }
