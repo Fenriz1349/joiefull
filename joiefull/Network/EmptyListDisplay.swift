@@ -12,7 +12,7 @@ struct EmptyListDisplay {
     let accessibilityMessage: String
     let accessibilityHint: String
 
-    static func display(_ state: ClothingCatalogViewModel.ClothingCatalogState) -> EmptyListDisplay {
+    static func display(for  state: ClothingCatalogViewModel.ClothingCatalogState) -> EmptyListDisplay {
         switch state {
         case .emptyCatalog:
             return EmptyListDisplay(
@@ -28,8 +28,6 @@ struct EmptyListDisplay {
                 message: "Aucun article ne correspond à votre recherche.",
                 accessibilityMessage: AccessibilityHandler.EmptyState.noResultsLabel,
                 accessibilityHint: AccessibilityHandler.EmptyState.noResultsHint)
-        default:
-            return EmptyListDisplay(image: "", title: "", message: "", accessibilityMessage: "", accessibilityHint: "")
         }
     }
 }

@@ -118,7 +118,7 @@ struct ProductImageContainer: View {
     }
 }
 
-#Preview("Card – portrait (rectangulaire)") {
+#Preview("Card – portrait (rectangular)") {
     ProductImageContainer(
         item: PreviewItems.item,
         aspectRatio: 3/4,
@@ -147,7 +147,7 @@ struct ProductImageContainer: View {
     .padding()
 }
 
-#Preview("Detail – iPhone paysage (carré)") {
+#Preview("Detail – iPhone paysage (squarred)") {
     ProductImageContainer(
         item: PreviewItems.item,
         displayedLikes: 15,
@@ -163,7 +163,7 @@ struct ProductImageContainer: View {
     .padding()
 }
 
-#Preview("Detail – iPad split / paysage (rectangulaire)") {
+#Preview("Detail – iPad split / paysage (rectangular)") {
     ProductImageContainer(
         item: PreviewItems.item,
         displayedLikes: 15,

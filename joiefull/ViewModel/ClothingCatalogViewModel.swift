@@ -34,10 +34,9 @@ final class ClothingCatalogViewModel: ObservableObject {
     enum ClothingCatalogState: Equatable {
         case emptyCatalog
         case emptySearch
-        case content
     }
 
-    var state: ClothingCatalogState {
+    var state: ClothingCatalogState? {
         if clothes.isEmpty {
             return .emptyCatalog
         }
@@ -46,7 +45,7 @@ final class ClothingCatalogViewModel: ObservableObject {
             return .emptySearch
         }
 
-        return .content
+        return nil
     }
 
     var searchResults: [Clothing] {

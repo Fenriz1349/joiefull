@@ -8,57 +8,82 @@
 import SwiftUI
 
 struct EmptyListView: View {
-    @EnvironmentObject private var catalog: ClothingCatalogViewModel
-
-    private var display: EmptyListDisplay {
-        EmptyListDisplay.display(catalog.state)
+    
+    let state: ClothingCatalogViewModel.ClothingCatalogState
+    let searchReset: () -> Void
+    let catalogReset: () -> Void
+    
+    var display: EmptyListDisplay {
+        EmptyListDisplay.display(for: state)
     }
-
+    
     var body: some View {
-        VStack(spacing: 12) {
-
-            Image(systemName: display.image)
-                .font(.system(size: 44, weight: .semibold))
-                .accessibilityHidden(true)
-
-            Text(display.title)
-                .font(.title3.weight(.semibold))
-                .multilineTextAlignment(.center)
-                .accessibilityAddTraits(.isHeader)
-
-            Text(display.message)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-
-            switch catalog.state {
-            case .emptySearch:
-                Button("Effacer la recherche") {
-                    catalog.resetSearch()
+        if state == .emptyCatalog {
+            BrandingContentView {
+                VStack(spacing: 12) {
+                    Image(systemName: display.image)
+                        .font(.system(size: 44, weight: .semibold))
+                        .accessibilityHidden(true)
+                    
+                    Text(display.title)
+                        .font(.title3.weight(.semibold))
+                        .multilineTextAlignment(.center)
+                        .accessibilityAddTraits(.isHeader)
+                    
+                    Text(display.message)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                    
+                    Button("Recharger") {
+                        catalogReset()
+                    }
                 }
-            case .emptyCatalog:
-                Button("Recharger") {
-                    Task { await catalog.resetAndReload() }
-                }
-            default: EmptyView()
+                .padding(.vertical, 40)
+                .padding(.horizontal, 24)
+                // ACCESSIBILITY
+                .accessibilityElement(children: .contain)
+                .accessibilityLabel(display.accessibilityMessage)
+                .accessibilityHint(display.accessibilityHint)
             }
+        } else {
+            VStack(spacing: 12) {
+                Image(systemName: display.image)
+                    .font(.system(size: 44, weight: .semibold))
+                    .accessibilityHidden(true)
+                
+                Text(display.title)
+                    .font(.title3.weight(.semibold))
+                    .multilineTextAlignment(.center)
+                    .accessibilityAddTraits(.isHeader)
+                
+                Text(display.message)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                
+                Button("Effacer la recherche") {
+                    searchReset()
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 40)
+            .padding(.horizontal, 24)
+            // ACCESSIBILITY
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel(display.accessibilityMessage)
+            .accessibilityHint(display.accessibilityHint)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 40)
-        .padding(.horizontal, 24)
-        // ACCESSIBILITY
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel(display.accessibilityMessage)
-        .accessibilityHint(display.accessibilityHint)
     }
 }
 
-#Preview("Liste Vide") {
-    EmptyListView()
+#Preview("Empty Catalog") {
+    EmptyListView(state: .emptyCatalog, searchReset: {}, catalogReset: {})
         .environmentObject(PreviewContainer.emptyCatalogViewModel())
 }
 
-#Preview("Recherche vide") {
-    EmptyListView()
+#Preview("Empty Search") {
+    EmptyListView(state: .emptySearch, searchReset: {}, catalogReset: {})
         .environmentObject(PreviewContainer.emptySearchViewModel())
 }
+
