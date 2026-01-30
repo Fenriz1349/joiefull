@@ -66,7 +66,7 @@ struct ShareComposerView: View {
             .padding()
             .navigationTitle(AccessibilityHandler.ShareComposer.title(itemName: itemName))
             .navigationBarTitleDisplayMode(.inline)
-            .contentShape(Rectangle()) // IMPORTANT: make the empty area tappable
+            .contentShape(Rectangle()) // Make the empty area tappable
             .onTapGesture {
                 isMessageFocused = false
             }
@@ -76,7 +76,6 @@ struct ShareComposerView: View {
         }
     }
 }
-
 
 #Preview {
     ShareComposerView(itemName: PreviewItems.item.name, text: .constant(""), onShare: {}, onCancel: {})

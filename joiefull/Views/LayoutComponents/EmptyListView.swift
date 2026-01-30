@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct EmptyListView: View {
-    
+
     let state: ClothingCatalogViewModel.ClothingCatalogState
     let searchReset: () -> Void
     let catalogReset: () -> Void
-    
+
     var display: EmptyListDisplay {
         EmptyListDisplay.display(for: state)
     }
-    
+
     var body: some View {
         if state == .emptyCatalog {
             BrandingContentView {
@@ -24,17 +24,17 @@ struct EmptyListView: View {
                     Image(systemName: display.image)
                         .font(.system(size: 44, weight: .semibold))
                         .accessibilityHidden(true)
-                    
+
                     Text(display.title)
                         .font(.title3.weight(.semibold))
                         .multilineTextAlignment(.center)
                         .accessibilityAddTraits(.isHeader)
-                    
+
                     Text(display.message)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
-                    
+
                     Button("Recharger") {
                         catalogReset()
                     }
@@ -51,17 +51,17 @@ struct EmptyListView: View {
                 Image(systemName: display.image)
                     .font(.system(size: 44, weight: .semibold))
                     .accessibilityHidden(true)
-                
+
                 Text(display.title)
                     .font(.title3.weight(.semibold))
                     .multilineTextAlignment(.center)
                     .accessibilityAddTraits(.isHeader)
-                
+
                 Text(display.message)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
-                
+
                 Button("Effacer la recherche") {
                     searchReset()
                 }
@@ -86,4 +86,3 @@ struct EmptyListView: View {
     EmptyListView(state: .emptySearch, searchReset: {}, catalogReset: {})
         .environmentObject(PreviewContainer.emptySearchViewModel())
 }
-

@@ -15,7 +15,7 @@ struct ReviewInputView: View {
     let maxCharacters: Int = 180
 
     @FocusState private var isReviewFocused: Bool
-    var externalFocus: FocusState<Bool>.Binding? = nil
+    var externalFocus: FocusState<Bool>.Binding?
     @State private var draftBeforeEdit: String = ""
 
     private var remaining: Int { maxCharacters - text.count }

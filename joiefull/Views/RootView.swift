@@ -15,7 +15,7 @@ struct RootView: View {
     @EnvironmentObject var container: ClothingContainerViewModel
     @EnvironmentObject var catalog: ClothingCatalogViewModel
     @EnvironmentObject var toastyManager: ToastyManager
-    
+
     @FocusState private var isReviewFocused: Bool
 
     var allowsSplit: Bool { DeviceType.isSplitViewEnabled }
@@ -52,7 +52,7 @@ struct RootView: View {
                             view.navigationDestination(
                                 item: $container.selectedItem
                             ) { item in
-                                ClothingDetailView(externalFocus: $isReviewFocused,item: item, onClose: nil)
+                                ClothingDetailView(externalFocus: $isReviewFocused, item: item, onClose: nil)
                             }
                         }
                     }
