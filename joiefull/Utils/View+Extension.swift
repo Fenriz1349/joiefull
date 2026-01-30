@@ -44,6 +44,7 @@ extension ClothingDetailView {
 // MARK: - Convenience initializer (no content)
 
 extension BrandingContentView where Content == EmptyView {
+
     init() {
         self.init(content: { EmptyView() })
     }

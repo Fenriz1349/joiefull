@@ -27,17 +27,15 @@ final class ClothingCatalogViewModel: ObservableObject {
     // MARK: - Dependencies
 
     private let service = ClothingService()
-    private var hasLoaded: Bool = false
 
     // MARK: - Catalog State
 
     enum ClothingCatalogState: Equatable {
         case emptyCatalog
         case emptySearch
-        case content
     }
 
-    var state: ClothingCatalogState {
+    var state: ClothingCatalogState? {
         if clothes.isEmpty {
             return .emptyCatalog
         }
@@ -46,7 +44,7 @@ final class ClothingCatalogViewModel: ObservableObject {
             return .emptySearch
         }
 
-        return .content
+        return nil
     }
 
     var searchResults: [Clothing] {
@@ -63,15 +61,9 @@ final class ClothingCatalogViewModel: ObservableObject {
 
     // MARK: - Loading
 
-    /// Loads data once. Subsequent calls are ignored unless you reset.
+    /// Initial load (shows LoadingScreen)
     func loadIfNeeded() async {
-        guard !hasLoaded else { return }
-        hasLoaded = true
-        await load()
-    }
-
-    /// Reloads data from the API.
-    func load() async {
+        guard clothes.isEmpty else { return }
         isLoading = true
         loadingError = nil
         defer { isLoading = false }
@@ -86,9 +78,16 @@ final class ClothingCatalogViewModel: ObservableObject {
     }
 
     /// Allows forcing a reload (e.g. pull-to-refresh).
-    func resetAndReload() async {
-        hasLoaded = false
-        await loadIfNeeded()
+    func refreshInBackground() async {
+        loadingError = nil
+
+        do {
+            clothes = try await service.fetchClothes()
+        } catch let error as ClothingServiceError {
+            loadingError = error
+        } catch {
+            loadingError = .network
+        }
     }
 
     // MARK: - Helpers
@@ -106,6 +105,7 @@ final class ClothingCatalogViewModel: ObservableObject {
         return base.filter { $0.name.localizedCaseInsensitiveContains(query) }
     }
 }
+
 extension ClothingCatalogViewModel {
 
 #if DEBUG
@@ -113,7 +113,6 @@ extension ClothingCatalogViewModel {
         clothes = items
         loadingError = nil
         isLoading = false
-        hasLoaded = true
     }
 
     func setSearchTextForPreview(_ text: String) {
@@ -123,7 +122,6 @@ extension ClothingCatalogViewModel {
     func setErrorForPreview(_ error: ClothingServiceError?) {
         loadingError = error
         isLoading = false
-        hasLoaded = true
     }
 #endif
 }

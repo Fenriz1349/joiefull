@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Button overlays (like button + optional share button + optional close button)
 struct ButtonsOverlay: View {
 
     let likes: Int

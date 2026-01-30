@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Handle errors with fetching services and internet connexion
 enum ClothingServiceError: Error, Equatable, LocalizedError {
 
     case invalidResponse
