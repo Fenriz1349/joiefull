@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Modal View displayed when shareButton is pressed to add a personnal message
+/// Focus on Textfiel and open keyboard when appear
 struct ShareComposerView: View {
 
     let itemName: String

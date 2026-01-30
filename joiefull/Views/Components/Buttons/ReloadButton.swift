@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Rectangular button  to reload datas
+/// Uses the system arrow clockwise icon and a label with a accent color background
 struct ReloadButton: View {
 
     let action: () -> Void
@@ -14,7 +16,7 @@ struct ReloadButton: View {
     var body: some View {
         Button(action: action ) {
             HStack {
-                Image(systemName: "arrow.2.circlepath.circle")
+                Image(systemName: "arrow.clockwise")
                 Text("Réessayer")
             }
             .fontWeight(.semibold)

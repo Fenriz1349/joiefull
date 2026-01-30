@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// Image container with overlays (like button + optional share button)
+/// Image container to add button overlay on an ProductImage
 /// Enforces a given aspect ratio based on available width using GeometryReader
 struct ProductImageContainer: View {
 

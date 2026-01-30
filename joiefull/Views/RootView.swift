@@ -9,7 +9,7 @@ import SwiftUI
 import Toasty
 
 /// Root view of the application that manages adaptive layout
-/// Displays a split view on large screens (iPad) or navigation stack on small screens (iPhone)
+/// Displays a split view on iPad or navigation stack on iPhone
 struct RootView: View {
 
     @EnvironmentObject var container: ClothingContainerViewModel

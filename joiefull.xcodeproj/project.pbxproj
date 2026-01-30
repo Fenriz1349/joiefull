@@ -145,6 +145,7 @@
 				6800E6DD2EEC658200D07092 /* Picture.swift */,
 				6889DE742EF590700035BCE3 /* Category.swift */,
 				68243CFB2F1A2214001E041B /* SharePayload.swift */,
+				68696B962F2C906000EFE52C /* EmptyListDisplay.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -172,7 +173,6 @@
 			children = (
 				6800E6DF2EEC65A800D07092 /* ClothingService.swift */,
 				68D8A9922F23B70800D8C94B /* ClothingServiceError.swift */,
-				68696B962F2C906000EFE52C /* EmptyListDisplay.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -190,14 +190,13 @@
 			isa = PBXGroup;
 			children = (
 				685ECD992F2367E900E12FA4 /* Components */,
-				68243CFF2F1A248B001E041B /* Share */,
-				6889DE6D2EF57EB90035BCE3 /* LayoutComponents */,
 				6809CD892EF3E0070061BDAA /* ClothingListView.swift */,
 				6809CD8B2EF3E0290061BDAA /* ClothingCardView.swift */,
 				6809CD8D2EF3E0460061BDAA /* ClothingDetailView.swift */,
 				6889DE5C2EF540070035BCE3 /* RootView.swift */,
 				685ECD9A2F237D8900E12FA4 /* LoadingScreen.swift */,
 				68407B222F2B5BC900ED2B06 /* LaunchScreen.swift */,
+				68407B242F2BB6E700ED2B06 /* EmptyListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -246,6 +245,8 @@
 			children = (
 				6809CD982EF4035A0061BDAA /* Buttons */,
 				6889DE6C2EF57E490035BCE3 /* ItemDetails */,
+				68243CFF2F1A248B001E041B /* Share */,
+				6889DE6D2EF57EB90035BCE3 /* LayoutComponents */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -279,7 +280,6 @@
 				6809CDA52EF40BB80061BDAA /* ProductImage.swift */,
 				6889DE702EF586B20035BCE3 /* ProductImageContainer.swift */,
 				6826B7FE2F1E22A400E27EF7 /* ButtonsOverlay.swift */,
-				68407B242F2BB6E700ED2B06 /* EmptyListView.swift */,
 				68407B202F2B5B8D00ED2B06 /* BrandingContentView.swift */,
 			);
 			path = LayoutComponents;

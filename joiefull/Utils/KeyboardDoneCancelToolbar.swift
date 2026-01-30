@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+/// ViewModifier to add as a toobar a done and a cancel button
 struct KeyboardDoneCancelToolbar: ViewModifier {
+
     let onCancel: () -> Void
     let onDone: () -> Void
 
@@ -23,10 +25,13 @@ struct KeyboardDoneCancelToolbar: ViewModifier {
 }
 
 extension View {
-    func keyboardDoneCancelToolbar(
-        onCancel: @escaping () -> Void,
-        onDone: @escaping () -> Void
-    ) -> some View {
+
+    /// View extenstion to add a KeyboardDoneCancelToolbar
+    /// - Parameters:
+    ///   - onCancel: The function to call when cancel is pressed
+    ///   - onDone: The function to call when done is pressed
+    /// - Returns: The View with the toolbar set with given actions
+    func keyboardDoneCancelToolbar(onCancel: @escaping () -> Void, onDone: @escaping () -> Void ) -> some View {
         modifier(KeyboardDoneCancelToolbar(onCancel: onCancel, onDone: onDone))
     }
 }

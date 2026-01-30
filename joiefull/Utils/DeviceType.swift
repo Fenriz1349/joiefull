@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Helper to get the current device and if it allow or not SplitView on the RootView
 enum DeviceType {
 
     case iPhone

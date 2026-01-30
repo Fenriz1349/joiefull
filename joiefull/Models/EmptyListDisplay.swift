@@ -5,6 +5,7 @@
 //  Created by Julien Cotte on 30/01/2026.
 //
 
+/// Represent all the variables needed for the EmptyListView
 struct EmptyListDisplay {
     let image: String
     let title: String

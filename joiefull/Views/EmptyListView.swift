@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// View displayed when the Clothes List is empty
+/// Handle empty catalog data with retry action of empty reserch results with reset action
 struct EmptyListView: View {
 
     let state: ClothingCatalogViewModel.ClothingCatalogState

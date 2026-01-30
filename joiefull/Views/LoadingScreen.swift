@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// View to diplay when loading
+/// Can diplays a ProgressView or an Error message
 struct LoadingScreen: View {
 
     @EnvironmentObject var catalog: ClothingCatalogViewModel
