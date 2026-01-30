@@ -21,57 +21,17 @@ final class ClothingDataManager {
 
     // MARK: - Likes
 
-    /// Retrieves the displayed number of likes for a specific clothing item
-    /// - Parameter clothingId: The unique identifier of the clothing item
-    /// - Returns: The number of likes stored in the database, or 0 if not found
-    func getdisplayedLikes(for clothingId: Int) -> Int {
-        let descriptor = FetchDescriptor<ClothingUserData>(
-            predicate: #Predicate { $0.clothingId == clothingId }
-        )
-
-        if let data = try? context.fetch(descriptor).first {
-            return data.displayedLikes
-        }
-
-        return 0
-    }
-
-    /// Updates the displayed likes count for a specific clothing item
-    /// Creates a new record if the clothing item doesn't exist in the database
-    /// - Parameters:
-    ///   - clothingId: The unique identifier of the clothing item
-    ///   - likes: The new like count to store
-    private func setDisplayedLikes(for clothingId: Int, likes: Int) {
-        let descriptor = FetchDescriptor<ClothingUserData>(
-            predicate: #Predicate { $0.clothingId == clothingId }
-        )
-
-        let data: ClothingUserData
-        if let existing = try? context.fetch(descriptor).first {
-            data = existing
-        } else {
-            data = ClothingUserData(clothingId: clothingId)
-            context.insert(data)
-        }
-
-        data.displayedLikes = likes
-        try? context.save()
-    }
-
-    /// Bulk updates the displayed like count for multiple clothing items
-    /// - Parameter likes: A dictionary mapping clothing IDs to their like counts
-    func setAllDisplayedLikes(_ likes: [Int: Int]) {
-        likes.forEach {
-            setDisplayedLikes(for: $0.key, likes: $0.value)
-        }
-    }
-
     /// Fetches all clothing IDs that have been marked as liked by the user
+    /// - Throws: ClothingDataManagerError
     /// - Returns: A set containing the IDs of all liked clothing items
-    func loadLikedIds() -> Set<Int> {
+    func loadLikedIds() throws -> Set<Int> {
         let descriptor = FetchDescriptor<ClothingUserData>()
-        let results = (try? context.fetch(descriptor)) ?? []
-        return Set(results.filter { $0.isLiked }.map { $0.clothingId })
+        do {
+            let results = try context.fetch(descriptor)
+            return Set(results.filter { $0.isLiked }.map { $0.clothingId })
+        } catch {
+            throw ClothingDataManagerError.loadFailed
+        }
     }
 
     /// Updates the liked status and the displayedLikes for a specific clothing item
@@ -79,32 +39,41 @@ final class ClothingDataManager {
     /// - Parameters:
     ///   - liked: The new liked status (true for liked, false for unliked)
     ///   - clothingId: The unique identifier of the clothing item
-    func setLiked(_ liked: Bool, for clothingId: Int) {
+    ///   - Throws: ClothingDataManagerError
+    func setLiked(_ liked: Bool, for clothingId: Int) throws {
         let descriptor = FetchDescriptor<ClothingUserData>(
             predicate: #Predicate { $0.clothingId == clothingId }
         )
 
         let data: ClothingUserData
-        if let existing = try? context.fetch(descriptor).first {
-            data = existing
-        } else {
-            data = ClothingUserData(clothingId: clothingId)
-            context.insert(data)
+        do {
+            if let existing = try context.fetch(descriptor).first {
+                data = existing
+            } else {
+                data = ClothingUserData(clothingId: clothingId)
+                context.insert(data)
+            }
+        } catch {
+            throw ClothingDataManagerError.fetchFailed
         }
 
         data.isLiked = liked
-        data.displayedLikes += liked ? 1 : -1
-        try? context.save()
+        try safeSave()
     }
 
     // MARK: - Rating
 
     /// Fetches all clothing IDs with their rating
+    /// - Throws: ClothingDataManagerError
     /// - Returns: An Array of all item and their rating
-    func loadRatings() -> [Int: Int] {
+    func loadRatings() throws -> [Int: Int] {
         let descriptor = FetchDescriptor<ClothingUserData>()
-        let results = (try? context.fetch(descriptor)) ?? []
-        return Dictionary(uniqueKeysWithValues: results.map { ($0.clothingId, $0.userRating) })
+        do {
+            let results = try context.fetch(descriptor)
+            return Dictionary(uniqueKeysWithValues: results.map { ($0.clothingId, $0.userRating) })
+        } catch {
+            throw ClothingDataManagerError.loadFailed
+        }
     }
 
     /// Updates the rating for a specific clothing item
@@ -112,31 +81,42 @@ final class ClothingDataManager {
     /// - Parameters:
     ///   - rating: The new rating
     ///   - clothingId: The unique identifier of the clothing item
-    func setRating(for clothingId: Int, _ rating: Int) {
+    ///   - Throws: ClothingDataManagerError
+    func setRating(for clothingId: Int, _ rating: Int) throws {
         let descriptor = FetchDescriptor<ClothingUserData>(
             predicate: #Predicate { $0.clothingId == clothingId }
         )
 
         let data: ClothingUserData
-        if let existing = try? context.fetch(descriptor).first {
-            data = existing
-        } else {
-            data = ClothingUserData(clothingId: clothingId)
-            context.insert(data)
+
+        do {
+            if let existing = try context.fetch(descriptor).first {
+                data = existing
+            } else {
+                data = ClothingUserData(clothingId: clothingId)
+                context.insert(data)
+            }
+        } catch {
+            throw ClothingDataManagerError.fetchFailed
         }
 
         data.userRating = rating
-        try? context.save()
+        try safeSave()
     }
 
     // MARK: - Comment
 
     /// Fetches all clothing IDs with their comment
+    /// - Throws: ClothingDataManagerError
     /// - Returns: An Array of all item and their comment
-    func loadComments() -> [Int: String] {
+    func loadComments() throws -> [Int: String] {
         let descriptor = FetchDescriptor<ClothingUserData>()
-        let results = (try? context.fetch(descriptor)) ?? []
-        return Dictionary(uniqueKeysWithValues: results.map { ($0.clothingId, $0.userComment ?? "") })
+        do {
+            let results = try context.fetch(descriptor)
+            return Dictionary(uniqueKeysWithValues: results.map { ($0.clothingId, $0.userComment ?? "") })
+        } catch {
+            throw ClothingDataManagerError.loadFailed
+        }
     }
 
     /// Updates the comment for a specific clothing item
@@ -144,20 +124,36 @@ final class ClothingDataManager {
     /// - Parameters:
     ///   - comment: The new comment
     ///   - clothingId: The unique identifier of the clothing item
-    func setComment(for clothingId: Int, _ comment: String) {
+    ///   - Throws: ClothingDataManagerError
+    func setComment(for clothingId: Int, _ comment: String) throws {
         let descriptor = FetchDescriptor<ClothingUserData>(
             predicate: #Predicate { $0.clothingId == clothingId }
         )
 
         let data: ClothingUserData
-        if let existing = try? context.fetch(descriptor).first {
-            data = existing
-        } else {
-            data = ClothingUserData(clothingId: clothingId)
-            context.insert(data)
+
+        do {
+            if let existing = try context.fetch(descriptor).first {
+                data = existing
+            } else {
+                data = ClothingUserData(clothingId: clothingId)
+                context.insert(data)
+            }
+        } catch {
+            throw ClothingDataManagerError.fetchFailed
         }
 
         data.userComment = comment
-        try? context.save()
+        try safeSave()
+    }
+}
+
+extension ClothingDataManager {
+    private func safeSave() throws {
+        do {
+            try context.save()
+        } catch {
+            throw ClothingDataManagerError.saveFailed
+        }
     }
 }

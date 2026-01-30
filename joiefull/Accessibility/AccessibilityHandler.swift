@@ -9,27 +9,44 @@ import Foundation
 
 /// Centralizes all accessibility labels, hints, and values
 /// Provides a single source of truth for VoiceOver text throughout the app
-struct AccessibilityHandler {
-    
+enum AccessibilityHandler {
+
+    // MARK: - Loading - Reloading
+
+    struct Loading {
+        static var label = "Chargement en cours"
+        static var hint = "Veuillez patienter"
+    }
+
+    struct LoadingError {
+        static let label = "Erreur de chargement"
+        static let hint = "Appuie sur Réessayer pour relancer le chargement"
+    }
+
+    struct ReloadButton {
+        static var label = "Réessayer"
+        static var hint = "Appuie pour relancer le chargement"
+    }
+
     // MARK: - Like Button
-    
+
     struct LikeButton {
         static func label(isLiked: Bool) -> String {
             isLiked ? "Retirer des favoris" : "Aimer cet article"
         }
-        
+
         static func hint(isLiked: Bool) -> String {
             "Double-tap pour \(isLiked ? "retirer" : "ajouter") aux favoris"
         }
-        
+
         static func value(likes: Int) -> String {
             let count = likes == 1 ? "personne" : "personnes"
             return "\(likes) \(count) aime\(likes > 1 ? "nt" : "") cet article"
         }
     }
-    
+
     // MARK: - Star Button
-    
+
     struct StarButton {
         static func label(index: Int) -> String {
             "Donner \(index) étoile\(index > 1 ? "s" : "")"
@@ -43,9 +60,9 @@ struct AccessibilityHandler {
             isSelected ? "Sélectionnée" : ""
         }
     }
-    
+
     // MARK: - Clothing Card
-    
+
     struct Clothing {
         static func itemSummary(
             itemName: String,
@@ -58,6 +75,7 @@ struct AccessibilityHandler {
         ) -> String {
 
             let ratingString = String(format: "%.1f", rating).replacingOccurrences(of: ".", with: ",")
+                .replacingOccurrences(of: ",0", with: "")
             var priceText = "Prix : \(Int(price))€"
 
             if originalPrice != price {
@@ -67,6 +85,7 @@ struct AccessibilityHandler {
             var parts: [String] = []
             parts.append("\(itemName).")
             parts.append("\(priceText).")
+            parts.append("Note : \(ratingString) sur 5.")
 
             if let imageDescription, !imageDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 parts.append("\(imageDescription).")
@@ -75,8 +94,6 @@ struct AccessibilityHandler {
             if let itemDescription, !itemDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 parts.append("\(itemDescription).")
             }
-
-            parts.append("Note : \(ratingString) sur 5.")
 
             if let category, !category.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 parts.append("Catégorie : \(category).")
@@ -87,112 +104,102 @@ struct AccessibilityHandler {
 
         static let hintCard = "Double-tap pour voir les détails de cet article"
     }
-    
+
     // MARK: - Review Input (Comment)
-    
+
     struct ReviewInput {
         static let label = "Votre commentaire"
-        
+
         static func hint(maxCharacters: Int) -> String {
             "Tapez jusqu'à \(maxCharacters) caractères pour partager votre avis"
         }
-        
+
         static let placeholder = "Partagez ici vos impressions sur cette pièce"
     }
-    
+
     // MARK: - Share Button
-    
+
     struct ShareButton {
         static let label = "Partager"
         static let hint = "Double-tap pour partager cet article avec vos amis"
     }
-    
-    
+
     // MARK: - Close Button
-    
+
     struct CloseButton {
         static let label = "Fermer"
         static let hint = "Double-tap pour fermer le detail de cet article"
     }
 
-    // MARK: - Rating Label
-    
-    struct RatingLabel {
-        static let label = "Note"
-        
-        static func value(_ rating: Double) -> String {
-            // Replace "." with "virgule" so VoiceOver can read it
-            let ratingString = String(format: "%.1f", rating).replacingOccurrences(of: ".", with: ",")
-            return "\(ratingString) sur 5"
-        }
-    }
-    
-    // MARK: - Description Row
-    
-    struct DescriptionRow {
-        static let priceLabel = "Prix"
-        static let originalPriceLabel = "Prix original"
-    }
-    
     // MARK: - Product Image Container
-    
+
     struct ProductImageContainer {
         static let imageHidden = true  // Image are described by view, avoid double double description
     }
-    
+
     // MARK: - Clothing Category Row
-    
+
     struct CategoryRow {
         static func sectionLabel(_ categoryTitle: String) -> String {
             "\(categoryTitle) - Section"
         }
-        
+
         static let hint = "Scroll horizontalement pour voir plus d'articles"
     }
-    
+
     // MARK: - Share Composer
-    
+
     struct ShareComposer {
         static func title(itemName: String) -> String {
             "Partager \(itemName)"
         }
-        
+
         static let messageFieldLabel = "Message personnalisé"
         static let messageFieldHint = "Optionnel - Ajoutez un commentaire personnel"
         static let cancelButton = "Annuler"
         static let shareButton = "Partager"
     }
-    
+
     // MARK: - Detail View
-    
+
     struct DetailView {
         static func backButton(itemName: String) -> String { "Retour depuis les détails de \(itemName)" }
-        
+
         static func detailOpen(itemName: String) -> String { "Détail ouvert pour \(itemName)" }
     }
-    
+
     // MARK: - Clothing List View
-    
+
     struct ClothingListView {
         static let loadingLabel = "Chargement des articles"
         static let loadingHint = "Patientez pendant que les articles se chargent"
-        
+
         static func categoryLabel(_ categoryTitle: String) -> String {
             "Section \(categoryTitle)"
         }
-        
+
         static func categoryHint(_ categoryTitle: String) -> String {
             "Articles de la catégorie \(categoryTitle). Scroll horizontalement pour voir plus"
         }
     }
-    
+
     // MARK: - Clothing Category Row
-    
+
     struct ClothingCategoryRow {
         static func sectionLabel(_ categoryTitle: String) -> String {
             "Articles - \(categoryTitle)"
         }
-        
+
         static let scrollHint = "Scroll horizontalement pour voir plus d'articles dans cette catégorie"
+    }
+
+    // MARK: - EmptyState
+
+    struct EmptyState {
+        static let noResultsLabel = "Aucun résultat"
+        static let noResultsHint = "Aucun article ne correspond à votre recherche. Effacez la recherche pour voir tous les articles."
+
+        static let catalogEmptyLabel = "Catalogue vide"
+        static let catalogEmptyHint = "Aucun article n’est disponible pour le moment."
     }
 }

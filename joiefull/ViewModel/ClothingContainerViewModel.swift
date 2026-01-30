@@ -7,11 +7,15 @@
 
 import Combine
 import SwiftUI
+import Toasty
 
 /// Manages the application state for clothing selection and like interactions
 /// Coordinates between the UI and persistent storage for user preferences
 @MainActor
 final class ClothingContainerViewModel: ObservableObject {
+
+    @Published var toastyManager: ToastyManager?
+
     /// Currently selected clothing item for detail view display
     @Published var selectedItem: Clothing?
 
@@ -19,10 +23,10 @@ final class ClothingContainerViewModel: ObservableObject {
     @Published private(set) var likedItemIds: Set<Int> = []
 
     /// Array of Dictionnary of IDs representing clothing items with their rating
-    @Published private(set) var ratingsById: [Int: Int] = [:]
-    
+    @Published private(set) var ratingsByItemId: [Int: Int] = [:]
+
     /// Array of Dictionnary of IDs representing clothing items with their comment
-    @Published private(set) var commentsById: [Int: String] = [:]
+    @Published private(set) var commentsByItemId: [Int: String] = [:]
 
     /// Current share payload to present the Share Sheet
     @Published var sharePayload: SharePayload?
@@ -33,9 +37,25 @@ final class ClothingContainerViewModel: ObservableObject {
 
     init(dataManager: ClothingDataManager) {
         self.dataManager = dataManager
-        self.likedItemIds = dataManager.loadLikedIds()
-        self.ratingsById = dataManager.loadRatings()
-        self.commentsById = dataManager.loadComments()
+        loadUserData()
+    }
+
+    /// Configures the toast notification manager
+    /// - Parameter toastyManager: Manager for displaying toast notifications
+    func configure(toastyManager: ToastyManager) {
+        self.toastyManager = toastyManager
+    }
+
+    // MARK: - User Data Loader
+
+    func loadUserData() {
+        do {
+            likedItemIds = try dataManager.loadLikedIds()
+            ratingsByItemId = try dataManager.loadRatings()
+            commentsByItemId = try dataManager.loadComments()
+        } catch {
+            toastyManager?.showError(error)
+        }
     }
 
     // MARK: - Selection
@@ -47,13 +67,18 @@ final class ClothingContainerViewModel: ObservableObject {
         selectedItem = selectedItem?.id == item.id ? nil : item
     }
 
+    /// Return true only if deviceType is iPad and one item is selected
+    var isSplitted: Bool {
+        DeviceType.isSplitViewEnabled && selectedItem != nil
+    }
+
     // MARK: - Likes
 
     /// Retrieves the displayed number of likes for a clothing item
     /// - Parameter item: The clothing item to get likes for
     /// - Returns: The current like count from persistent storage
     func getdisplayedLikes(for item: Clothing) -> Int {
-         dataManager.getdisplayedLikes(for: item.id)
+        isLiked(item) ? item.likes + 1 : item.likes
     }
 
     /// Checks if a clothing item is currently liked by the user
@@ -67,13 +92,17 @@ final class ClothingContainerViewModel: ObservableObject {
     /// Updates both the UI state and persistent storage
     /// - Parameter item: The clothing item whose like status should be toggled
     func toggleLike(for item: Clothing) {
-        let newValue = !isLiked(item)
-        dataManager.setLiked(newValue, for: item.id)
+        do {
+            let newValue = !isLiked(item)
+            try dataManager.setLiked(newValue, for: item.id)
 
-        if newValue {
-            likedItemIds.insert(item.id)
-        } else {
-            likedItemIds.remove(item.id)
+            if newValue {
+                likedItemIds.insert(item.id)
+            } else {
+                likedItemIds.remove(item.id)
+            }
+        } catch {
+            toastyManager?.showError(error)
         }
     }
 
@@ -83,7 +112,7 @@ final class ClothingContainerViewModel: ObservableObject {
     /// - Parameter item: The Item we want the rating
     /// - Returns:
     func getRating(for item: Clothing) -> Int {
-        ratingsById[item.id] ?? 0
+        ratingsByItemId[item.id] ?? 0
     }
 
     /// Set new rating for a clothing item
@@ -91,9 +120,12 @@ final class ClothingContainerViewModel: ObservableObject {
     /// - Parameter item: The clothing item whose like status should be toggled
     func setNewRating(for item: Clothing, rating: Int) {
         guard (1...5).contains(rating), getRating(for: item) != rating else { return }
-
-        dataManager.setRating(for: item.id, rating)
-        ratingsById[item.id] = rating
+        do {
+            try dataManager.setRating(for: item.id, rating)
+            ratingsByItemId[item.id] = rating
+        } catch {
+            toastyManager?.showError(error)
+        }
     }
 
     /// Return the selectedItem global rating or its average with the item rating
@@ -101,24 +133,28 @@ final class ClothingContainerViewModel: ObservableObject {
         let itemRating = Double(getRating(for: item))
         return itemRating == 0 ? item.globalRating : (item.globalRating * 0.9 + itemRating * 0.1)
     }
-    
+
     // MARK: - Comment
 
     /// Get the comment of an item from the persistent storage
     /// - Parameter item: The Item we want the rating
     /// - Returns:
     func getComment(for item: Clothing) -> String {
-        commentsById[item.id] ?? ""
+        commentsByItemId[item.id] ?? ""
     }
 
     /// Set new coment for a clothing item
     /// Updates both the UI state and persistent storage
     /// - Parameter item: The clothing item whose comment should be updated
     func setNewComment(for item: Clothing, comment: String) {
-        dataManager.setComment(for: item.id, comment)
-        commentsById[item.id] = comment
+        do {
+            try dataManager.setComment(for: item.id, comment)
+            commentsByItemId[item.id] = comment
+        } catch {
+            toastyManager?.showError(error)
+        }
     }
-    
+
     /// Returns a binding to the comment associated with a clothing item
     /// - Parameter item: The clothing item to retrieve and update the comment for
     /// - Returns: A binding used to read and persist the comment text

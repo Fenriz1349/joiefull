@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct ButtonsOverlay: View {
+
     let likes: Int
     let isLiked: Bool
     let onLikeTapped: () -> Void
-    var onShareTapped: (() -> Void)? = nil
-    var onClose: (() -> Void)? = nil
+    var onShareTapped: (() -> Void)?
+    var onClose: (() -> Void)?
 
     var body: some View {
         VStack(alignment: .trailing) {

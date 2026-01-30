@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import Toasty
 
 /// Shared preview container providing a ready-to-use
 /// `ClothingContainerViewModel` with an in-memory SwiftData stack.
@@ -16,7 +17,7 @@ enum PreviewContainer {
     static let modelContainer: ModelContainer = {
         do {
             return try ModelContainer(for: ClothingUserData.self,
-                                               configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+                                      configurations: ModelConfiguration(isStoredInMemoryOnly: true))
         } catch {
             fatalError("Failed to initialize SwiftData ModelContainer: \(error)")
         }
@@ -32,8 +33,33 @@ enum PreviewContainer {
         dataManager: dataManager
     )
 
-    /// Loader ViewModel used across previews
-    static let loadingViewModel = ClothingLoadingViewModel(
-        dataManager: dataManager
-    )
+    /// Catalog ViewModel used across previews
+    static let catalogViewModel = ClothingCatalogViewModel()
+
+    /// Creates a catalog view model with a emptyCatalog state for preview testing
+    static func emptyCatalogViewModel() -> ClothingCatalogViewModel {
+        let catalog = ClothingCatalogViewModel()
+        catalog.setClothesForPreview([])
+        return catalog
+    }
+
+    /// Creates a catalog view model with a emptySearch state for preview testing
+    static func emptySearchViewModel() -> ClothingCatalogViewModel {
+        let catalog = ClothingCatalogViewModel()
+        catalog.setClothesForPreview(PreviewItems.itemList)
+        catalog.setSearchTextForPreview("zzzz")
+        return catalog
+    }
+
+    /// Creates a catalog view model with a network error for preview testing
+    static func catalogViewModelWithError(_ error: ClothingServiceError = .network) -> ClothingCatalogViewModel {
+        let catalog = ClothingCatalogViewModel()
+        catalog.setErrorForPreview(error)
+        return catalog
+    }
+
+    /// Toasty Manager used across previews
+    static var sampleToastyManager: ToastyManager {
+        ToastyManager()
+    }
 }

@@ -10,22 +10,16 @@ import SwiftUI
 /// Displays detailed information about a clothing item
 /// Adapts layout based on device size and orientation (portrait/landscape)
 struct ClothingDetailView: View {
+
     @EnvironmentObject private var container: ClothingContainerViewModel
+    @AccessibilityFocusState var focusOnSummary: Bool
     let item: Clothing
     let onClose: (() -> Void)?
 
-    @Environment(\.horizontalSizeClass) private var hSizeClass
-    @AccessibilityFocusState private var focusOnSummary: Bool
-
     var body: some View {
         GeometryReader { geo in
-            // Detect if in landscape mode on iPhone
-            let isPhoneLandscape = hSizeClass == .compact && geo.size.width > geo.size.height
-
             // Use horizontal layout for landscape, vertical for portrait
-            let layout = isPhoneLandscape
-            ? AnyLayout(HStackLayout(alignment: .top, spacing: 20))
-            : AnyLayout(VStackLayout(alignment: .leading, spacing: 20))
+            let layout = LayoutRules.getDetailViewLayout(geo.size)
             ScrollView {
                 layout {
                     ProductImageContainer(
@@ -40,15 +34,10 @@ struct ClothingDetailView: View {
                         isSummaryFocused: $focusOnSummary)
                     .accessibilityFocused($focusOnSummary)
                     .onAppear {
-                        if UIAccessibility.isVoiceOverRunning {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                UIAccessibility.post(
-                                    notification: .announcement,
-                                    argument: AccessibilityHandler.DetailView.detailOpen(itemName: item.name)
-                                )
-                                focusOnSummary = true
-                            }
-                        }
+                       focusSummary()
+                    }
+                    .onChange(of: container.selectedItem) {
+                        focusSummary()
                     }
                     .onDisappear {
                         focusOnSummary = false

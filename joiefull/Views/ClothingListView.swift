@@ -7,45 +7,45 @@
 
 import SwiftUI
 
-/// Main list view displaying clothing items organized by category
-/// Adapts the number of columns based on available screen width
+/// Main list view displaying clothing items organized by category.
+/// Adapts the number of columns based on available screen width.
 struct ClothingListView: View {
-    @EnvironmentObject private var loader: ClothingLoadingViewModel
 
-    /// Currently selected clothing item (for highlighting in split view)
-    let selectedItem: Clothing?
-
-    /// Callback when a clothing item is selected
-    let onSelect: (Clothing) -> Void
+    @EnvironmentObject private var catalog: ClothingCatalogViewModel
+    @EnvironmentObject private var container: ClothingContainerViewModel
 
     var body: some View {
         GeometryReader { geo in
-            // Calculate optimal number of items per row based on width
-            let itemCount = LayoutRules.itemCount(for: geo.size.width)
+            let itemCount = LayoutRules.itemCount(for: geo.size, isSplitted: container.isSplitted)
 
             ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    ForEach(Category.allCases, id: \.self) { category in
-                        ClothingCategoryRow(
-                            category: category,
-                            items: loader.clothes(for: category),
-                            itemCount: itemCount,
-                            selectedItem: selectedItem,
-                            onSelect: onSelect
-                        )
+                if catalog.state != .content  && !catalog.isLoading {
+                    EmptyListView()
+                } else {
+                    VStack(alignment: .leading, spacing: 24) {
+                        ForEach(Category.allCases, id: \.self) { category in
+                            let items = catalog.clothes(for: category)
+                            if !items.isEmpty {
+                                ClothingCategoryRow(
+                                    category: category,
+                                    items: items,
+                                    itemCount: itemCount,
+                                    selectedItem: container.selectedItem,
+                                    onSelect: container.toggleSelection
+                                )
+                            }
+                        }
                     }
+                    .padding(.vertical)
                 }
-                .padding(.vertical)
             }
-        }
-        .task {
-            await loader.load()
+            .searchable(text: $catalog.searchText, placement: .navigationBarDrawer(displayMode: .always))
         }
     }
 }
 
 #Preview {
-    ClothingListView(selectedItem: PreviewItems.item, onSelect: {_ in })
+    ClothingListView()
+        .environmentObject(PreviewContainer.catalogViewModel)
         .environmentObject(PreviewContainer.containerViewModel)
-        .environmentObject(PreviewContainer.loadingViewModel)
 }

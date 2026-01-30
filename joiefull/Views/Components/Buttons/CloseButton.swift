@@ -1,32 +1,32 @@
 //
-//  ShareButton.swift
+//  CloseButton.swift
 //  joiefull
 //
-//  Created by Julien Cotte on 18/12/2025.
+//  Created by Julien Cotte on 22/01/2026.
 //
 
 import SwiftUI
 
 /// Circular button for sharing content
 /// Uses the system share icon with a frosted glass background
-struct ShareButton: View {
-    /// Action to perform when tapped
+struct CloseButton: View {
+
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
-            Image(systemName: "square.and.arrow.up")
-                .foregroundStyle(.primary)
+            Image(systemName: "xmark")
+                .foregroundStyle(.red)
                 .padding(10)
                 .background(.ultraThinMaterial)
                 .clipShape(Circle())
         }
         // ACCESSIBILITY
-        .accessibilityLabel(AccessibilityHandler.ShareButton.label)
-        .accessibilityHint(AccessibilityHandler.ShareButton.hint)
+        .accessibilityLabel(AccessibilityHandler.CloseButton.label)
+        .accessibilityHint(AccessibilityHandler.CloseButton.hint)
     }
 }
 
 #Preview {
-    ShareButton(action: {})
+    CloseButton(action: {})
 }

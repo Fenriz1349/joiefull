@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ShareComposerView: View {
+
     let itemName: String
     @Binding var text: String
     let onShare: () -> Void

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import Toasty
 
 /// Main app entry point for the Joiefull application
 /// Configures SwiftData persistence and initializes the view model hierarchy
@@ -15,7 +16,8 @@ struct JoiefullApp: App {
 
     let modelContainer: ModelContainer
     let containerViewModel: ClothingContainerViewModel
-    let clothingLoadingViewModel : ClothingLoadingViewModel
+    let clothingLoadingViewModel: ClothingCatalogViewModel
+    @StateObject private var toasty = ToastyManager()
 
     init() {
         do {
@@ -24,7 +26,7 @@ struct JoiefullApp: App {
 
             self.modelContainer = container
             self.containerViewModel = ClothingContainerViewModel(dataManager: dataManager)
-            self.clothingLoadingViewModel = ClothingLoadingViewModel(dataManager: dataManager)
+            self.clothingLoadingViewModel = ClothingCatalogViewModel()
         } catch {
             fatalError("Failed to initialize SwiftData ModelContainer: \(error)")
         }
@@ -32,9 +34,12 @@ struct JoiefullApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
-                .environmentObject(containerViewModel)
-                .environmentObject(clothingLoadingViewModel)
+            ToastyContainer(manager: toasty) {
+                RootView()
+                    .environmentObject(containerViewModel)
+                    .environmentObject(clothingLoadingViewModel)
+            }
+            .environmentObject(toasty)
         }
         .modelContainer(modelContainer)
     }

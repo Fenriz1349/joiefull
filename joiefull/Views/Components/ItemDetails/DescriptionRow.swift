@@ -10,6 +10,7 @@ import SwiftUI
 /// Displays clothing item name, rating, and pricing information
 /// Adapts typography and layout based on whether it's shown in detail or card view
 struct DescriptionRow: View {
+
     var isDetail: Bool = false
     let rating: Double
     let item: Clothing
@@ -37,8 +38,6 @@ struct DescriptionRow: View {
                 }
                 // ACCESSIBILITY - Group the rating
                 .accessibilityElement(children: .combine)
-                .accessibilityLabel(AccessibilityHandler.RatingLabel.label)
-                .accessibilityValue(AccessibilityHandler.RatingLabel.value(rating))
             }
 
             HStack {
@@ -52,8 +51,6 @@ struct DescriptionRow: View {
                         .font(priceFont)
                         .foregroundStyle(.secondary)
                         .strikethrough()
-                        // ACCESSIBILITY - Indicate it's the original price
-                        .accessibilityLabel(AccessibilityHandler.DescriptionRow.originalPriceLabel)
                 }
             }
         }
