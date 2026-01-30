@@ -36,6 +36,21 @@ enum PreviewContainer {
     /// Catalog ViewModel used across previews
     static let catalogViewModel = ClothingCatalogViewModel()
 
+    /// Creates a catalog view model with a emptyCatalog state for preview testing
+    static func emptyCatalogViewModel() -> ClothingCatalogViewModel {
+        let catalog = ClothingCatalogViewModel()
+        catalog.setClothesForPreview([])
+        return catalog
+    }
+
+    /// Creates a catalog view model with a emptySearch state for preview testing
+    static func emptySearchViewModel() -> ClothingCatalogViewModel {
+        let catalog = ClothingCatalogViewModel()
+        catalog.setClothesForPreview(PreviewItems.itemList)
+        catalog.setSearchTextForPreview("zzzz")
+        return catalog
+    }
+
     /// Creates a catalog view model with a network error for preview testing
     static func catalogViewModelWithError(_ error: ClothingServiceError = .network) -> ClothingCatalogViewModel {
         let catalog = ClothingCatalogViewModel()

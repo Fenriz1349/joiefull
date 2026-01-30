@@ -109,8 +109,21 @@ final class ClothingCatalogViewModel: ObservableObject {
 extension ClothingCatalogViewModel {
 
 #if DEBUG
-    func setErrorForPreview(_ error: ClothingServiceError) {
+    func setClothesForPreview(_ items: [Clothing]) {
+        clothes = items
+        loadingError = nil
+        isLoading = false
+        hasLoaded = true
+    }
+
+    func setSearchTextForPreview(_ text: String) {
+        searchText = text
+    }
+
+    func setErrorForPreview(_ error: ClothingServiceError?) {
         loadingError = error
+        isLoading = false
+        hasLoaded = true
     }
 #endif
 }

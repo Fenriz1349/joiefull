@@ -8,60 +8,57 @@
 import SwiftUI
 
 struct EmptyListView: View {
-    let state: ClothingCatalogViewModel.ClothingCatalogState
-    let onClearSearch: (() -> Void)?
+    @EnvironmentObject private var catalog: ClothingCatalogViewModel
 
-    private var isSearchEmpty: Bool {
-        state == .emptySearch
+    private var display: EmptyListDisplay {
+        EmptyListDisplay.display(catalog.state)
     }
 
     var body: some View {
         VStack(spacing: 12) {
 
-            Image(systemName: isSearchEmpty ? "magnifyingglass" : "tray")
+            Image(systemName: display.image)
                 .font(.system(size: 44, weight: .semibold))
                 .accessibilityHidden(true)
 
-            Text(isSearchEmpty ? "Aucun résultat" : "Catalogue vide")
+            Text(display.title)
                 .font(.title3.weight(.semibold))
                 .multilineTextAlignment(.center)
                 .accessibilityAddTraits(.isHeader)
 
-            Text(isSearchEmpty ? "Aucun article ne correspond à votre recherche."
-                               : "Aucun article n’est disponible pour le moment."
-            )
-            .font(.subheadline)
-            .foregroundStyle(.secondary)
-            .multilineTextAlignment(.center)
+            Text(display.message)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
 
-            if isSearchEmpty {
+            switch catalog.state {
+            case .emptySearch :
                 Button("Effacer la recherche") {
-                    onClearSearch?()
+                    catalog.resetSearch()
                 }
+            case .emptyCatalog :
+                Button("Recharger") {
+                    Task { await catalog.resetAndReload() }
+                }
+            default: EmptyView()
             }
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 40)
         .padding(.horizontal, 24)
-        // ACCESSIBILITY: one logical group
+        // ACCESSIBILITY
         .accessibilityElement(children: .contain)
-        .accessibilityLabel(
-            isSearchEmpty
-            ? AccessibilityHandler.EmptyState.noResultsLabel
-            : AccessibilityHandler.EmptyState.catalogEmptyLabel
-        )
-        .accessibilityHint(
-            isSearchEmpty
-            ? AccessibilityHandler.EmptyState.noResultsHint
-            : AccessibilityHandler.EmptyState.catalogEmptyHint
-        )
+        .accessibilityLabel(display.accessibilityMessage)
+        .accessibilityHint(display.accessibilityHint)
     }
 }
 
 #Preview("Liste Vide") {
-    EmptyListView(state: .emptyCatalog, onClearSearch: {})
+    EmptyListView()
+        .environmentObject(PreviewContainer.emptyCatalogViewModel())
 }
 
 #Preview("Recherche vide") {
-    EmptyListView(state: .emptySearch, onClearSearch: {})
+    EmptyListView()
+        .environmentObject(PreviewContainer.emptySearchViewModel())
 }

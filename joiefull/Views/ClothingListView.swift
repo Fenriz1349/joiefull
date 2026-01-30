@@ -20,7 +20,7 @@ struct ClothingListView: View {
 
             ScrollView {
                 if catalog.state != .content  && !catalog.isLoading {
-                    EmptyListView(state: catalog.state, onClearSearch: catalog.resetSearch)
+                    EmptyListView()
                 } else {
                     VStack(alignment: .leading, spacing: 24) {
                         ForEach(Category.allCases, id: \.self) { category in
