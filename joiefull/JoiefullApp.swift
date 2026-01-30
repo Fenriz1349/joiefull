@@ -11,6 +11,7 @@ import Toasty
 
 /// Main app entry point for the Joiefull application
 /// Configures SwiftData persistence and initializes the view model hierarchy
+/// Create and inject viewModels and ToasterManager
 @main
 struct JoiefullApp: App {
 
@@ -35,7 +36,7 @@ struct JoiefullApp: App {
     var body: some Scene {
         WindowGroup {
             ToastyContainer(manager: toasty) {
-                RootView()
+                AppEntryView()
                     .environmentObject(containerViewModel)
                     .environmentObject(clothingLoadingViewModel)
             }
