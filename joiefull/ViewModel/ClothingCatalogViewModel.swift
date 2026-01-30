@@ -18,14 +18,6 @@ final class ClothingCatalogViewModel: ObservableObject {
     @Published private(set) var clothes: [Clothing] = []
     @Published var searchText = ""
 
-    var searchResults: [Clothing] {
-        if searchText.isEmpty {
-            return clothes
-        } else {
-            return clothes.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
-        }
-    }
-
     /// True while loading is in progress.
     @Published private(set) var isLoading: Bool = false
 
@@ -36,6 +28,38 @@ final class ClothingCatalogViewModel: ObservableObject {
 
     private let service = ClothingService()
     private var hasLoaded: Bool = false
+
+    // MARK: - Catalog State
+
+    enum ClothingCatalogState: Equatable {
+        case emptyCatalog
+        case emptySearch
+        case content
+    }
+
+    var state: ClothingCatalogState {
+        if clothes.isEmpty {
+            return .emptyCatalog
+        }
+
+        if !searchText.isEmpty, searchResults.isEmpty {
+            return .emptySearch
+        }
+
+        return .content
+    }
+
+    var searchResults: [Clothing] {
+        if searchText.isEmpty {
+            return clothes
+        } else {
+            return clothes.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        }
+    }
+
+    func resetSearch() {
+        searchText = ""
+    }
 
     // MARK: - Loading
 

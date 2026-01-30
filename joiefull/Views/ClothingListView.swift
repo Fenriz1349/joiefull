@@ -19,21 +19,25 @@ struct ClothingListView: View {
             let itemCount = LayoutRules.itemCount(for: geo.size, isSplitted: container.isSplitted)
 
             ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    ForEach(Category.allCases, id: \.self) { category in
-                        let items = catalog.clothes(for: category)
-                        if !items.isEmpty {
-                            ClothingCategoryRow(
-                                category: category,
-                                items: items,
-                                itemCount: itemCount,
-                                selectedItem: container.selectedItem,
-                                onSelect: container.toggleSelection
-                            )
+                if catalog.state != .content  && !catalog.isLoading {
+                    EmptyListView(state: catalog.state, onClearSearch: catalog.resetSearch)
+                } else {
+                    VStack(alignment: .leading, spacing: 24) {
+                        ForEach(Category.allCases, id: \.self) { category in
+                            let items = catalog.clothes(for: category)
+                            if !items.isEmpty {
+                                ClothingCategoryRow(
+                                    category: category,
+                                    items: items,
+                                    itemCount: itemCount,
+                                    selectedItem: container.selectedItem,
+                                    onSelect: container.toggleSelection
+                                )
+                            }
                         }
                     }
+                    .padding(.vertical)
                 }
-                .padding(.vertical)
             }
             .searchable(text: $catalog.searchText, placement: .navigationBarDrawer(displayMode: .always))
         }
@@ -42,6 +46,6 @@ struct ClothingListView: View {
 
 #Preview {
     ClothingListView()
-        .environmentObject(PreviewContainer.loadingViewModel)
+        .environmentObject(PreviewContainer.catalogViewModel)
         .environmentObject(PreviewContainer.containerViewModel)
 }

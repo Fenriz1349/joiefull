@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 import Toasty
 
 /// Root view of the application that manages adaptive layout
@@ -64,14 +63,14 @@ struct RootView: View {
 #Preview {
     RootView()
         .environmentObject(PreviewContainer.containerViewModel)
-        .environmentObject(PreviewContainer.loadingViewModel)
+        .environmentObject(PreviewContainer.catalogViewModel)
         .environmentObject(PreviewContainer.sampleToastyManager)
 }
 
 #Preview("320x568 forced") {
     RootView()
         .environmentObject(PreviewContainer.containerViewModel)
-        .environmentObject(PreviewContainer.loadingViewModel)
+        .environmentObject(PreviewContainer.catalogViewModel)
         .environmentObject(PreviewContainer.sampleToastyManager)
         .frame(width: 320, height: 568)
         .clipped()
@@ -80,7 +79,7 @@ struct RootView: View {
 #Preview("iPad mini (portrait)") {
     RootView()
         .environmentObject(PreviewContainer.containerViewModel)
-        .environmentObject(PreviewContainer.loadingViewModel)
+        .environmentObject(PreviewContainer.catalogViewModel)
         .environmentObject(PreviewContainer.sampleToastyManager)
         .frame(width: 744, height: 1133)
         .clipped()
@@ -89,7 +88,7 @@ struct RootView: View {
 #Preview("iPad mini (landscape)") {
     RootView()
         .environmentObject(PreviewContainer.containerViewModel)
-        .environmentObject(PreviewContainer.loadingViewModel)
+        .environmentObject(PreviewContainer.catalogViewModel)
         .environmentObject(PreviewContainer.sampleToastyManager)
         .frame(width: 1133, height: 744)
         .clipped()

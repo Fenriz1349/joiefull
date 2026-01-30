@@ -35,13 +35,13 @@ enum PreviewContainer {
 
     /// Catalog ViewModel used across previews
     static let catalogViewModel = ClothingCatalogViewModel()
-    
+
     /// Creates a catalog view model with a network error for preview testing
-       static func catalogViewModelWithError(_ error: ClothingServiceError = .network) -> ClothingCatalogViewModel {
-           let catalog = ClothingCatalogViewModel()
-           catalog.setErrorForPreview(error)
-           return catalog
-       }
+    static func catalogViewModelWithError(_ error: ClothingServiceError = .network) -> ClothingCatalogViewModel {
+        let catalog = ClothingCatalogViewModel()
+        catalog.setErrorForPreview(error)
+        return catalog
+    }
 
     /// Toasty Manager used across previews
     static var sampleToastyManager: ToastyManager {
