@@ -30,11 +30,13 @@ final class ClothingCatalogViewModel: ObservableObject {
 
     // MARK: - Catalog State
 
+    /// Represents catalog empty states (no items or no search results).
     enum ClothingCatalogState: Equatable {
         case emptyCatalog
         case emptySearch
     }
 
+    /// Returns current state (empty catalog or empty search).
     var state: ClothingCatalogState? {
         if clothes.isEmpty {
             return .emptyCatalog
@@ -47,6 +49,7 @@ final class ClothingCatalogViewModel: ObservableObject {
         return nil
     }
 
+    /// Filtered clothes list based on search text.
     var searchResults: [Clothing] {
         if searchText.isEmpty {
             return clothes
@@ -55,6 +58,7 @@ final class ClothingCatalogViewModel: ObservableObject {
         }
     }
 
+    /// Clears search text.
     func resetSearch() {
         searchText = ""
     }

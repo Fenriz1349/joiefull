@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-/// Image container to add button overlay on an ProductImage
-/// Enforces a given aspect ratio based on available width using GeometryReader
+/// Image container with overlay buttons (like, share, close).
+/// Provides complete accessibility representation avoiding duplication.
 struct ProductImageContainer: View {
 
     let item: Clothing

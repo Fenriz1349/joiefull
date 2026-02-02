@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-/// Text editor for users to write reviews about clothing items
-/// Shows placeholder text when empty
+/// Text editor for user reviews (max 180 chars).
+/// Restores draft if user cancels input.
 struct ReviewInputView: View {
 
     @Binding var text: String
@@ -16,6 +16,8 @@ struct ReviewInputView: View {
 
     @FocusState private var isReviewFocused: Bool
     var externalFocus: FocusState<Bool>.Binding?
+    
+    /// Text before editing (restored if keyboard cancelled).
     @State private var draftBeforeEdit: String = ""
 
     private var remaining: Int { maxCharacters - text.count }

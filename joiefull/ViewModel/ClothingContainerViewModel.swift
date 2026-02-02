@@ -16,21 +16,29 @@ final class ClothingContainerViewModel: ObservableObject {
 
     @Published var toastyManager: ToastyManager?
 
-    /// Currently selected clothing item for detail view display
+    /// Currently displayed detail panel (selection state)
+    /// Triggers split-view activation on iPad when non-nil
     @Published var selectedItem: Clothing?
 
-    /// Set of IDs representing clothing items that have been liked by the user
+    /// Set of liked item IDs, persisted to SwiftData
+    /// Used to display hearts as filled and increment like count
     @Published private(set) var likedItemIds: Set<Int> = []
 
-    /// Array of Dictionnary of IDs representing clothing items with their rating
+    /// User ratings per item (1-5), persisted to SwiftData
+    /// 0 = not rated yet
     @Published private(set) var ratingsByItemId: [Int: Int] = [:]
 
-    /// Array of Dictionnary of IDs representing clothing items with their comment
+    /// User-written reviews per item, persisted to SwiftData
+    /// Max 180 characters enforced by ReviewInputView
     @Published private(set) var commentsByItemId: [Int: String] = [:]
 
-    /// Current share payload to present the Share Sheet
+    /// Payload for native iOS share sheet (triggered by ShareButton)
     @Published var sharePayload: SharePayload?
+
+    /// Draft text in share composer (cleared after sharing)
     @Published var shareNoteDraft: String = ""
+
+    /// Controls presentation of share composer modal
     @Published var isShareComposerPresented = false
 
     private let dataManager: ClothingDataManager
@@ -48,6 +56,7 @@ final class ClothingContainerViewModel: ObservableObject {
 
     // MARK: - User Data Loader
 
+    /// Loads user data from SwiftData.
     func loadUserData() {
         do {
             likedItemIds = try dataManager.loadLikedIds()
