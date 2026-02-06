@@ -15,7 +15,7 @@ struct ClothingCardView: View {
     let item: Clothing
     let isSelected: Bool
 
-    // Used to order VO priority in the list
+    /// VoiceOver priority to avoid overlapping with other cards.
     let basePriority: Double
     let onOpen: () -> Void
 

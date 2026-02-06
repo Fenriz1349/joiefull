@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-/// Main list view displaying clothing items organized by category.
-/// Adapts the number of columns based on available screen width.
+/// Main catalog view displaying items by category.
+/// Supports real-time search and pull-to-refresh.
 struct ClothingListView: View {
 
     @EnvironmentObject private var catalog: ClothingCatalogViewModel
@@ -42,7 +42,7 @@ struct ClothingListView: View {
                 }
             }
         }
-        .searchable(text: $catalog.searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .searchable(text: $catalog.searchText, placement: .navigationBarDrawer(displayMode: .automatic))
     }
 }
 

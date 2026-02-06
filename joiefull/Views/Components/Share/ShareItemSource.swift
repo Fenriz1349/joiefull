@@ -7,7 +7,8 @@
 
 import UIKit
 
-/// Provides a consistent share subject + per-activity content (ex: Copy copies text)
+/// Adapts shared content by activity type (copy, mail, messages, etc.).
+/// Copy = text only. Others = text + URL.
 final class ShareItemSource: NSObject, UIActivityItemSource {
 
     private let subject: String
