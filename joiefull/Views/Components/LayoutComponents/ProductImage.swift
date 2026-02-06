@@ -21,10 +21,13 @@ struct ProductImage: View {
                     .resizable()
                     .scaledToFill()
             default:
-                Image(.launchLogo)
-                    .resizable()
-                    .scaledToFit()
-                    .padding(24)
+                ZStack {
+                    Rectangle()
+                        .fill(.launchBackground)
+                    Image(.joiefullLogo)
+                        .resizable()
+                        .scaledToFit()
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
