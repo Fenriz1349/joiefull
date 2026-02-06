@@ -9,10 +9,17 @@ import Foundation
 
 /// Handles network requests to fetch clothing data from the remote API
 final class ClothingService {
+    
+    private let url: URL?
+    private let session: URLSession
 
-    private let url = URL(string:
-        "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/api/clothes.json"
-    )
+    init(
+        url: URL? = URL(string: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/api/clothes.json"),
+        session: URLSession = .shared
+    ) {
+        self.url = url
+        self.session = session
+    }
 
     /// Fetches all clothing items from the remote API.
     /// - Returns: Decoded list of items.
@@ -32,9 +39,7 @@ final class ClothingService {
         request.timeoutInterval = 8
 
         do {
-            return try await URLSession.shared.data(for: request)
-        } catch is URLError {
-            throw ClothingServiceError.network
+            return try await session.data(for: request)
         } catch {
             throw ClothingServiceError.network
         }
