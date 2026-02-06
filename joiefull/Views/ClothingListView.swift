@@ -42,7 +42,7 @@ struct ClothingListView: View {
                 }
             }
         }
-        .searchable(text: $catalog.searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .searchable(text: $catalog.searchText, placement: .navigationBarDrawer(displayMode: .automatic))
     }
 }
 

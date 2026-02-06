@@ -22,15 +22,12 @@ struct AppEntryView: View {
     }
 
     var body: some View {
-        Group {
-            switch phase {
-            case .launch:
+        ZStack {
+            if phase == .launch {
                 LaunchScreen()
-                    .accessibilityAddTraits(.isModal)
                     .transition(.move(edge: .top).combined(with: .opacity))
-            case .app:
+            } else {
                 RootView()
-                    .accessibilityHidden(phase == .app)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
