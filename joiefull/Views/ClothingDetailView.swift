@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-/// Displays detailed information about a clothing item
-/// Adapts layout based on device size and orientation (portrait/landscape)
+/// Displays item details with layout adapted to device.
+/// Handles accessibility (VoiceOver) and sharing.
 struct ClothingDetailView: View {
 
     @EnvironmentObject private var container: ClothingContainerViewModel

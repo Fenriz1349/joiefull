@@ -8,8 +8,8 @@
 import SwiftUI
 import Toasty
 
-/// Root view of the application that manages adaptive layout
-/// Displays a split view on iPad or navigation stack on iPhone
+/// Manages adaptive layout (split-view iPad, navigation iPhone).
+/// Coordinates keyboard state and navigation between list/detail.
 struct RootView: View {
 
     @EnvironmentObject var container: ClothingContainerViewModel
