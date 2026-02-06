@@ -7,8 +7,12 @@
 
 import Foundation
 
+protocol ClothingServicing {
+    func fetchClothes() async throws -> [Clothing]
+}
+
 /// Handles network requests to fetch clothing data from the remote API
-final class ClothingService {
+final class ClothingService: ClothingServicing {
     
     private let url: URL?
     private let session: URLSession

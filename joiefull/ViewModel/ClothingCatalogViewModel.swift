@@ -26,7 +26,12 @@ final class ClothingCatalogViewModel: ObservableObject {
 
     // MARK: - Dependencies
 
-    private let service = ClothingService()
+    private let service: ClothingServicing
+    // MARK: - Init
+    
+    init(service: ClothingServicing = ClothingService()) {
+        self.service = service
+    }
 
     // MARK: - Catalog State
 

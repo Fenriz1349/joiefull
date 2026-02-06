@@ -41,9 +41,9 @@ final class ClothingContainerViewModel: ObservableObject {
     /// Controls presentation of share composer modal
     @Published var isShareComposerPresented = false
 
-    private let dataManager: ClothingDataManager
+    private let dataManager: ClothingDataManaging
 
-    init(dataManager: ClothingDataManager) {
+    init(dataManager: ClothingDataManaging) {
         self.dataManager = dataManager
         loadUserData()
     }

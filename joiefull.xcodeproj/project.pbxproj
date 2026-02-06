@@ -33,6 +33,11 @@
 		682445FB2F35FB7000D8556D /* SwiftDataClothingUserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682445FA2F35FB7000D8556D /* SwiftDataClothingUserDataStore.swift */; };
 		682446012F35FE9700D8556D /* FailingClothingUserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682446002F35FE9700D8556D /* FailingClothingUserDataStore.swift */; };
 		682446052F36197500D8556D /* DeviceTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682446042F36197500D8556D /* DeviceTypeTests.swift */; };
+		682446082F361D7800D8556D /* FakeClothingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682446072F361D7800D8556D /* FakeClothingService.swift */; };
+		6824460B2F3623D500D8556D /* ClothingCatalogViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6824460A2F3623D500D8556D /* ClothingCatalogViewModelTests.swift */; };
+		6824460D2F36283A00D8556D /* FakeClothingDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6824460C2F36283A00D8556D /* FakeClothingDataManager.swift */; };
+		6824460F2F36286C00D8556D /* ClothingContainerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6824460E2F36286C00D8556D /* ClothingContainerViewModelTests.swift */; };
+		682446142F362D1500D8556D /* ClothingModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682446132F362D1500D8556D /* ClothingModelsTests.swift */; };
 		6826B7FF2F1E22A400E27EF7 /* ButtonsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6826B7FE2F1E22A400E27EF7 /* ButtonsOverlay.swift */; };
 		682A95012F110586003D63CB /* PreviewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A95002F110586003D63CB /* PreviewContainer.swift */; };
 		682A95032F11072E003D63CB /* PreviewItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A95022F11072E003D63CB /* PreviewItems.swift */; };
@@ -108,6 +113,11 @@
 		682445FA2F35FB7000D8556D /* SwiftDataClothingUserDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataClothingUserDataStore.swift; sourceTree = "<group>"; };
 		682446002F35FE9700D8556D /* FailingClothingUserDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailingClothingUserDataStore.swift; sourceTree = "<group>"; };
 		682446042F36197500D8556D /* DeviceTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTypeTests.swift; sourceTree = "<group>"; };
+		682446072F361D7800D8556D /* FakeClothingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeClothingService.swift; sourceTree = "<group>"; };
+		6824460A2F3623D500D8556D /* ClothingCatalogViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingCatalogViewModelTests.swift; sourceTree = "<group>"; };
+		6824460C2F36283A00D8556D /* FakeClothingDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeClothingDataManager.swift; sourceTree = "<group>"; };
+		6824460E2F36286C00D8556D /* ClothingContainerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingContainerViewModelTests.swift; sourceTree = "<group>"; };
+		682446132F362D1500D8556D /* ClothingModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingModelsTests.swift; sourceTree = "<group>"; };
 		6826B7FE2F1E22A400E27EF7 /* ButtonsOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsOverlay.swift; sourceTree = "<group>"; };
 		682A95002F110586003D63CB /* PreviewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContainer.swift; sourceTree = "<group>"; };
 		682A95022F11072E003D63CB /* PreviewItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewItems.swift; sourceTree = "<group>"; };
@@ -271,6 +281,34 @@
 			path = Share;
 			sourceTree = "<group>";
 		};
+		682446062F361C4000D8556D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				6824460A2F3623D500D8556D /* ClothingCatalogViewModelTests.swift */,
+				6824460E2F36286C00D8556D /* ClothingContainerViewModelTests.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		682446092F36238E00D8556D /* SharedTestHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				686B24D22F30CEEA00B65EA2 /* SharedTestHelper.swift */,
+				682446072F361D7800D8556D /* FakeClothingService.swift */,
+				682446002F35FE9700D8556D /* FailingClothingUserDataStore.swift */,
+				6824460C2F36283A00D8556D /* FakeClothingDataManager.swift */,
+			);
+			path = SharedTestHelpers;
+			sourceTree = "<group>";
+		};
+		682446122F362CD600D8556D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				682446132F362D1500D8556D /* ClothingModelsTests.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		682A94FF2F110566003D63CB /* Preview */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,10 +332,12 @@
 		686B24CF2F30CED200B65EA2 /* joiefullTests */ = {
 			isa = PBXGroup;
 			children = (
+				682446092F36238E00D8556D /* SharedTestHelpers */,
+				682446122F362CD600D8556D /* Models */,
+				682446062F361C4000D8556D /* ViewModels */,
 				686B24D12F30CED400B65EA2 /* Data */,
 				686B24DA2F30CF2F00B65EA2 /* Network */,
 				686B24DD2F30CF4900B65EA2 /* Utils */,
-				686B24D22F30CEEA00B65EA2 /* SharedTestHelper.swift */,
 			);
 			path = joiefullTests;
 			sourceTree = "<group>";
@@ -308,7 +348,6 @@
 				686B24D42F30CEFF00B65EA2 /* ClothingUserDataTests.swift */,
 				686B24D62F30CF1200B65EA2 /* ClothingDataManagerTests.swift */,
 				686B24D82F30CF2400B65EA2 /* ClothingDataManagerErrorTests.swift */,
-				682446002F35FE9700D8556D /* FailingClothingUserDataStore.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -546,9 +585,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				686B24D32F30CEEA00B65EA2 /* SharedTestHelper.swift in Sources */,
+				6824460D2F36283A00D8556D /* FakeClothingDataManager.swift in Sources */,
 				686B24D72F30CF1200B65EA2 /* ClothingDataManagerTests.swift in Sources */,
 				686B24D52F30CEFF00B65EA2 /* ClothingUserDataTests.swift in Sources */,
+				6824460F2F36286C00D8556D /* ClothingContainerViewModelTests.swift in Sources */,
+				682446082F361D7800D8556D /* FakeClothingService.swift in Sources */,
+				6824460B2F3623D500D8556D /* ClothingCatalogViewModelTests.swift in Sources */,
 				682446052F36197500D8556D /* DeviceTypeTests.swift in Sources */,
+				682446142F362D1500D8556D /* ClothingModelsTests.swift in Sources */,
 				682446012F35FE9700D8556D /* FailingClothingUserDataStore.swift in Sources */,
 				686B24E12F30CF7400B65EA2 /* AccessibilityHandlerTests.swift in Sources */,
 				686B24DF2F30CF5300B65EA2 /* LayoutRulesTests.swift in Sources */,
