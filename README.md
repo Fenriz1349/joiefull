@@ -1,5 +1,11 @@
 # Joyfull 👕📱
 
+![Swift](https://img.shields.io/badge/Swift-5.0-F05138?logo=swift&logoColor=white)
+![iOS](https://img.shields.io/badge/iOS-18%2B-000000?logo=apple&logoColor=white)
+![SwiftUI](https://img.shields.io/badge/UI-SwiftUI-blue?logo=swift&logoColor=white)
+![Architecture](https://img.shields.io/badge/Architecture-MVVM-orange)
+![Accessibility](https://img.shields.io/badge/Accessibility-VoiceOver%20%7C%20Dynamic%20Type-4CAF50)
+
 Joyfull est une application iOS développée en **SwiftUI** dont l’objectif principal est de proposer une interface :
 
 - 📱 **Responsive** (iPhone & iPad)
@@ -21,7 +27,7 @@ Ce projet a été réalisé dans un cadre pédagogique afin de :
 
 ---
 
-## 🧱 Architecture
+## 🏗️ Architecture
 
 L’application repose sur l’architecture **MVVM (Model – View – ViewModel)** :
 
@@ -86,9 +92,10 @@ L’interface est conçue pour :
 
 - [x] Modèles de données
 - [x] ViewModel
-- [ ] Vues SwiftUI
-- [ ] Gestion avancée de l’accessibilité
-- [ ] Optimisation responsive iPad
+- [x] Vues SwiftUI
+- [x] Gestion avancée de l’accessibilité
+- [x] Optimisation responsive iPad
+- [x] Tests unitaires (Modèles, ViewModels, Data, Network, Utils)
 
 ---
 
