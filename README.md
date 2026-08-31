@@ -1,4 +1,4 @@
-# Joyfull 👕📱
+# Joiefull 👕📱
 
 ![Swift](https://img.shields.io/badge/Swift-5.0-F05138?logo=swift&logoColor=white)
 ![iOS](https://img.shields.io/badge/iOS-18%2B-000000?logo=apple&logoColor=white)
