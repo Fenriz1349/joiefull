@@ -6,99 +6,48 @@
 ![Architecture](https://img.shields.io/badge/Architecture-MVVM-orange)
 ![Accessibility](https://img.shields.io/badge/Accessibility-VoiceOver%20%7C%20Dynamic%20Type-4CAF50)
 
-Joyfull est une application iOS développée en **SwiftUI** dont l’objectif principal est de proposer une interface :
-
-- 📱 **Responsive** (iPhone & iPad)
-- ♿ **Accessible** (VoiceOver, Dynamic Type, bonnes pratiques UI)
-
-Les données affichées dans l’application proviennent d’une **API distante** et sont structurées selon une architecture **MVVM**.
-
----
-
-## 🎯 Objectifs pédagogiques
-
-Ce projet a été réalisé dans un cadre pédagogique afin de :
-
-- Concevoir une interface SwiftUI adaptable à plusieurs tailles d’écran
-- Mettre en œuvre les bases de l’**accessibilité iOS**
-- Charger et afficher des données depuis une API REST
-- Structurer un projet avec l’architecture **MVVM**
-- Séparer clairement la logique métier et l’interface utilisateur
+Application iOS de catalogue de vêtements développée en SwiftUI, avec un focus fort sur l'**accessibilité** (VoiceOver, Dynamic Type) et le **responsive design** iPhone & iPad. Données chargées depuis une API REST distante.
 
 ---
 
 ## 🏗️ Architecture
 
-L’application repose sur l’architecture **MVVM (Model – View – ViewModel)** :
+Architecture **MVVM** avec séparation stricte des responsabilités :
 
-### Model
-- Représente les données métier issues de l’API
-- Exemple : `Clothing`, `Picture`, `Category`
-
-### ViewModel
-- Gère le chargement des données depuis le réseau
-- Expose des données prêtes à être affichées par les vues
-- Utilise `ObservableObject` et `@Published`
-
-### View
-- Gère uniquement l’affichage
-- S’adapte aux tailles d’écran iPhone / iPad
-- Intègre les règles d’accessibilité SwiftUI
-
----
-
-## 🌐 Source des données
-
-Les données sont récupérées depuis l’API suivante :
-
-https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/api/clothes.json
-
+- **Model** — données métier issues de l'API (`Clothing`, `Picture`, `Category`)
+- **ViewModel** — chargement réseau, exposition des données via `ObservableObject` / `@Published`
+- **View** — affichage uniquement, adaptation multi-écrans, règles d'accessibilité SwiftUI
 
 ---
 
 ## ♿ Accessibilité
 
-Le projet porte une attention particulière aux points suivants :
+Point central du projet, rarement traité en profondeur :
 
-- Support de **VoiceOver**
-- Utilisation de labels et descriptions accessibles
-- Respect du **Dynamic Type**
-- Contrastes et tailles de texte adaptés
-- Navigation claire et compréhensible
+- Support complet **VoiceOver** avec labels et descriptions sémantiques
+- Respect du **Dynamic Type** sur l'ensemble des vues
+- Contrastes et tailles de texte conformes aux guidelines Apple
+- Navigation claire et logique pour les utilisateurs d'assistance
 
 ---
 
 ## 📱 Responsive Design
 
-L’interface est conçue pour :
-
-- S’adapter automatiquement aux écrans **iPhone** et **iPad**
-- Tirer parti des layouts SwiftUI (`Grid`, `ScrollView`, `adaptive`)
-- Garantir une expérience utilisateur cohérente quel que soit l’appareil
+- Adaptation automatique iPhone & iPad
+- Layouts SwiftUI natifs (`Grid`, `ScrollView`, `adaptive`)
+- Expérience cohérente sur tous les formats d'écran
 
 ---
 
-## 🛠️ Technologies utilisées
+## 🛠️ Stack technique
 
-- Swift
-- SwiftUI
-- Combine
-- async/await
+- Swift / SwiftUI / Combine / async-await
 - Architecture MVVM
+- Tests unitaires : Modèles, ViewModels, Data, Network, Utils
 
 ---
 
-## 🚀 État du projet
+## 🌐 Source des données
 
-- [x] Modèles de données
-- [x] ViewModel
-- [x] Vues SwiftUI
-- [x] Gestion avancée de l’accessibilité
-- [x] Optimisation responsive iPad
-- [x] Tests unitaires (Modèles, ViewModels, Data, Network, Utils)
-
----
-
-## 📚 Contexte
-
-Ce projet est destiné à un **usage pédagogique** et ne vise pas une évolution fonctionnelle à long terme.
+API REST OpenClassrooms :
+`https://raw.githubusercontent.com/OpenClassrooms-Student-Center/...`
